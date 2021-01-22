@@ -1,0 +1,32 @@
+.navbar {
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar__nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem;
+}
+
+.profile-btn-div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar__nav-links--navlink {
+  padding: 0.25rem;
+  font-size: 1.25rem;
+}
+
+.profile-dropdown {
+  list-style: none;
+  padding: 1rem;
+}
+
+.auth-btns {
+  list-style: none;
+  display: flex;
+}
