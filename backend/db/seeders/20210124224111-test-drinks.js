@@ -12,7 +12,7 @@ module.exports = {
       drinksArr.push(drink);
     }
 
-    return queryInterface.bulkInsert('Drinks', drinksArr);
+    return queryInterface.bulkInsert('Drinks', drinksArr, {});
   },
 
   down: (queryInterface, Sequelize) => {
