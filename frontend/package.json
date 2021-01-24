@@ -37,8 +37,6 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
-    "eslint-plugin-react": "^7.22.0",
     "redux-logger": "^3.0.6"
   },
   "proxy": "http://localhost:5000"
