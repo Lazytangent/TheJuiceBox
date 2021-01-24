@@ -9,14 +9,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       venueId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Venues',
         },
       },
       drinkId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Drinks',
