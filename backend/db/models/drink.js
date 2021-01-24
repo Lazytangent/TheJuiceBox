@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Drink.associate = function(models) {
     // associations can be defined here
+    Drink.belongsToMany(models.User, { through: 'DrinkReviews', foreignKey: 'drinkId', otherKey: 'userId' });
+    Drink.belongsToMany(models.Venue, { through: 'VenuesDrinks', foreignKey: 'drinkId', otherKey: 'venueId' });
   };
   return Drink;
 };
