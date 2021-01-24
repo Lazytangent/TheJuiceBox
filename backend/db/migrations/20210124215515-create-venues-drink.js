@@ -10,17 +10,27 @@ module.exports = {
       },
       venueId: {
         type: Sequelize.INTEGER
+        allowNull: false,
+        references: {
+          model: 'Venues',
+        },
       },
       drinkId: {
         type: Sequelize.INTEGER
+        allowNull: false,
+        references: {
+          model: 'Drinks',
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       }
     });
   },
