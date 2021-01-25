@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { useUserAuth } from '../../context/AuthContext';
 import './LoginForm.css';
 import FormDiv from '../Parts/Forms/FormDiv';
+import AuthFormTab from '../Parts/Forms/AuthFormTab';
 import { login } from '../../store/session';
 
 const LoginForm = () => {
@@ -13,7 +13,6 @@ const LoginForm = () => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-  const { showLoginModal, setShowLoginModal, showRegisterModal, setShowRegisterModal } = useUserAuth();
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -30,10 +29,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className="tw-p-1 tw-flex tw-justify-around">
-        <span>Login</span>
-        <span>Register</span>
-      </div>
+      <AuthFormTab />
       <form onSubmit={onSubmit} className="tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg">
         <h3 className="tw-text-3xl tw-text-center tw-p-1">Login</h3>
         {
