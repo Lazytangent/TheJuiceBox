@@ -36,20 +36,20 @@ const LoginForm = () => {
           </ul>
           )
         }
-        <div className="form__input-group">
-          <label className="form__input-group--label">
+        <div className="tw-p-4 tw-m-2 tw-flex tw-justify-between">
+          <label className="tw-p-1.5 tw-flex tw-items-center">
             Username or Email
           </label>
-          <input required className="form__input-group--input-field" type="text" value={credential} onChange={e => setCredential(e.target.value)} />
+          <input required className="tw-p-1.5 tw-ml-1.5 tw-border tw-rounded" type="text" value={credential} onChange={e => setCredential(e.target.value)} />
         </div>
         <div className="form__input-group">
           <label className="form__input-group--label">
             Password
           </label>
-          <input required className="form__input-group--input-field" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <input required className="tw-p-1.5 tw-ml-1.5 tw-border tw-rounded" type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </div>
         <div className="form__button-div">
-          <button className="form__button-div--button" type="submit">Login</button>
+          <button className="tw-border-2 tw-border-black tw-p-1 tw-rounded tw-bg-gray-300 hover:tw-bg-gray-400 tw-text-xl" type="submit">Login</button>
         </div>
       </form>
     </>
