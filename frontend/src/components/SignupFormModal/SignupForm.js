@@ -16,6 +16,7 @@ const SignupForm= () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
@@ -27,6 +28,7 @@ const SignupForm= () => {
         username,
         email,
         password,
+        dateOfBirth
       };
       const res = await dispatch(registerUser(user));
       if (res.data && res.data.errors) setErrors(res.data.errors);
@@ -45,6 +47,7 @@ const SignupForm= () => {
         <FormDiv labelName="Email" required={true} type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <FormDiv labelName="Password" required={true} type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <FormDiv labelName="Confirm Password" required={true} type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+        <FormDiv labelName="Date of Birth" required={true} type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} />
         <div className="tw-p-1.5 tw-flex tw-justify-center">
           <button className="tw-border-2 tw-border-black tw-p-1 tw-rounded tw-bg-gray-300 hover:tw-bg-gray-400 tw-text-xl" type="submit">Register</button>
         </div>
