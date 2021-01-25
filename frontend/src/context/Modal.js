@@ -27,9 +27,9 @@ export const Modal = ({ onClose, children }) => {
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
-    <div id="modal">
-      <div id="modal-background" onClick={onClose} />
-      <div id="modal-content">
+    <div className="tw-fixed tw-inset-0 tw-flex tw-justify-center tw-items-center">
+      <div className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-70"id="modal-background" onClick={onClose} />
+      <div className="tw-absolute" id="modal-content">
         {children}
       </div>
     </div>,
