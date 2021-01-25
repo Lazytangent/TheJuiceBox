@@ -1,17 +1,16 @@
-import { useState } from 'react';
-
 import { Modal } from '../../context/Modal';
+import { useUserAuth } from '../../context/AuthContext';
 import LoginForm from './LoginForm';
 import NavButton from '../Parts/Buttons/NavButton';
 
 const LoginFormModal = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { showLoginModal, setShowLoginModal } = useUserAuth();
 
   return (
     <>
-      <NavButton name="Log In" onClick={() => setShowModal(true)} />
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+      <NavButton name="Log In" onClick={() => setShowLoginModal(true)} />
+      {showLoginModal && (
+        <Modal onClose={() => setShowLoginModal(false)}>
           <LoginForm />
         </Modal>
       )}

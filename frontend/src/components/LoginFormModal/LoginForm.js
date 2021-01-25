@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import { useUserAuth } from '../../context/AuthContext';
 import './LoginForm.css';
 import FormDiv from '../Parts/Forms/FormDiv';
 import { login } from '../../store/session';
@@ -12,6 +13,7 @@ const LoginForm = () => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const { showLoginModal, setShowLoginModal, showRegisterModal, setShowRegisterModal } = useUserAuth();
 
   if (sessionUser) return <Redirect to="/" />;
 
