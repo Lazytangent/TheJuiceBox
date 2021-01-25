@@ -6,6 +6,7 @@ import FormDiv from '../Parts/Forms/FormDiv';
 import AuthFormTab from '../Parts/Forms/AuthFormTab';
 import DemoAuth from '../Parts/Forms/DemoAuth';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
+import SubmitBtn from '../Parts/Forms/SubmitBtn';
 import { registerUser } from '../../store/session';
 
 const SignupForm= () => {
@@ -48,9 +49,7 @@ const SignupForm= () => {
         <FormDiv labelName="Password" required={true} type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <FormDiv labelName="Confirm Password" required={true} type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
         <FormDiv labelName="Date of Birth" required={true} type="date" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)} />
-        <div className="tw-p-1.5 tw-flex tw-justify-center">
-          <button className="tw-border-2 tw-border-black tw-p-1 tw-rounded tw-bg-gray-300 hover:tw-bg-gray-400 tw-text-xl" type="submit">Register</button>
-        </div>
+        <SubmitBtn name="Register" />
         <DemoAuth />
       </form>
     </>
