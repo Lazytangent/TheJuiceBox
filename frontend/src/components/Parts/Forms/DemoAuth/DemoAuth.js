@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../../store/session';
+import { demoLogin } from '../../../../store/session';
 
 const DemoAuth = () => {
   const dispatch = useDispatch();
 
   const loginAsDemo = async () => {
-    const res = await dispatch(login({ credential: 'Demo-Dave', password: 'password' }));
+    dispatch(demoLogin());
   };
 
   return (
