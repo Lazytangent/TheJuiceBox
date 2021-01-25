@@ -14,12 +14,12 @@ const Navigation = ({ isLoaded }) => {
     sessionLinks = <ProfileButton user={sessionUser} />;
   } else {
     sessionLinks = (
-      <li className="navbar__nav-links">
-        <ul className="auth-btns">
-          <li className="navbar__nav-links--navlink">
+      <li className="tw-flex tw-justify-between">
+        <ul className="tw-flex">
+          <li className="tw-text-xl tw-p-1">
             <LoginFormModal />
           </li>
-          <li className="navbar__nav-links--navlink">
+          <li className="tw-text-xl tw-p-1">
             <SignupFormModal />
           </li>
         </ul>
@@ -28,9 +28,9 @@ const Navigation = ({ isLoaded }) => {
   }
 
   return (
-    <nav className="navbar">
-      <ul className="navbar__nav-links">
-        <li className="navbar__nav-links--navlink">
+    <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-gray-300">
+      <ul className="tw-flex tw-justify-between">
+        <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
           <NavLink to="/" exact>Home</NavLink>
         </li>
         {isLoaded && sessionLinks}

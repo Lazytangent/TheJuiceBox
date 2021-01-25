@@ -22,9 +22,9 @@ const ProfileButton = ({ user }) => {
   const logout = () => dispatch(logoutUser());
 
   return (
-    <li className="navbar__nav-links--navlink">
-      <div className="profile-btn-div">
-        <button className="profile-btn" onClick={openMenu}>
+    <li className="tw-text-xl tw-p-1">
+      <div className="tw-flex tw-justify-end">
+        <button className="border" onClick={openMenu}>
           <i className="fas fa-user"></i>
         </button>
       </div>
