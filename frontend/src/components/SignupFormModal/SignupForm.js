@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import './SignupForm.css';
 import FormDiv from '../Parts/Forms/FormDiv';
 import AuthFormTab from '../Parts/Forms/AuthFormTab';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
@@ -45,8 +44,8 @@ const SignupForm= () => {
         <FormDiv labelName="Email" required={true} type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <FormDiv labelName="Password" required={true} type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <FormDiv labelName="Confirm Password" required={true} type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-        <div className="form__button-div">
-          <button className="form__button-div--button" type="submit">Register</button>
+        <div className="tw-p-1.5 tw-flex tw-justify-center">
+          <button className="tw-border-2 tw-border-black tw-p-1 tw-rounded tw-bg-gray-300 hover:tw-bg-gray-400 tw-text-xl" type="submit">Register</button>
         </div>
       </form>
     </>

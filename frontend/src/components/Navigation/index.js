@@ -6,7 +6,6 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { logoutUser } from '../../store/session';
-import './Navigation.css';
 
 const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
@@ -50,7 +49,7 @@ const Navigation = ({ isLoaded }) => {
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
         <ul className="tw-flex tw-justify-between">
           <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-            <NavLink to="/" exact>Home</NavLink>
+            <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
           </li>
           {isLoaded && sessionLinks}
         </ul>
