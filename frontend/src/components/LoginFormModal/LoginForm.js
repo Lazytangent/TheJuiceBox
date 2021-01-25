@@ -30,7 +30,7 @@ const LoginForm = () => {
   return (
     <>
       <AuthFormTab />
-      <form onSubmit={onSubmit} className="tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg">
+      <form onSubmit={onSubmit} className="tw-bg-white tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg">
         <h3 className="tw-text-3xl tw-text-center tw-p-1">Login</h3>
         {
           errors.length > 0 && (
