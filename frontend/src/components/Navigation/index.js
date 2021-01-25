@@ -28,7 +28,7 @@ const Navigation = ({ isLoaded }) => {
   }
 
   return (
-    <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-gray-300">
+    <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
       <ul className="tw-flex tw-justify-between">
         <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
           <NavLink to="/" exact>Home</NavLink>
