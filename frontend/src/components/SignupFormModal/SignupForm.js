@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import './SignupForm.css';
 import FormDiv from '../Parts/Forms/FormDiv';
 import AuthFormTab from '../Parts/Forms/AuthFormTab';
+import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import { registerUser } from '../../store/session';
 
 const SignupForm= () => {
@@ -37,15 +38,9 @@ const SignupForm= () => {
   return (
     <>
       <AuthFormTab />
-      <form className="tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg" onSubmit={onSubmit}>
+      <form className="tw-bg-white tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg" onSubmit={onSubmit}>
         <h3 className="tw-text-3xl tw-text-center tw-p-1">Register</h3>
-        {
-          errors.length > 0 && (
-          <ul className="errors-list">
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-          </ul>
-          )
-        }
+        <ErrorsDiv errors={errors} />
         <FormDiv labelName="Username" required={true} type="text" value={username} onChange={e => setUsername(e.target.value)} />
         <FormDiv labelName="Email" required={true} type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <FormDiv labelName="Password" required={true} type="password" value={password} onChange={e => setPassword(e.target.value)} />

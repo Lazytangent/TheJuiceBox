@@ -34,13 +34,6 @@ const LoginForm = () => {
       <form onSubmit={onSubmit} className="tw-bg-white tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg">
         <h3 className="tw-text-3xl tw-text-center tw-p-1">Login</h3>
         <ErrorsDiv errors={errors} />
-        {
-          errors.length > 0 && (
-          <ul className="errors-list">
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-          </ul>
-          )
-        }
         <FormDiv labelName="Username or Email" required={true} type="text" value={credential} onChange={e => setCredential(e.target.value)} />
         <FormDiv labelName="Password" required={true} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <div className="form__button-div">
