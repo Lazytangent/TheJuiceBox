@@ -30,6 +30,20 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       },
     },
+    dateOfBirth: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      validate: {
+        isDate: true,
+        isTwentyOne(value) {
+          const currentDate = new Date();
+          const inputDate = new Date(value);
+          if (currentDate - inputDate < 662774400000) {
+            throw new Error('Cannout be under 21.');
+          };
+        },
+      }
+    }
   }, {
     defaultScope: {
       attributes: {
@@ -80,6 +94,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.associate = function(models) {
     // associations can be defined here
+    User.belongsToMany(models.Drink, { through: 'DrinkReviews', foreignKey: 'userId', otherKey: 'drinkId' });
+    User.belongsToMany(models.Venue, { through: 'CheckIns', foreignKey: 'userId', otherKey: 'venueId' });
   };
   return User;
 };
