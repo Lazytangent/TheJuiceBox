@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 import FormDiv from '../Parts/Forms/FormDiv';
 import AuthFormTab from '../Parts/Forms/AuthFormTab';
+import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import { login } from '../../store/session';
 
 const LoginForm = () => {
@@ -32,6 +33,7 @@ const LoginForm = () => {
       <AuthFormTab />
       <form onSubmit={onSubmit} className="tw-bg-white tw-w-auto tw-m-auto tw-flex tw-flex-col tw-justify-between tw-p-8 tw-border-2 tw-border-black tw-rounded-lg">
         <h3 className="tw-text-3xl tw-text-center tw-p-1">Login</h3>
+        <ErrorsDiv errors={errors} />
         {
           errors.length > 0 && (
           <ul className="errors-list">
