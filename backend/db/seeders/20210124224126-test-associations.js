@@ -1,6 +1,5 @@
 'use strict';
 
-const { User, Drink } = require('../models/index');
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('DrinkReviews', [
