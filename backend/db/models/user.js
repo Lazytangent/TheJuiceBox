@@ -39,8 +39,15 @@ module.exports = (sequelize, DataTypes) => {
           const currentDate = new Date();
           const inputDate = new Date(value);
           if (currentDate - inputDate < 662774400000) {
-            throw new Error('Cannout be under 21.');
-          };
+            throw new Error('Cannot be under 21.');
+          }
+        },
+        isNotTooOld(value) {
+          const inputDate = new Date(value);
+          const oldDate = new Date('1903-01-03');
+          if (inputDate - oldDate <= 0) {
+            throw new Error('Cannot be that old.');
+          }
         },
       }
     }
