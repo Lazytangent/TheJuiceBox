@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Navigation from './components/Navigation';
+import Drinks from './components/Drinks';
 import { restoreUser } from './store/session';
 
 function App() {
