@@ -48,10 +48,17 @@ const Navigation = ({ isLoaded }) => {
     <>
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
         <ul className="tw-flex tw-justify-between">
-          <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-            <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
-          </li>
-          {isLoaded && sessionLinks}
+          <div className="tw-flex tw-px-2">
+            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
+              <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
+            </li>
+            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
+              <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
+            </li>
+          </div>
+          <div className="tw-flex tw-px-2">
+            {isLoaded && sessionLinks}
+          </div>
         </ul>
       </nav>
       {showProfileMenu && (

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Drink from './Drink';
-import { getDrinks } from '../../store/session';
+import { getDrinks } from '../../store/drinks';
 
 const Drinks = () => {
   const dispatch = useDispatch();
