@@ -62,7 +62,7 @@ const Navigation = ({ isLoaded }) => {
         </ul>
       </nav>
       {showProfileMenu && (
-        <div className="tw-flex tw-justify-end">
+        <div className="tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end">
           <ul className="tw-p-4 tw-text-right tw-bg-blue-300 tw-rounded tw-border-2 tw-border-black">
             <li className="tw-p-1">{sessionUser.username}</li>
             <li className="tw-p-1">{sessionUser.email}</li>
