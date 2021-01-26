@@ -8,6 +8,7 @@ const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
   const drink = useSelector(state => state.drinks[drinkId]);
+  const user = useSelector(state => state.session.user);
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -25,8 +26,12 @@ const DrinkDetails = () => {
       <h1>Drink No. {drink.id} Details</h1>
       <h3>The {drink.name}</h3>
       <p>{drink.description}</p>
-      <button>Edit</button>
-      <button>Delete</button>
+      {drink.creatorId === user.id && (
+        <>
+          <button>Edit</button>
+          <button>Delete</button>
+        </>
+      )}
     </div>
   );
 };
