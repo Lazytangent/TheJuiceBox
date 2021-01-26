@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
+import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
 import { restoreUser } from './store/session';
 
@@ -19,6 +20,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LandingPage />
+        </Route>
+        <Route exact path="/drinks">
+          <Drinks />
         </Route>
       </Switch>
     </>

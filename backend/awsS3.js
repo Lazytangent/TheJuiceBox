@@ -4,7 +4,7 @@ const NAME_OF_BUCKET = "the-juice-box";
 const multer = require('multer');
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
-/ --------------------------- Public UPLOAD ------------------------
+// --------------------------- Public UPLOAD ------------------------
 
 const singlePublicFileUpload = async (file) => {
   const { originalname, mimetype, buffer } = await file;
