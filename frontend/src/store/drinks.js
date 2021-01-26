@@ -40,11 +40,16 @@ export const mixDrink = (drink) => async (dispatch) => {
   dispatch(createDrink(response.data.drink));
 };
 
+const initialState = {};
+
 const drinksReducer = (state = initialState, action) => {
-  const newState = { ...state };
   switch (action.type) {
     case SET_DRINKS:
-      return { ...state, action.drinks };
+      const drinks = action.drinks((acc, ele) => {
+        acc[ele.id] = ele;
+        return acc;
+      }, {});
+      return { ...state, drinks };
     case CREATE_DRINK:
       return { ...state, [action.drink.id]: action.drink };
     default:
