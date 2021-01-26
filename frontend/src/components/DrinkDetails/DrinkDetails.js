@@ -1,14 +1,28 @@
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { getDrinks } from '../../store/drinks';
+
 const DrinkDetails = () => {
+  const dispatch = useDispatch();
   const { drinkId } = useParams();
   const drink = useSelector(state => state.drinks[drinkId]);
-  console.log(drink);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    dispatch(getDrinks()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  if (!isLoaded) return null;
 
   return (
     <div className="tw-p-8">
-      <h1>Drink Details</h1>
+      <img src={drink.imageUrl} alt={drink.name} />
+      <h1>Drink No. {drink.id} Details</h1>
+      <h3>The {drink.name}</h3>
+      <p>{drink.description}</p>
     </div>
   );
 };
