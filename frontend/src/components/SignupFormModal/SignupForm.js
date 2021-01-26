@@ -29,7 +29,8 @@ const SignupForm= () => {
         username,
         email,
         password,
-        dateOfBirth
+        dateOfBirth,
+        confirmPassword
       };
       const res = await dispatch(registerUser(user));
       if (res.data && res.data.errors) setErrors(res.data.errors);
