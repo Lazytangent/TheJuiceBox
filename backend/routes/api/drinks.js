@@ -8,7 +8,6 @@ const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const router = express.Router();
 
-
 router.get('/', asyncHandler(async (req, res) => {
   const drinks = await Drink.findAll();
   res.json({ drinks });
@@ -27,11 +26,13 @@ const validateDrink = [
 
 router.post('/', singleMulterUpload('image'), validateDrink, asyncHandler(async (req, res) => {
   const { name, description } = req.body;
+  const { user } = req;
   const imageUrl = await singlePublicFileUpload(req.file);
   const drink = await Drink.create({
     name,
     description,
     imageUrl,
+    creatorId: user.id,
   });
 
   return res.json({

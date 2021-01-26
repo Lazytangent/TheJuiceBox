@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import FormDiv from '../Parts/Forms/FormDiv';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
+import SubmitBtn from '../Parts/Forms/SubmitBtn';
 import { mixDrink } from '../../store/drinks';
 
 const DrinkForm = () => {
@@ -15,13 +16,14 @@ const DrinkForm = () => {
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(mixDrink({ name, description, image }));
+      const drink = await dispatch(mixDrink({ name, description, image }));
+      history.push(`/drinks/${drink.id}`);
     } catch (err) {
       setErrors([]);
-      setErrors((prev) => [...prev, err]);
+      setErrors((prev) => [...prev, err.msg]);
     }
   };
 
@@ -43,6 +45,7 @@ const DrinkForm = () => {
           </label>
           <input type="file" onChange={updateFile} />
         </div>
+        <SubmitBtn name="Mix Drink" />
       </form>
     </div>
   );
