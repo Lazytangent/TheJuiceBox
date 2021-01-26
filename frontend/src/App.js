@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
+import LandingPage from './components/LandingPage';
 import { restoreUser } from './store/session';
 
 function App() {
@@ -14,6 +16,11 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Switch>
+        <Route exact path="/">
+          <LandingPage />
+        </Route>
+      </Switch>
     </>
   );
 }
