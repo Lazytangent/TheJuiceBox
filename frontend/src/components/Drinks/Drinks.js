@@ -17,8 +17,12 @@ const Drinks = () => {
 
   return (
     <div className="tw-p-8">
-      <h1>All the Drinks</h1>
-      {isLoaded && Object.values(drinksObj).map(drink => <div key={drink.id}><Drink drink={drink} /></div>)}
+      <h1 className="tw-text-4xl tw-text-center tw-font-serif">All the Drinks</h1>
+      {isLoaded && Object.values(drinksObj).map(drink => (
+        <div className="tw-p-4" key={drink.id}>
+          <Drink drink={drink} />
+        </div>)
+      )}
     </div>
   );
 };
