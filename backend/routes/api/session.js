@@ -53,4 +53,16 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' });
 });
 
+router.post('/demo', asyncHandler(async (req, res, next) => {
+  const { credential, password } = req.body;
+
+  const user = await User.login({ credential, password });
+
+  await setTokenCookie(res, user);
+
+  return res.json({
+    user: user.toSafeObject(),
+  });
+}))
+
 module.exports = router;

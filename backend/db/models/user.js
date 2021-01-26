@@ -39,15 +39,22 @@ module.exports = (sequelize, DataTypes) => {
           const currentDate = new Date();
           const inputDate = new Date(value);
           if (currentDate - inputDate < 662774400000) {
-            throw new Error('Cannout be under 21.');
-          };
+            throw new Error('Cannot be under 21.');
+          }
+        },
+        isNotTooOld(value) {
+          const inputDate = new Date(value);
+          const oldDate = new Date('1903-01-03');
+          if (inputDate - oldDate <= 0) {
+            throw new Error('Cannot be that old.');
+          }
         },
       }
     }
   }, {
     defaultScope: {
       attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt'],
+        exclude: ['hashedPassword', 'email', 'dateOfBirth', 'createdAt', 'updatedAt'],
       },
     },
     scopes: {
@@ -83,12 +90,13 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
   };
-  User.signup = async function({ username, email, password }) {
+  User.signup = async function({ username, email, password, dateOfBirth }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
       email,
       hashedPassword,
+      dateOfBirth,
     });
     return await User.scope('currentUser').findByPk(user.id);
   };

@@ -25,16 +25,33 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('confirmPassword')
+    .exists({ checkFalsy: true })
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage('Password confirmation field does not match password field.'),
+  check('dateOfBirth')
+    .exists({ checkFalsy: true })
+    .isISO8601()
+    .custom((value) => {
+      const valueDate = new Date(value);
+      const oldDate = new Date('1903-01-03');
+      if (valueDate - oldDate <= 0) {
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .withMessage('Date of Birth must be a valid date.'),
   handleValidationErrors,
 ];
 
 router.post('/', validateSignup, asyncHandler(async (req, res) => {
-  const { email, password, username } = req.body;
-  const user = await User.signup({ email, username, password });
+  const { email, password, username, dateOfBirth } = req.body;
+  const user = await User.signup({ email, username, password, dateOfBirth });
 
   await setTokenCookie(res, user);
 
-  return res.json({ user: toSafeObject() });
+  return res.json({ user: user.toSafeObject() });
 }));
 
 module.exports = router;

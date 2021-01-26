@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { ModalProvider } from './context/Modal';
+import UserAuthProvider from './context/AuthContext';
 
 import configureStore from './store';
 import { restoreCSRF, fetch } from './store/csrf';
@@ -26,9 +27,11 @@ const Root = () => {
   return (
     <Provider store={store}>
       <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <UserAuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </UserAuthProvider>
       </ModalProvider>
     </Provider>
   );
