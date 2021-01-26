@@ -7,8 +7,8 @@ module.exports = {
     for (let i = 0; i < 3; i++) {
       const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
       const { drinks } = await res.json();
-      const { strDrink: name, strInstructions: description, strDrinkThumb: imageUrl, creatorId: 1 } = drinks[0];
-      const drink = { name, imageUrl, description };
+      const { strDrink: name, strInstructions: description, strDrinkThumb: imageUrl } = drinks[0];
+      const drink = { name, imageUrl, description, creatorId: 1 };
       drinksArr.push(drink);
     }
 
@@ -24,7 +24,7 @@ module.exports = {
       return queryInterface.bulkDelete('People', null, {});
     */
     return queryInterface.bulkDelete('Drinks', {
-      id: { [Sequelize.Op.in]: ['1', '2', '3'] }
+      id: [1, 2, 3]
     }, {});
   }
 };
