@@ -1,7 +1,7 @@
 const LandingPage = () => {
   return (
     <>
-      <div className="tw-relative tw-m-1 tw-bg-center tw-bg-no-repeat tw-bg-bar-backdrop tw-text-white tw-text-center tw-text-4xl">
+      <div className="tw-p-20 tw-m-4 tw-relative tw-m-1 tw-bg-center tw-bg-no-repeat tw-bg-bar-backdrop tw-text-white tw-text-center tw-text-4xl">
         <h1 className="">COVID Sucks.</h1>
         <h1>Be responsible.</h1>
         <h1>Drink at home.</h1>
