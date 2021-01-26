@@ -55,6 +55,9 @@ const Navigation = ({ isLoaded }) => {
             <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
               <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
             </li>
+            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
+              <NavLink to="/drinks/new" className="hover:tw-underline">New Drink</NavLink>
+            </li>
           </div>
           <div className="tw-flex tw-px-2">
             {isLoaded && sessionLinks}

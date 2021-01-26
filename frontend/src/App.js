@@ -27,11 +27,14 @@ function App() {
         <Route exact path="/drinks">
           <Drinks />
         </Route>
-        <Route path="/drinks/:drinkId">
+        <Route path="/drinks/:drinkId(\\d+)">
           <DrinkDetails />
         </Route>
         <Route path="/drinks/new">
           <DrinkForm />
+        </Route>
+        <Route>
+          <h2>Page Not Found</h2>
         </Route>
       </Switch>
     </>
