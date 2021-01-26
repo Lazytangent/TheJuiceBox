@@ -45,11 +45,11 @@ const initialState = {};
 const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DRINKS:
-      const drinks = action.drinks((acc, ele) => {
+      const drinks = action.drinks.reduce((acc, ele) => {
         acc[ele.id] = ele;
         return acc;
       }, {});
-      return { ...state, drinks };
+      return { ...state, ...drinks };
     case CREATE_DRINK:
       return { ...state, [action.drink.id]: action.drink };
     default:

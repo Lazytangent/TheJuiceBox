@@ -1,9 +1,9 @@
 const Drink = ({ drink }) => {
   return (
     <div className="tw-p-4">
-      <h1>Drink Name</h1>
-      <p>Drink Description</p>
-      <p>Drink Image</p>
+      <img src={drink.imageUrl} alt={drink.name} />
+      <h1>{drink.name}</h1>
+      <p>{drink.description}</p>
     </div>
   );
 };

@@ -9,26 +9,16 @@ const Drinks = () => {
   const drinksObj = useSelector(state => state.drinks);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
     dispatch(getDrinks())
       .then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  useEffect(() => {
-    return () => {
-      const newDrinks = Object.values(drinksObj).map(drink => <Drink key={drink.id} drink={drink} />);
-      setDrinks(newDrinks);
-    }
-  }, [isLoaded, drinksObj]);
-
   return (
     <div className="tw-p-8">
       <h1>All the Drinks</h1>
-      {isLoaded && (
-        drinks
-      )}
+      {isLoaded && Object.values(drinksObj).map(drink => <div key={drink.id}><Drink drink={drink} /></div>)}
     </div>
   );
 };
