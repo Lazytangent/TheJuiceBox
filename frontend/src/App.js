@@ -21,6 +21,9 @@ function App() {
         <Route exact path="/">
           <LandingPage />
         </Route>
+        <Route exact path="/drinks">
+          <Drinks />
+        </Route>
       </Switch>
     </>
   );
