@@ -25,10 +25,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('confirmPassword')
+    .exists({ checkFalsy: true })
+    .custom((value, { req }) => value !== req.body.password)
+    .withMessage('Confirm Password field must match Password.'),
   check('dateOfBirth')
     .exists({ checkFalsy: true })
-    .isISO8601()
-    .isBefore('1903-01-02')
     .withMessage('Date of Birth must be a valid date.'),
   handleValidationErrors,
 ];
