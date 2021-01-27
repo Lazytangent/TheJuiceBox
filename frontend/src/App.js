@@ -8,7 +8,6 @@ import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
 import DrinkForm from './components/DrinkForm';
 import { restoreUser } from './store/session';
-import { getDrinks } from './store/drinks';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getDrinks());
     dispatch(restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
