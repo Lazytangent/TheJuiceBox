@@ -24,3 +24,60 @@ const removeReview = (id) => {
     id,
   };
 };
+
+export const getReviews = (drinkId) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews`);
+  if (response.ok) {
+    dispatch(setReviews(response.data.reviews));
+    return response;
+  }
+};
+
+export const writeReview = ({ userId, drinkId, review }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
+    method: 'POST',
+    body: JSON.stringify({ userId, drinkId, review }),
+  });
+  dispatch(createReview(response.data.review));
+  return response.data.review;
+};
+
+export const updateReview = ({ userId, drinkId, review }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${review.id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ userId, drinkId, review }),
+  });
+  dispatch(createReview(response.data.review));
+  return response.data.review;
+}
+
+export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+    method: 'DELETE',
+  });
+  dispatch(removeReview(reviewId));
+  return response;
+};
+
+const initialState = {};
+
+const drinkReviewsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_REVIEWS:
+      const reviews = action.reviews.reduce((acc, ele) => {
+        acc[ele.id] = ele;
+        return acc;
+      }, {});
+      return { ...state, ...reviews };
+    case CREATE_REVIEW:
+      return { ...state, [action.review.id]: action.review };
+    case REMOVE_REVIEW:
+      const newState = { ...state };
+      delete newState[action.id];
+      return newState;
+    default:
+      return state;
+  }
+};
+
+export default drinkReviewsReducer;
