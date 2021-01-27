@@ -83,7 +83,7 @@ const DrinkDetails = () => {
             </div>
           </div>
         </div>
-        {user && <DrinkReviewForm />}
+        {user && user.id !== drink.creatorId && <DrinkReviewForm />}
         {drink.Reviews.map(review => <DrinkReview key={review.id} review={review} />)}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
@@ -116,7 +116,7 @@ const DrinkDetails = () => {
           )}
         </div>
       </div>
-      {user && <DrinkReviewForm />}
+      {user && user.id !== drink.creatorId && <DrinkReviewForm />}
       {drink.Reviews.map(review => <DrinkReview key={review.id} review={review} />)}
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
