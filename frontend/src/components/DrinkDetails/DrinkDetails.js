@@ -12,8 +12,8 @@ const DrinkDetails = () => {
   const drink = useSelector((state) => state.drinks[drinkId]);
   const user = useSelector((state) => state.session.user);
 
-  const [name, setName] = useState(drink.name);
-  const [description, setDescription] = useState(drink.description);
+  const [name, setName] = useState(drink ? drink.name : '');
+  const [description, setDescription] = useState(drink ? drink.description : '');
   const [image, setImage] = useState(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -45,7 +45,7 @@ const DrinkDetails = () => {
     if (file) setImage(file);
   };
 
-  if (!isLoaded) return null;
+  if (!isLoaded || !drink) return null;
 
   if (editMode) {
     return (
