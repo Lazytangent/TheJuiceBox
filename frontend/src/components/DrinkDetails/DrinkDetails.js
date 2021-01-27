@@ -37,6 +37,11 @@ const DrinkDetails = () => {
     setShowDeleteModal(true);
   };
 
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setImage(file);
+  };
+
   if (!isLoaded) return null;
 
   if (editMode) {
