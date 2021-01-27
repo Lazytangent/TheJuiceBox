@@ -70,10 +70,10 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
 };
 
 export const deleteDrink = (id) => async (dispatch) => {
+  await dispatch(removeDrink(id));
   const response = await fetch(`/api/drinks/${id}`, {
     method: 'DELETE',
   });
-  await dispatch(removeDrink(id));
   return response.data.message;
 };
 
