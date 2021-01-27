@@ -22,7 +22,11 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinks()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+    if (drink) {
+      setName(drink.name);
+      setDescription(drink.description);
+    }
+  }, [drink, dispatch]);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
@@ -45,7 +49,7 @@ const DrinkDetails = () => {
     if (file) setImage(file);
   };
 
-  if (!isLoaded || !drink) return null;
+  if (!isLoaded) return null;
 
   if (editMode) {
     return (

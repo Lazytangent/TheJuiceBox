@@ -53,7 +53,7 @@ const Navigation = ({ isLoaded }) => {
     );
   }
 
-  if (!sessionUser) history.push('/');
+  // if (!sessionUser) history.push('/');
 
   return (
     <>
