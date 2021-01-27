@@ -4,9 +4,6 @@ const SET_DRINKS = 'drinks/SET_DRINKS';
 const CREATE_DRINK = 'drinks/CREATE_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
-const CREATE_REVIEW = 'drinks/CREATE_REVIEW';
-const REMOVE_REVIEW = 'drinks/REMOVE_REVIEW';
-
 const setDrinks = (drinks) => {
   return {
     type: SET_DRINKS,
@@ -24,20 +21,6 @@ const createDrink = (drink) => {
 const removeDrink = (id) => {
   return {
     type: REMOVE_DRINK,
-    id,
-  };
-};
-
-const createReview = (review) => {
-  return {
-    type: CREATE_REVIEW,
-    review,
-  };
-};
-
-const removeReview = (id) => {
-  return {
-    type: REMOVE_REVIEW,
     id,
   };
 };
