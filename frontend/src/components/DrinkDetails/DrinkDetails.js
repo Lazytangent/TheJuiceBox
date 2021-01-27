@@ -16,6 +16,14 @@ const DrinkDetails = () => {
     dispatch(getDrinks()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  const editClickHandler = () => {
+
+  };
+
+  const deleteClickHandler = () => {
+
+  };
+
   if (!isLoaded) return null;
 
   return (
@@ -29,8 +37,8 @@ const DrinkDetails = () => {
         <p>{drink.description}</p>
         {user && drink.creatorId === user.id && (
           <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300">Edit</button>
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300">Delete</button>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>Edit</button>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>Delete</button>
           </div>
         )}
       </div>
