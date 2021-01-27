@@ -22,15 +22,17 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinks()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (drink) {
       setName(drink.name);
       setDescription(drink.description);
     }
-  }, [drink, dispatch]);
+  }, [drink]);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
-    console.log(editMode);
   };
 
   const submitClickHandler = async (e) => {
@@ -53,30 +55,37 @@ const DrinkDetails = () => {
 
   if (editMode) {
     return (
-      <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center">
-        <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
-          <img src={drink.imageUrl} alt={drink.name} />
-        </div>
-        <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-          <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
-          <form onSubmit={submitClickHandler}>
-            <input type="text" placeholder="Drink Name" value={name} onChange={(e) => setName(e.target.value)} />
-            <input type="textarea" placeholder="Drink Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-            <input type="file" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
-              Submit
-            </button>
-          </form>
-          <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
-              Edit
-            </button>
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
-              Delete
-            </button>
+      <>
+        <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center">
+          <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
+            <img src={drink.imageUrl} alt={drink.name} />
+          </div>
+          <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
+            <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
+            <form onSubmit={submitClickHandler}>
+              <input type="text" placeholder="Drink Name" value={name} onChange={(e) => setName(e.target.value)} />
+              <input type="textarea" placeholder="Drink Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <input type="file" onChange={updateFile} />
+              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
+                Submit
+              </button>
+            </form>
+            <div className="tw-w-2/4 tw-flex tw-flex-start">
+              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
+                Cancel Edit
+              </button>
+              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+        {showDeleteModal && (
+          <Modal onClose={() => setShowDeleteModal(false)}>
+            <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
+          </Modal>
+        )}
+      </>
     );
   }
 
