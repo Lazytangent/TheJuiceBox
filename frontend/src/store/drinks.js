@@ -4,6 +4,9 @@ const SET_DRINKS = 'drinks/SET_DRINKS';
 const CREATE_DRINK = 'drinks/CREATE_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
+const CREATE_REVIEW = 'drinks/CREATE_REVIEW';
+const REMOVE_REVIEW = 'drinks/REMOVE_REVIEW';
+
 const setDrinks = (drinks) => {
   return {
     type: SET_DRINKS,
@@ -21,6 +24,20 @@ const createDrink = (drink) => {
 const removeDrink = (id) => {
   return {
     type: REMOVE_DRINK,
+    id,
+  };
+};
+
+const createReview = (review) => {
+  return {
+    type: CREATE_REVIEW,
+    review,
+  };
+};
+
+const removeReview = (id) => {
+  return {
+    type: REMOVE_REVIEW,
     id,
   };
 };
@@ -75,6 +92,32 @@ export const deleteDrink = (id) => async (dispatch) => {
     method: 'DELETE',
   });
   return response.data.message;
+};
+
+export const writeReview = ({ userId, drinkId, review }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
+    method: 'POST',
+    body: JSON.stringify({ userId, drinkId, review }),
+  });
+  dispatch(getDrinks());
+  return response.data.review;
+};
+
+export const updateReview = ({ userId, drinkId, review }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${review.id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ userId, drinkId, review }),
+  });
+  dispatch(getDrinks());
+  return response.data.review;
+}
+
+export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+    method: 'DELETE',
+  });
+  dispatch(getDrinks());
+  return response;
 };
 
 const initialState = {};
