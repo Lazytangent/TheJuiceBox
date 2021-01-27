@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {});
-  VenuesDrink.associate = function(models) {};
+  VenuesDrink.associate = function(models) {
+    VenuesDrink.belongsTo(models.Venue, { foreignKey: 'venueId' });
+    VenuesDrink.belongsTo(models.Drink, { foreignKey: 'drinkId' });
+  };
   return VenuesDrink;
 };

@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     Drink.belongsToMany(models.User, { through: 'DrinkReviews', foreignKey: 'drinkId', otherKey: 'userId' });
     Drink.belongsToMany(models.Venue, { through: 'VenuesDrinks', foreignKey: 'drinkId', otherKey: 'venueId' });
     Drink.belongsTo(models.User, { foreignKey: 'creatorId' });
+    Drink.hasMany(models.DrinkReview, { as: 'Reviews', foreignKey: 'drinkId' });
   };
   return Drink;
 };

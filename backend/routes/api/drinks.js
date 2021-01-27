@@ -10,7 +10,7 @@ const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-  const drinks = await Drink.findAll();
+  const drinks = await Drink.findAll({ include: { model: DrinkReview, as: 'Reviews' }});
   res.json({ drinks });
 }));
 
