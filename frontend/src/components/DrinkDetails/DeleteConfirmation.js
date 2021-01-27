@@ -8,7 +8,8 @@ const DeleteConfirmation = ({ id, setShowDeleteModal }) => {
   const history = useHistory();
 
   const onClick = () => {
-    dispatch(deleteDrink(id)).then(() => history.push('/drinks'));
+    dispatch(deleteDrink(id))
+    history.push('/drinks');
   };
 
   const closeModal = () => {
