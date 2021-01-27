@@ -10,8 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {});
-  VenuesDrink.associate = function(models) {
-    // associations can be defined here
-  };
+  VenuesDrink.associate = function(models) {};
   return VenuesDrink;
 };

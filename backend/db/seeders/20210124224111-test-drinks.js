@@ -14,7 +14,6 @@ module.exports = {
 
     return queryInterface.bulkInsert('Drinks', drinksArr, {});
   },
-
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Drinks', {
       id: [1, 2, 3]

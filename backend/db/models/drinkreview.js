@@ -28,8 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   }, {});
-  DrinkReview.associate = function(models) {
-    // associations can be defined here
-  };
+  DrinkReview.associate = function(models) {};
   return DrinkReview;
 };

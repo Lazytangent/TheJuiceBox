@@ -13,6 +13,7 @@ const Drinks = () => {
   useEffect(() => {
     dispatch(getDrinks())
       .then(() => setIsLoaded(true));
+    return () => setIsLoaded(false);
   }, [dispatch]);
 
   return (
