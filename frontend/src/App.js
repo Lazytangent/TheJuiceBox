@@ -36,9 +36,6 @@ function App() {
         <Route path="/drinks/new">
           <DrinkForm />
         </Route>
-        <Route path="/drinks/deleted">
-          <PostDelete />
-        </Route>
         <Route>
           <h2>Page Not Found</h2>
         </Route>
