@@ -53,8 +53,6 @@ const Navigation = ({ isLoaded }) => {
     );
   }
 
-  // if (!sessionUser) history.push('/');
-
   return (
     <>
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
