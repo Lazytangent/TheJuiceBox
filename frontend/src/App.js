@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
@@ -8,12 +8,15 @@ import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
 import DrinkForm from './components/DrinkForm';
 import { restoreUser } from './store/session';
+import { getDrinks } from './store/drinks';
 
 function App() {
   const dispatch = useDispatch();
+  const drinks = useSelector(state => state.drinks);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    dispatch(getDrinks());
     dispatch(restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
@@ -28,7 +31,7 @@ function App() {
           <Drinks />
         </Route>
         <Route path="/drinks/:drinkId(\d+)">
-          <DrinkDetails />
+          <DrinkDetails drinks={drinks} />
         </Route>
         <Route path="/drinks/new">
           <DrinkForm />

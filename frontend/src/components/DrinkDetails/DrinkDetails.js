@@ -4,10 +4,16 @@ import { useParams } from 'react-router-dom';
 
 import { getDrinks, updateDrink, deleteDrink } from '../../store/drinks';
 
-const DrinkDetails = () => {
+const DrinkDetails = ({ drinks }) => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
-  const drink = useSelector(state => state.drinks[drinkId]);
+
+  useEffect(() => {
+    dispatch(getDrinks()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  let drink = useSelector(state => state.drinks[drinkId]);
+  if (!drink) drink = drinks[drinkId];
   const user = useSelector(state => state.session.user);
 
   const [name, setName] = useState(drink.name);
@@ -17,10 +23,6 @@ const DrinkDetails = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  useEffect(() => {
-    dispatch(getDrinks()).then(() => setIsLoaded(true));
-  }, [dispatch]);
 
   const editClickHandler = () => {
     setEditMode(prev => !!prev);
