@@ -44,6 +44,31 @@ export const mixDrink = (drink) => async (dispatch) => {
   return response.data.drink;
 };
 
+export const updateDrink = ({ id, name, description, image }) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('image', image);
+
+  const response = await fetch(`/api/drinks/${id}`, {
+    method: 'PUT',
+    body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  dispatch(createDrink(response.data.drink));
+  return response.data.drink;
+};
+
+export const deleteDrink = (id) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${id}`, {
+    method: 'DELETE',
+  });
+  dispatch(setDrinks());
+  return response.data.message;
+};
+
 const initialState = {};
 
 const drinksReducer = (state = initialState, action) => {
