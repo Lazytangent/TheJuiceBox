@@ -23,14 +23,12 @@ const DrinkForm = () => {
       history.push(`/drinks/${drink.id}`);
     } catch (err) {
       setErrors([]);
-      console.log(err);
       setErrors((prev) => [...prev, err.msg]);
     }
   };
 
   const updateFile = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     if (file) setImage(file);
   }
 

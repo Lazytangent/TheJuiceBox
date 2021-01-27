@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'bar-backdrop': "url('./bar-backdrop.jpg')",
+        'bar-backdrop': "url('https://the-juice-box.s3.us-east-2.amazonaws.com/HideoutInterior_SarahLarson.0.webp')",
       }),
     },
   },
