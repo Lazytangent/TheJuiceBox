@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { Modal } from '../../context/Modal';
-import DeleteConfirmation from './DeleteConfirmation';
-import { getDrinks, updateDrink } from '../../store/drinks';
+import { Modal } from "../../context/Modal";
+import DeleteConfirmation from "./DeleteConfirmation";
+import { getDrinks, updateDrink } from "../../store/drinks";
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
-  const drink = useSelector(state => state.drinks[drinkId]);
-  const user = useSelector(state => state.session.user);
+  const drink = useSelector((state) => state.drinks[drinkId]);
+  const user = useSelector((state) => state.session.user);
 
-  const [name, setName] = useState(drink.name);
-  const [description, setDescription] = useState(drink.description);
+  const [name, setName] = useState(drink ? drink.name : '');
+  const [description, setDescription] = useState(drink ? drink.description : '');
   const [image, setImage] = useState(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,10 +22,14 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinks()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+    if (drink) {
+      setName(drink.name);
+      setDescription(drink.description);
+    }
+  }, [drink, dispatch]);
 
   const editClickHandler = () => {
-    setEditMode(prev => !prev);
+    setEditMode((prev) => !prev);
     console.log(editMode);
   };
 
@@ -56,14 +60,20 @@ const DrinkDetails = () => {
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
           <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
           <form onSubmit={submitClickHandler}>
-            <input type="text" placeholder="Drink Name" value={name} onChange={e => setName(e.target.value)} />
-            <input type="textarea" placeholder="Drink Description" value={description} onChange={e => setDescription(e.target.value)} />
+            <input type="text" placeholder="Drink Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="textarea" placeholder="Drink Description" value={description} onChange={(e) => setDescription(e.target.value)} />
             <input type="file" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">Submit</button>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
+              Submit
+            </button>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>Edit</button>
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>Delete</button>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
+              Edit
+            </button>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -82,8 +92,12 @@ const DrinkDetails = () => {
           <p>{drink.description}</p>
           {user && drink.creatorId === user.id && (
             <div className="tw-w-2/4 tw-flex tw-flex-start">
-              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>Edit</button>
-              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>Delete</button>
+              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
+                Edit
+              </button>
+              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
+                Delete
+              </button>
             </div>
           )}
         </div>
