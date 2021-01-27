@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
@@ -7,10 +7,12 @@ import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
 import DrinkForm from './components/DrinkForm';
+import PostDelete from './components/PostDelete';
 import { restoreUser } from './store/session';
 
 function App() {
   const dispatch = useDispatch();
+  const drinks = useSelector(state => state.drinks);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -28,10 +30,13 @@ function App() {
           <Drinks />
         </Route>
         <Route path="/drinks/:drinkId(\d+)">
-          <DrinkDetails />
+          <DrinkDetails drinks={drinks} />
         </Route>
         <Route path="/drinks/new">
           <DrinkForm />
+        </Route>
+        <Route path="/drinks/deleted">
+          <PostDelete />
         </Route>
         <Route>
           <h2>Page Not Found</h2>

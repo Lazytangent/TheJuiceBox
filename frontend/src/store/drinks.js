@@ -2,6 +2,7 @@ import { fetch } from './csrf';
 
 const SET_DRINKS = 'drinks/SET_DRINKS';
 const CREATE_DRINK = 'drinks/CREATE_DRINK';
+const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
 const setDrinks = (drinks) => {
   return {
@@ -14,6 +15,13 @@ const createDrink = (drink) => {
   return {
     type: CREATE_DRINK,
     drink,
+  };
+};
+
+const removeDrink = (id) => {
+  return {
+    type: REMOVE_DRINK,
+    id,
   };
 };
 
@@ -65,7 +73,7 @@ export const deleteDrink = (id) => async (dispatch) => {
   const response = await fetch(`/api/drinks/${id}`, {
     method: 'DELETE',
   });
-  dispatch(setDrinks());
+  await dispatch(removeDrink(id));
   return response.data.message;
 };
 
@@ -81,6 +89,10 @@ const drinksReducer = (state = initialState, action) => {
       return { ...state, ...drinks };
     case CREATE_DRINK:
       return { ...state, [action.drink.id]: action.drink };
+    case REMOVE_DRINK:
+      const newState = { ...state };
+      delete newState[action.id];
+      return newState;
     default:
       return state;
   }

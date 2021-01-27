@@ -78,7 +78,7 @@ router.delete('/:drinkId(\\d+)', asyncHandler(async (req, res) => {
   });
 
   for (let review of reviews) {
-    await review.destory();
+    await review.destroy();
   }
   await drink.destroy();
 

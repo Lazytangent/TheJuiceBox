@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { logoutUser } from '../../store/session';
+import { useUserAuth } from '../../context/AuthContext';
 
 const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
+  const history = useHistory();
+
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const openMenu = () => {
@@ -17,7 +21,12 @@ const Navigation = ({ isLoaded }) => {
     setShowProfileMenu(true);
   };
 
-  const logout = () => dispatch(logoutUser());
+  const logout = () => {
+    dispatch(logoutUser());
+    setShowLoginModal(false);
+    setShowRegisterModal(false);
+    history.push('/');
+  };
 
   useEffect(() => {
     if (!showProfileMenu) return;
@@ -44,6 +53,8 @@ const Navigation = ({ isLoaded }) => {
     );
   }
 
+  if (!sessionUser) history.push('/');
+
   return (
     <>
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
@@ -52,12 +63,16 @@ const Navigation = ({ isLoaded }) => {
             <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
               <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
             </li>
-            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-              <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
-            </li>
-            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-              <NavLink to="/drinks/new" className="hover:tw-underline">New Drink</NavLink>
-            </li>
+            {sessionUser && (
+              <>
+                <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
+                  <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
+                </li>
+                <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
+                  <NavLink to="/drinks/new" className="hover:tw-underline">New Drink</NavLink>
+                </li>
+              </>
+            )}
           </div>
           <div className="tw-flex tw-px-2">
             {isLoaded && sessionLinks}
