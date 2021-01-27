@@ -27,7 +27,7 @@ function App() {
         <Route exact path="/drinks">
           <Drinks />
         </Route>
-        <Route path="/drinks/:drinkId(\\d+)">
+        <Route path="/drinks/:drinkId(\d+)">
           <DrinkDetails />
         </Route>
         <Route path="/drinks/new">

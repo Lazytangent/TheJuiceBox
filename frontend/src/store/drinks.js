@@ -40,12 +40,8 @@ export const mixDrink = (drink) => async (dispatch) => {
     },
   });
 
-  if (response.ok) {
-    dispatch(createDrink(response.data.drink));
-    return response.data.drink;
-  } else {
-    console.log('error');
-  }
+  dispatch(createDrink(response.data.drink));
+  return response.data.drink;
 };
 
 const initialState = {};
