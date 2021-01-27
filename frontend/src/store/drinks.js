@@ -77,10 +77,10 @@ export const deleteDrink = (id) => async (dispatch) => {
   return response.data.message;
 };
 
-export const writeReview = ({ userId, drinkId, review }) => async (dispatch) => {
+export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
     method: 'POST',
-    body: JSON.stringify({ userId, drinkId, review }),
+    body: JSON.stringify({ userId, drinkId, review, rating }),
   });
   dispatch(getDrinks());
   return response.data.review;
