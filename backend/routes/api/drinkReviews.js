@@ -8,3 +8,4 @@ const { DrinkReview, Drink } = require('../../db/models');
 
 const router = express.Router();
 
+module.exports = router;
