@@ -7,7 +7,6 @@ import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
 import DrinkForm from './components/DrinkForm';
-import PostDelete from './components/PostDelete';
 import { restoreUser } from './store/session';
 import { getDrinks } from './store/drinks';
 
