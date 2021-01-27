@@ -51,7 +51,7 @@ const DrinkDetails = () => {
             <input type="text" placeholder="Drink Name" value={name} onChange={e => setName(e.target.value)} />
             <input type="textarea" placeholder="Drink Description" value={description} onChange={e => setDescription(e.target.value)} />
             <input type="file" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">Submit</button>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
             <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>Edit</button>
