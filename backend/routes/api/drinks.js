@@ -2,12 +2,12 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 
+const { restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Drink } = require('../../db/models');
+const { Drink, DrinkReview } = require('../../db/models');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const router = express.Router();
-
 
 router.get('/', asyncHandler(async (req, res) => {
   const drinks = await Drink.findAll();
@@ -25,13 +25,19 @@ const validateDrink = [
   handleValidationErrors,
 ];
 
-router.post('/', singleMulterUpload('image'), validateDrink, asyncHandler(async (req, res) => {
+router.post('/', singleMulterUpload('image'), restoreUser, validateDrink, asyncHandler(async (req, res) => {
   const { name, description } = req.body;
-  const imageUrl = await singlePublicFileUpload(req.file);
+  const { user } = req;
+  let imageUrl = null;
+  if (req.file) {
+    imageUrl = await singlePublicFileUpload(req.file);
+  }
+
   const drink = await Drink.create({
     name,
     description,
     imageUrl,
+    creatorId: user.id,
   });
 
   return res.json({
@@ -39,12 +45,44 @@ router.post('/', singleMulterUpload('image'), validateDrink, asyncHandler(async 
   });
 }));
 
-router.put('/:drinkId', validateDrink, asyncHandler(async (req, res) => {
+router.put('/:drinkId(\\d+)', singleMulterUpload('image'), restoreUser, validateDrink, asyncHandler(async (req, res) => {
+  const drinkId = req.params.drinkId;
+  const id = parseInt(drinkId, 10);
+  const { name, description } = req.body;
+  const { user } = req;
+  let imageUrl = null;
+  if (req.file) {
+    imageUrl = await singlePublicFileUpload(req.file);
+  }
 
+  const drink = await Drink.findByPk(id);
+  await drink.update({
+    name,
+    description,
+    imageUrl: imageUrl || drink.imageUrl,
+  });
+
+  res.json({
+    drink,
+  });
 }));
 
-router.delete('/:drinkId', asyncHandler(async (req, res) => {
+router.delete('/:drinkId(\\d+)', asyncHandler(async (req, res) => {
+  const drinkId = req.params.drinkId;
+  const id = parseInt(drinkId, 10);
+  const drink = await Drink.findByPk(id);
+  const reviews = await DrinkReview.findAll({
+    where: {
+      drinkId: id,
+    },
+  });
 
+  for (let review of reviews) {
+    await review.destory();
+  }
+  await drink.destroy();
+
+  return res.json({ message: 'success' });
 }));
 
 module.exports = router;

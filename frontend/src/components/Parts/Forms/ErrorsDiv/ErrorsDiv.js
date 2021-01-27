@@ -1,6 +1,7 @@
 const ErrorsDiv = ({ errors }) => {
   const capitalizeFirstLetter = (string) => {
-    return string[0].toUpperCase() + string.slice(1);
+    return string;
+    // return string[0].toUpperCase() + string.slice(1);
   };
 
   return (
@@ -9,8 +10,7 @@ const ErrorsDiv = ({ errors }) => {
       <ul className="tw-text-red-500 tw-text-center tw-py-2 tw-px-8">
         {errors.map((error, idx) => <li key={idx}>{capitalizeFirstLetter(error)}</li>)}
       </ul>
-      )
-      }
+      )}
     </>
   );
 };
