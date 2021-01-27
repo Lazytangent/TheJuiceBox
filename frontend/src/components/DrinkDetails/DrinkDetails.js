@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "./DeleteConfirmation";
 import FormDiv from '../Parts/Forms/FormDiv';
+import DrinkReview from '../DrinkReview';
+import DrinkReviewForm from '../DrinkReviewForm';
 import { getDrinks, updateDrink } from "../../store/drinks";
 
 const DrinkDetails = () => {
@@ -81,6 +83,8 @@ const DrinkDetails = () => {
             </div>
           </div>
         </div>
+        {user && <DrinkReviewForm />}
+        {drink.Reviews.map(review => <DrinkReview key={review.id} review={review} />)}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
             <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
@@ -112,6 +116,8 @@ const DrinkDetails = () => {
           )}
         </div>
       </div>
+      {user && <DrinkReviewForm />}
+      {drink.Reviews.map(review => <DrinkReview key={review.id} review={review} />)}
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
