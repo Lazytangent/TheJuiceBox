@@ -9,7 +9,7 @@ const DeleteConfirmation = ({ id, setShowDeleteModal }) => {
 
   const onClick = () => {
     dispatch(deleteDrink(id))
-    history.push('/drinks/deleted');
+    history.push('/drinks');
   };
 
   const closeModal = () => {

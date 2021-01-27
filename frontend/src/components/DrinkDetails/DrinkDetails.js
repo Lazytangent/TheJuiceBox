@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "./DeleteConfirmation";
+import FormDiv from '../Parts/Forms/FormDiv';
 import { getDrinks, updateDrink } from "../../store/drinks";
 
 const DrinkDetails = () => {
@@ -63,8 +64,8 @@ const DrinkDetails = () => {
           <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
             <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
             <form onSubmit={submitClickHandler}>
-              <input type="text" placeholder="Drink Name" value={name} onChange={(e) => setName(e.target.value)} />
-              <input type="textarea" placeholder="Drink Description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
+              <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
               <input type="file" onChange={updateFile} />
               <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
                 Submit
