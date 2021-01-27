@@ -28,7 +28,12 @@ const validateDrink = [
 router.post('/', singleMulterUpload('image'), restoreUser, validateDrink, asyncHandler(async (req, res) => {
   const { name, description } = req.body;
   const { user } = req;
-  const imageUrl = await singlePublicFileUpload(req.file);
+  let imageUrl;
+  if (req.file) {
+    imageUrl = await singlePublicFileUpload(req.file);
+  } else {
+    imageUrl = null;
+  }
   const drink = await Drink.create({
     name,
     description,
