@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 
+const { restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Drink } = require('../../db/models');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
@@ -24,10 +25,9 @@ const validateDrink = [
   handleValidationErrors,
 ];
 
-router.post('/', singleMulterUpload('image'), validateDrink, asyncHandler(async (req, res) => {
+router.post('/', singleMulterUpload('image'), restoreUser, validateDrink, asyncHandler(async (req, res) => {
   const { name, description } = req.body;
   const { user } = req;
-  console.log(req.file);
   const imageUrl = await singlePublicFileUpload(req.file);
   const drink = await Drink.create({
     name,
