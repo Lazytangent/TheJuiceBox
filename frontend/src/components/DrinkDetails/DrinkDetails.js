@@ -22,11 +22,14 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinks()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (drink) {
       setName(drink.name);
       setDescription(drink.description);
     }
-  }, [drink, dispatch]);
+  }, [drink]);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
