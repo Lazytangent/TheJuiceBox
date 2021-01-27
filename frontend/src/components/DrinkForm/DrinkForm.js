@@ -23,6 +23,7 @@ const DrinkForm = () => {
       history.push(`/drinks/${drink.id}`);
     } catch (err) {
       setErrors([]);
+      console.log(err);
       setErrors((prev) => [...prev, err.msg]);
     }
   };

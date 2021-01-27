@@ -35,9 +35,17 @@ export const mixDrink = (drink) => async (dispatch) => {
   const response = await fetch('/api/drinks', {
     method: 'POST',
     body: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 
-  dispatch(createDrink(response.data.drink));
+  if (response.ok) {
+    dispatch(createDrink(response.data.drink));
+    return response.data.drink;
+  } else {
+    console.log('error');
+  }
 };
 
 const initialState = {};
