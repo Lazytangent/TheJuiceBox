@@ -8,10 +8,20 @@ const { DrinkReview, Drink } = require('../../db/models');
 
 const router = express.Router();
 
-const validateReview = [];
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a review message.'),
+  check('rating')
+    .exists({ checkFalsy: false })
+    .notEmpty()
+    .withMessage('Please provide a value for the rating between 0 and 5, inclusive.'),
+  handleValidationErrors,
+];
 
 router.post('/', validateReview, asyncHandler(async (req, res) => {
-  const { userId, drinkId, review } = req.body;
+  const { userId, drinkId, review, rating } = req.body;
   const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
   res.json({
     review: reviewObj,

@@ -78,12 +78,16 @@ export const deleteDrink = (id) => async (dispatch) => {
 };
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
-  const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
-    method: 'POST',
-    body: JSON.stringify({ userId, drinkId, review, rating }),
-  });
-  dispatch(getDrinks());
-  return response.data.review;
+  try {
+    const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
+      method: 'POST',
+      body: JSON.stringify({ userId, drinkId, review, rating }),
+    });
+    dispatch(getDrinks());
+    return response.data.review;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const updateReview = ({ userId, drinkId, review }) => async (dispatch) => {
