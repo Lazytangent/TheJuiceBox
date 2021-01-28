@@ -16,7 +16,7 @@ const FormDiv = ({ labelName = "", required, type, value, onChange, placeholder 
   } else if (type === "textarea") {
     return (
       <div className="tw-p-4 tw-m-2 tw-flex tw-justify-between">
-        <textarea required={required} className="tw-p-1.5 tw-ml-1.5 tw-border tw-rounded" value={value} placeholder={placeholder} onChange={onChange}></textarea>
+        <textarea rows="3" cols="55" required={required} className="tw-p-1.5 tw-ml-1.5 tw-border tw-rounded" value={value} placeholder={placeholder} onChange={onChange}></textarea>
       </div>
     );
   } else {

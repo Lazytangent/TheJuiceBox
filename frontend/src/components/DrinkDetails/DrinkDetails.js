@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "./DeleteConfirmation";
+import EditModal from './EditModal';
 import FormDiv from '../Parts/Forms/FormDiv';
 import DrinkReview from '../DrinkReview';
 import DrinkReviewForm from '../DrinkReviewForm';
@@ -59,43 +60,43 @@ const DrinkDetails = () => {
 
   if (!isLoaded) return null;
 
-  if (editMode) {
-    return (
-      <>
-        <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center">
-          <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
-            <img src={drink.imageUrl} alt={drink.name} />
-          </div>
-          <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-            <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
-            <form onSubmit={submitClickHandler}>
-              <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
-              <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
-              <input type="file" onChange={updateFile} />
-              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
-                Submit
-              </button>
-            </form>
-            <div className="tw-w-2/4 tw-flex tw-flex-start">
-              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
-                Cancel Edit
-              </button>
-              <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-        {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
-        {drink && drink.Reviews.map(review => <DrinkReview key={review.id} reviewObj={review} userId={user.id} drinkId={drink.id} />)}
-        {showDeleteModal && (
-          <Modal onClose={() => setShowDeleteModal(false)}>
-            <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
-          </Modal>
-        )}
-      </>
-    );
-  }
+  // if (editMode) {
+  //   return (
+  //     <>
+  //       <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center">
+  //         <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
+  //           <img src={drink.imageUrl} alt={drink.name} />
+  //         </div>
+  //         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
+  //           <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
+  //           <form onSubmit={submitClickHandler}>
+  //             <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
+  //             <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
+  //             <input type="file" onChange={updateFile} />
+  //             <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
+  //               Submit
+  //             </button>
+  //           </form>
+  //           <div className="tw-w-2/4 tw-flex tw-flex-start">
+  //             <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
+  //               Cancel Edit
+  //             </button>
+  //             <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
+  //               Delete
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
+  //       {drink && drink.Reviews.map(review => <DrinkReview key={review.id} reviewObj={review} userId={user.id} drinkId={drink.id} />)}
+  //       {showDeleteModal && (
+  //         <Modal onClose={() => setShowDeleteModal(false)}>
+  //           <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
+  //         </Modal>
+  //       )}
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -127,6 +128,11 @@ const DrinkDetails = () => {
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
+        </Modal>
+      )}
+      {editMode && (
+        <Modal onClose={() => setEditMode(false)}>
+          <EditModal drink={drink} user={user} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} setIsLoaded={setIsLoaded} setEditMode={setEditMode} />
         </Modal>
       )}
     </>
