@@ -120,7 +120,10 @@ const DrinkDetails = () => {
         </div>
       </div>
       {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
-      {drink && drink.Reviews && drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
+      <div className="tw-p-2">
+        <h2 className="tw-text-center tw-text-2xl tw-font-serif">Reviews</h2>
+        {drink && drink.Reviews && drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
+      </div>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />

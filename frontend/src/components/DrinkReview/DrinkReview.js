@@ -60,11 +60,16 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   return (
     <>
-      <div key={reviewObj.id}>
-        <p>{review}</p>
-        <p>{rating}</p>
-        <button onClick={editClickHandler} className="tw-border-2">Edit Review</button>
-        <button onClick={deleteClickHandler} className="tw-border-2">Delete Review</button>
+      <div className="tw-p-2 tw-flex tw-flex-col tw-justify-center tw-border-2 tw-bg-gray-200 tw-w-1/3 tw-m-auto" key={reviewObj.id}>
+        <p>{review} - by </p>
+        <p>Rating: {rating} out of 5</p>
+        <p>On {Date(reviewObj.updatedAt)}</p>
+        {userId === reviewObj.userId && (
+          <>
+            <button onClick={editClickHandler} className="tw-border-2">Edit Review</button>
+            <button onClick={deleteClickHandler} className="tw-border-2">Delete Review</button>
+          </>
+        )}
       </div>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
