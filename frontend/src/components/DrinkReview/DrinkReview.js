@@ -23,7 +23,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   const submitClickHandler = async (e) => {
     e.preventDefault();
     const response = await dispatch(updateReview({ userId, drinkId, review, rating, reviewId: reviewObj.id }));
-    if (response.data.errors.length) {
+    if (response.data.errors && response.data.errors.length) {
       setErrors([]);
       setErrors((prev) => [...prev, ...response.data.errors]);
     } else {
@@ -61,8 +61,8 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   return (
     <>
       <div key={reviewObj.id}>
-        <p>{reviewObj.review}</p>
-        <p>{reviewObj.stars}</p>
+        <p>{review}</p>
+        <p>{rating}</p>
         <button onClick={editClickHandler} className="tw-border-2">Edit Review</button>
         <button onClick={deleteClickHandler} className="tw-border-2">Delete Review</button>
       </div>

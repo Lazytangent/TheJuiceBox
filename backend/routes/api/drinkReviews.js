@@ -36,7 +36,7 @@ router.put('/:reviewId(\\d+)', validateReview, asyncHandler(async (req, res) => 
   const reviewObj = await DrinkReview.findByPk(id);
   await reviewObj.update({
     review,
-    rating,
+    stars: rating,
   });
 
   res.json({
