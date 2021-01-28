@@ -99,9 +99,9 @@ const DrinkDetails = () => {
 
   return (
     <>
-      <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center">
+      <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-items-center lg:tw-w-2/4 lg:tw-m-auto">
         <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
-          <img src={drink.imageUrl} alt={drink.name} />
+          <img src={drink.imageUrl} alt={drink.name} className="tw-object-fill tw-max-w-60" />
         </div>
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
           <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
