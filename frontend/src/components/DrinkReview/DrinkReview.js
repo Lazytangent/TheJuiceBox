@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateReview } from '../..store/drinks';
+import { updateReview, getDrinks } from '../../store/drinks';
 
-const DrinkReview = ({ reviewObj }) => {
+const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   const dispatch = useDispatch();
 
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(1);
   const [errors, setErrors] = useState([]);
+
+  const [editMode, setEditMode] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
@@ -26,8 +29,8 @@ const DrinkReview = ({ reviewObj }) => {
   };
 
   return (
-    <div key={review.id}>
-      <p>{review.review}</p>
+    <div key={reviewObj.id}>
+      <p>{reviewObj.review}</p>
     </div>
   );
 };
