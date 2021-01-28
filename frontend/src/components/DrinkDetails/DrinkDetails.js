@@ -33,8 +33,8 @@ const DrinkDetails = () => {
       setDescription(drink.description);
     }
 
-    if (drink && name) setIsLoaded(true);
-  }, [drink, name]);
+    if (drink && user) setIsLoaded(true);
+  }, [drink, user]);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
@@ -42,10 +42,13 @@ const DrinkDetails = () => {
 
   const submitClickHandler = async (e) => {
     e.preventDefault();
-    await dispatch(updateDrink({ id: drinkId, name, description, image }));
     setEditMode(false);
+    setIsLoaded(false);
+    await dispatch(updateDrink({ id: drinkId, name, description, image }));
     dispatch(getDrinks());
   };
+
+  console.log(drink.Reviews);
 
   const deleteClickHandler = () => {
     setShowDeleteModal(true);
@@ -86,7 +89,7 @@ const DrinkDetails = () => {
           </div>
         </div>
         {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
-        {drink.Reviews.map(review => <DrinkReview key={review.id} reviewObj={review} userId={user.id} drinkId={drink.id} />)}
+        {drink && drink.Reviews.map(review => <DrinkReview key={review.id} reviewObj={review} userId={user.id} drinkId={drink.id} />)}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
             <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
@@ -119,7 +122,7 @@ const DrinkDetails = () => {
         </div>
       </div>
       {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
-      {drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
+      {drink && drink.Reviews && drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
           <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
