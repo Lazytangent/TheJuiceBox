@@ -90,13 +90,13 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
   }
 };
 
-export const updateReview = ({ userId, drinkId, review }) => async (dispatch) => {
-  const response = await fetch(`/api/drinks/${drinkId}/reviews/${review.id}`, {
+export const updateReview = ({ userId, drinkId, reviewId, review, rating }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
     method: 'PUT',
-    body: JSON.stringify({ userId, drinkId, review }),
+    body: JSON.stringify({ userId, drinkId, review, rating }),
   });
   dispatch(getDrinks());
-  return response.data.review;
+  return response;
 }
 
 export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
