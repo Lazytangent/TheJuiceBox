@@ -84,7 +84,7 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
     dispatch(getDrinks());
-    return response.data.review;
+    return response;
   } catch (err) {
     return err;
   }

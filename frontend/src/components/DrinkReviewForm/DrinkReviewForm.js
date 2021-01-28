@@ -14,7 +14,7 @@ const DrinkReviewForm = ({ userId, drinkId }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const response = await dispatch(writeReview({ userId, drinkId, review, rating }));
-    if (response.data.errors.length) {
+    if (response.data.errors && response.data.errors.length) {
       setErrors([]);
       setErrors((prev) => [...prev, ...response.data.errors]);
     }
