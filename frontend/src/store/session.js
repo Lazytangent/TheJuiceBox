@@ -18,15 +18,19 @@ const removeSession = () => {
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  const response = await fetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({
-      credential,
-      password,
-    }),
-  });
-  dispatch(setSession(response.data.user));
-  return response;
+  try {
+    const response = await fetch('/api/session', {
+      method: 'POST',
+      body: JSON.stringify({
+        credential,
+        password,
+      }),
+    });
+    dispatch(setSession(response.data.user));
+    return response;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const restoreUser = () => async (dispatch) => {
