@@ -48,8 +48,6 @@ const DrinkDetails = () => {
     dispatch(getDrinks());
   };
 
-  console.log(drink.Reviews);
-
   const deleteClickHandler = () => {
     setShowDeleteModal(true);
   };
