@@ -55,7 +55,7 @@ const Navigation = ({ isLoaded }) => {
 
   return (
     <>
-      <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
+      <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-dark">
         <ul className="tw-flex tw-justify-between">
           <div className="tw-flex tw-px-2">
             <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
@@ -79,11 +79,11 @@ const Navigation = ({ isLoaded }) => {
       </nav>
       {showProfileMenu && (
         <div className="tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end">
-          <ul className="tw-p-4 tw-text-right tw-bg-blue-300 tw-rounded tw-border-2 tw-border-black">
+          <ul className="tw-p-4 tw-text-right tw-bg-green tw-rounded tw-border-2 tw-border-black">
             <li className="tw-p-1">{sessionUser.username}</li>
             <li className="tw-p-1">{sessionUser.email}</li>
             <li>
-              <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-green-400 hover:tw-bg-green-500">Log Out</button>
+              <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-red hover:tw-bg-red-dark">Log Out</button>
             </li>
           </ul>
         </div>
