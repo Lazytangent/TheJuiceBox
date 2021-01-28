@@ -77,6 +77,36 @@ export const deleteDrink = (id) => async (dispatch) => {
   return response.data.message;
 };
 
+export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
+      method: 'POST',
+      body: JSON.stringify({ userId, drinkId, review, rating }),
+    });
+    dispatch(getDrinks());
+    return response.data.review;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const updateReview = ({ userId, drinkId, reviewId, review, rating }) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+    method: 'PUT',
+    body: JSON.stringify({ userId, drinkId, review, rating }),
+  });
+  dispatch(getDrinks());
+  return response;
+}
+
+export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
+  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+    method: 'DELETE',
+  });
+  dispatch(getDrinks());
+  return response;
+};
+
 const initialState = {};
 
 const drinksReducer = (state = initialState, action) => {

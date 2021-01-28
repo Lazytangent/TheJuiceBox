@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   }, {});
-  DrinkReview.associate = function(models) {};
+  DrinkReview.associate = function(models) {
+    DrinkReview.belongsTo(models.User, { foreignKey: 'userId' });
+    DrinkReview.belongsTo(models.Drink, { foreignKey: 'drinkId' });
+  };
   return DrinkReview;
 };
