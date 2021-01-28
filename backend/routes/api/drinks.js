@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const reviewsRouter = require('./drinkReviews');
 const { restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Drink, DrinkReview } = require('../../db/models');
+const { User, Drink, DrinkReview } = require('../../db/models');
 const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const router = express.Router();
@@ -13,7 +13,21 @@ const router = express.Router();
 router.use('/:drinkId(\\d+)/reviews', reviewsRouter);
 
 router.get('/', asyncHandler(async (req, res) => {
-  const drinks = await Drink.findAll({ include: { model: DrinkReview, as: 'Reviews' }});
+  const drinks = await Drink.findAll({
+    include: [
+      {
+        model: DrinkReview,
+        as: 'Reviews',
+        include: {
+          model: User,
+        },
+      },
+      {
+        model: User,
+        as: 'Creator'
+      }
+    ]
+  });
   res.json({ drinks });
 }));
 

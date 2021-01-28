@@ -61,7 +61,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   return (
     <>
       <div className="tw-p-2 tw-flex tw-flex-col tw-justify-center tw-border-2 tw-bg-gray-200 tw-w-1/3 tw-m-auto" key={reviewObj.id}>
-        <p>{review} - by </p>
+        <p>{review} - by {reviewObj.User.username}</p>
         <p>Rating: {rating} out of 5</p>
         <p>On {Date(reviewObj.updatedAt)}</p>
         {userId === reviewObj.userId && (

@@ -105,7 +105,7 @@ const DrinkDetails = () => {
         </div>
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
           <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
-          <h3 className="tw-text-l tw-font-bold">The {drink.name}</h3>
+          <h3 className="tw-text-l tw-font-bold">The {drink.name} - created by {drink.Creator.username}</h3>
           <p>{drink.description}</p>
           {user && drink.creatorId === user.id && (
             <div className="tw-w-2/4 tw-flex tw-flex-start">
