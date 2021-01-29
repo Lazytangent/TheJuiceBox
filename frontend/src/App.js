@@ -6,7 +6,7 @@ import Navigation from './components/Navigation';
 import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
-import DrinkForm from './components/DrinkForm';
+import Footer from './components/Footer';
 import { restoreUser } from './store/session';
 import { getDrinks } from './store/drinks';
 
@@ -36,6 +36,7 @@ function App() {
           <h2>Page Not Found</h2>
         </Route>
       </Switch>
+      <Footer />
     </>
   );
 }
