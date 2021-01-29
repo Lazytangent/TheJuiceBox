@@ -29,8 +29,8 @@ const DrinkForm = () => {
   }
 
   return (
-    <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-h-screen tw-flex tw-justify-start tw-flex-col tw-items-center">
-      <form className="lg:tw-w-2/4 tw-p-4" onSubmit={onSubmit}>
+    <div className="tw-bg-gray tw-flex tw-justify-start tw-rounded tw-flex-col tw-items-center">
+      <form className="tw-bg-gray-light tw-p-4 tw-rounded" onSubmit={onSubmit}>
         <h1 className="tw-text-3xl tw-text-center tw-font-serif tw-font-semibold">Drink Form</h1>
         <ErrorsDiv errors={errors} />
         <FormDiv labelName="Drink Name:" col={true} required={true} type="text" value={name} onChange={e => setName(e.target.value)} />

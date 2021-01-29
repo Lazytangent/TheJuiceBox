@@ -39,7 +39,7 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
 
   return (
     <>
-      <div className="tw-grid-cols-3 tw-grid tw-p-8 tw-max-w-7xl tw-flex tw-flex-col tw-items-center">
+      <div className="tw-bg-gray tw-grid-cols-3 tw-grid tw-p-8 tw-max-w-7xl tw-flex tw-flex-col tw-items-center">
         <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
           <img src={drink.imageUrl} alt={drink.name} />
         </div>
@@ -49,16 +49,16 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
             <ErrorsDiv errors={errors} />
             <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
             <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
-            <input type="file" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" type="submit">
+            <input type="file" className="tw-p-1" onChange={updateFile} />
+            <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-green tw-rounded hover:tw-bg-green-dark" type="submit">
               Submit
             </button>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" onClick={editClickHandler}>
+            <button className="tw-p-1 tw-m-1 tw-border-2 tw-rounded tw-bg-yellow hover:tw-bg-yellow-dark" onClick={editClickHandler}>
               Cancel Edit
             </button>
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" onClick={deleteClickHandler}>
+            <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-red hover:tw-bg-red-dark tw-rounded" onClick={deleteClickHandler}>
               Delete
             </button>
           </div>

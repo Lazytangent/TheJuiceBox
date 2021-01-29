@@ -5,6 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import DrinkFormModal from '../DrinkForm';
 import { logoutUser } from '../../store/session';
 import { useUserAuth } from '../../context/AuthContext';
 
@@ -12,6 +13,7 @@ const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
+  const [showDrinkForm, setShowDrinkForm] = useState(false);
   const history = useHistory();
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -67,7 +69,7 @@ const Navigation = ({ isLoaded }) => {
                   <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
                 </li>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink to="/drinks/new" className="hover:tw-underline">New Drink</NavLink>
+                  <DrinkFormModal showDrinkForm={showDrinkForm} setShowDrinkForm={setShowDrinkForm} />
                 </li>
               </>
             )}
