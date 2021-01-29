@@ -5,6 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import DrinkFormModal from '../DrinkForm';
 import { logoutUser } from '../../store/session';
 import { useUserAuth } from '../../context/AuthContext';
 
@@ -12,6 +13,7 @@ const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
+  const [showDrinkForm, setShowDrinkForm] = useState(false);
   const history = useHistory();
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -55,7 +57,7 @@ const Navigation = ({ isLoaded }) => {
 
   return (
     <>
-      <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-300">
+      <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-dark">
         <ul className="tw-flex tw-justify-between">
           <div className="tw-flex tw-px-2">
             <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
@@ -67,7 +69,7 @@ const Navigation = ({ isLoaded }) => {
                   <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
                 </li>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink to="/drinks/new" className="hover:tw-underline">New Drink</NavLink>
+                  <DrinkFormModal showDrinkForm={showDrinkForm} setShowDrinkForm={setShowDrinkForm} />
                 </li>
               </>
             )}
@@ -79,11 +81,11 @@ const Navigation = ({ isLoaded }) => {
       </nav>
       {showProfileMenu && (
         <div className="tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end">
-          <ul className="tw-p-4 tw-text-right tw-bg-blue-300 tw-rounded tw-border-2 tw-border-black">
+          <ul className="tw-p-4 tw-text-right tw-bg-green tw-rounded tw-border-2 tw-border-black">
             <li className="tw-p-1">{sessionUser.username}</li>
             <li className="tw-p-1">{sessionUser.email}</li>
             <li>
-              <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-green-400 hover:tw-bg-green-500">Log Out</button>
+              <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-red hover:tw-bg-red-dark">Log Out</button>
             </li>
           </ul>
         </div>

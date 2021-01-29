@@ -29,8 +29,8 @@ export const getDrinks = () => async (dispatch) => {
   const response = await fetch('/api/drinks');
   if (response.ok) {
     dispatch(setDrinks(response.data.drinks));
-    return response;
   }
+  return response;
 };
 
 export const mixDrink = (drink) => async (dispatch) => {
@@ -40,16 +40,19 @@ export const mixDrink = (drink) => async (dispatch) => {
   formData.append('description', description);
   formData.append('image', image);
 
-  const response = await fetch('/api/drinks', {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-
-  dispatch(createDrink(response.data.drink));
-  return response.data.drink;
+  try {
+    const response = await fetch('/api/drinks', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    dispatch(createDrink(response.data.drink));
+    return response;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const updateDrink = ({ id, name, description, image }) => async (dispatch) => {
@@ -58,23 +61,32 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
   formData.append('description', description);
   formData.append('image', image);
 
-  const response = await fetch(`/api/drinks/${id}`, {
-    method: 'PUT',
-    body: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  dispatch(createDrink(response.data.drink));
-  return response.data.drink;
+  try {
+    const response = await fetch(`/api/drinks/${id}`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    dispatch(createDrink(response.data.drink));
+    return response;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const deleteDrink = (id) => async (dispatch) => {
   await dispatch(removeDrink(id));
-  const response = await fetch(`/api/drinks/${id}`, {
-    method: 'DELETE',
-  });
-  return response.data.message;
+  try {
+    const response = await fetch(`/api/drinks/${id}`, {
+      method: 'DELETE',
+    });
+    return response;
+  } catch (err) {
+    return err;
+  }
 };
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
@@ -83,6 +95,7 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
       method: 'POST',
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
+
     dispatch(getDrinks());
     return response;
   } catch (err) {
@@ -91,20 +104,28 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
 };
 
 export const updateReview = ({ userId, drinkId, reviewId, review, rating }) => async (dispatch) => {
-  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-    method: 'PUT',
-    body: JSON.stringify({ userId, drinkId, review, rating }),
-  });
-  dispatch(getDrinks());
-  return response;
+  try {
+    const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ userId, drinkId, review, rating }),
+    });
+    dispatch(getDrinks());
+    return response;
+  } catch (err) {
+    return err;
+  }
 }
 
 export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
-  const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-    method: 'DELETE',
-  });
-  dispatch(getDrinks());
-  return response;
+  try {
+    const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
+      method: 'DELETE',
+    });
+    dispatch(getDrinks());
+    return response;
+  } catch (err) {
+    return err;
+  }
 };
 
 const initialState = {};
