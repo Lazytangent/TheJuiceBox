@@ -32,9 +32,6 @@ function App() {
         <Route path="/drinks/:drinkId(\d+)">
           <DrinkDetails />
         </Route>
-        <Route path="/drinks/new">
-          <DrinkForm />
-        </Route>
         <Route>
           <h2>Page Not Found</h2>
         </Route>
