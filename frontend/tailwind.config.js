@@ -2,6 +2,11 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      serif: ['"Josefin Slab"', 'serif'],
+      sans: ['"Mukta Vaani"', 'sans-serif'],
+      mono: ['"Fira Code"', 'mono'],
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
