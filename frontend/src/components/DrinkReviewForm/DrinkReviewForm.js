@@ -21,15 +21,16 @@ const DrinkReviewForm = ({ userId, drinkId }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className="tw-flex tw-items-center tw-justify-center">
+      <h2 className="tw-text-xl tw-font-semibold tw-font-serif">Leave a Review:</h2>
+      <form className="tw-py-4 tw-p-1 tw-flex tw-items-center" onSubmit={onSubmit}>
         <ErrorsDiv errors={errors} />
-        <textarea value={review} onChange={e => setReview(e.target.value)}></textarea>
+        <textarea placeholder="Type something here..." cols="40" rows="5" className="tw-p-1 tw-rounded tw-mx-1" value={review} onChange={e => setReview(e.target.value)}></textarea>
         <div>
-          <label>Rating:</label>
-          <input type="number" value={rating} onChange={e => setRating(e.target.value)} />
+          <label className="tw-p-1 tw-mx-1">Rating:</label>
+          <input className="tw-p-1 tw-mx-1 tw-rounded" type="number" value={rating} onChange={e => setRating(e.target.value)} />
         </div>
-        <button>Submit Review</button>
+        <button className="tw-rounded tw-mx-1 tw-border tw-bg-green hover:tw-bg-green-dark tw-p-1">Submit Review</button>
       </form>
     </div>
   );
