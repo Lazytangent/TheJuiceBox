@@ -18,13 +18,9 @@ const DrinkForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const drink = await dispatch(mixDrink({ name, description, image }));
-      history.push(`/drinks/${drink.id}`);
-    } catch (err) {
-      setErrors([]);
-      setErrors((prev) => [...prev, err.msg]);
-    }
+    const response = await dispatch(mixDrink({ name, description, image }));
+    if (response.data && response.data.errors) setErrors(response.data.errors);
+    else history.push(`/drinks/${response.data.drink.id}`);
   };
 
   const updateFile = (e) => {
@@ -33,19 +29,21 @@ const DrinkForm = () => {
   }
 
   return (
-    <div className="tw-flex tw-justify-center tw-flex-col tw-items-center">
-      <form className="lg:tw-w-2/4" onSubmit={onSubmit}>
-        <h1 className="tw-text-3xl tw-text-center">Drink Form</h1>
+    <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-h-screen tw-flex tw-justify-start tw-flex-col tw-items-center">
+      <form className="lg:tw-w-2/4 tw-p-4" onSubmit={onSubmit}>
+        <h1 className="tw-text-3xl tw-text-center tw-font-serif tw-font-semibold">Drink Form</h1>
         <ErrorsDiv errors={errors} />
-        <FormDiv labelName="Drink Name:" required={true} type="text" value={name} onChange={e => setName(e.target.value)} />
-        <FormDiv labelName="Description:" required={true} type="textarea" value={description} onChange={e => setDescription(e.target.value)} />
-        <div className="tw-p-4 tw-m-2 tw-flex tw-justify-between">
-          <label className="tw-p-1.5 tw-flex tw-items-center">
-            Image:
-          </label>
-          <input type="file" onChange={updateFile} />
+        <FormDiv labelName="Drink Name:" col={true} required={true} type="text" value={name} onChange={e => setName(e.target.value)} />
+        <FormDiv labelName="Description:" col={true} required={true} type="textarea" value={description} onChange={e => setDescription(e.target.value)} />
+        <div className="tw-p-4 tw-m-2 tw-flex tw-w-auto tw-justify-between">
+          <div className="tw-p-1 tw-m-2 tw-flex tw-flex-col tw-justify-center">
+            <label className="tw-p-1.5 tw-flex tw-items-center">
+              Image:
+            </label>
+            <input type="file" onChange={updateFile} />
+          </div>
+          <SubmitBtn name="Mix Drink" color="purple" />
         </div>
-        <SubmitBtn name="Mix Drink" />
       </form>
     </div>
   );
