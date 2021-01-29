@@ -12,6 +12,7 @@ import { login } from '../../store/session';
 const LoginForm = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
+
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
@@ -26,10 +27,7 @@ const LoginForm = () => {
       password,
     };
     const res = await dispatch(login(user));
-    if (res.data && res.data.errors) {
-      setErrors(res.data.errors);
-      console.log(res.data.errors);
-    }
+    if (res.data && res.data.errors) setErrors(res.data.errors);
   };
 
   return (

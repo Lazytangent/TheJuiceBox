@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { Modal } from '../../context/Modal';
+import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import DeleteConfirmation from './DeleteConfirmation';
 import FormDiv from "../Parts/Forms/FormDiv";
 import { updateDrink, getDrinks } from "../../store/drinks";
@@ -12,6 +13,7 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
   const [name, setName] = useState(drink.name ?? "");
   const [description, setDescription] = useState(drink.description || "");
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
@@ -21,8 +23,9 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
     e.preventDefault();
     setEditMode(false);
     setIsLoaded(false);
-    await dispatch(updateDrink({ id: drink.id, name, description, image }));
-    dispatch(getDrinks());
+    const response = await dispatch(updateDrink({ id: drink.id, name, description, image }));
+    if (response.data && response.data.errors) setErrors(response.data.errors);
+    else dispatch(getDrinks());
   };
 
   const deleteClickHandler = () => {
@@ -43,18 +46,19 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
           <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
           <form onSubmit={submitClickHandler}>
+            <ErrorsDiv errors={errors} />
             <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
             <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
             <input type="file" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" type="submit">
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" type="submit">
               Submit
             </button>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={editClickHandler}>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" onClick={editClickHandler}>
               Cancel Edit
             </button>
-            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-300" onClick={deleteClickHandler}>
+            <button className="tw-p-1 tw-m-1 tw-border hover:tw-bg-gray-light" onClick={deleteClickHandler}>
               Delete
             </button>
           </div>
