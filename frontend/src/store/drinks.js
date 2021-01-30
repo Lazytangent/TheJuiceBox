@@ -33,6 +33,16 @@ export const getDrinks = () => async (dispatch) => {
   return response;
 };
 
+export const grabDrinks = (query) => async (dispatch) => {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
+  const drinks = response.data.drinks;
+  await fetch('/api/drinks/newDrinks', {
+    method: 'POST',
+    body: JSON.stringify({ drinks }),
+  });
+  dispatch(getDrinks());
+};
+
 export const mixDrink = (drink) => async (dispatch) => {
   const { image, name, description } = drink;
   const formData = new FormData();

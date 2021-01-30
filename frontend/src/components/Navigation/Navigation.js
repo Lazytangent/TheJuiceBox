@@ -5,6 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import SearchBar from './SearchBar';
 import DrinkFormModal from '../DrinkForm';
 import { logoutUser } from '../../store/session';
 import { useUserAuth } from '../../context/AuthContext';
@@ -75,6 +76,7 @@ const Navigation = ({ isLoaded }) => {
             )}
           </div>
           <div className="tw-flex tw-px-2">
+            {sessionUser && <SearchBar />}
             {isLoaded && sessionLinks}
           </div>
         </ul>
