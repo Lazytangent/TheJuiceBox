@@ -1,6 +1,8 @@
 # The Juice Box
 
-![Logo](https://the-juice-box.s3.us-east-2.amazonaws.com/Logo1.png)
+<p align="center">
+    ![Logo](https://the-juice-box.s3.us-east-2.amazonaws.com/Logo1.png)
+</p>
 
 ## What is it?
 
