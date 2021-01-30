@@ -47,7 +47,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
               <ErrorsDiv errors={errors} />
               <textarea value={review} onChange={e => setReview(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1"></textarea>
               <input type="number" value={rating} onChange={e => setRating(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1" />
-              <button type="submit" className="tw-rounded tw-border tw-bg-green hover:tw-bg-green-dark tw-p-1">Re-submit Review</button>
+              <button type="submit" className="tw-rounded tw-border-2 tw-bg-green hover:tw-bg-green-dark tw-p-1">Re-submit Review</button>
             </form>
           </div>
           <div className="tw-flex tw-flex-col">
