@@ -1,26 +1,31 @@
 'use strict';
+const faker = require('faker');
+const { User, Drink } = require('../models');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+  up: async (queryInterface, Sequelize) => {
+    const users = await User.findAll();
+    const drinks = await Drink.findAll();
 
-      Example:
-      return queryInterface.bulkInsert('People', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+    const reviews = [];
+
+    for (let i = 0; i < 50; i++) {
+      const userId = Math.ceil(Math.random() * users.length);
+      const drinkId = Math.ceil(Math.random() * drinks.length);
+
+      const review = {
+        userId: userId,
+        drinkId: drinkId,
+        review: faker.lorem.paragraph(),
+        stars: Math.ceil(Math.random() * 5),
+      };
+      reviews.push(review);
+    }
+
+    return queryInterface.bulkInsert('DrinkReviews', reviews, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('People', null, {});
-    */
+    return queryInterface.bulkDelete('DrinkReviews', null, {});
   }
 };
