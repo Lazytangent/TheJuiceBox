@@ -63,6 +63,14 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
       },
       {
         model: DrinkReview,
+        include: [
+          {
+            model: User,
+          },
+          {
+            model: Drink,
+          },
+        ],
       },
     ]
   });

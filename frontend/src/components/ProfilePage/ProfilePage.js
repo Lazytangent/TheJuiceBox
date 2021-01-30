@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { getUser } from "../../store/users";
+import Drink from '../Drinks/Drink';
+import DrinkReview from '../DrinkReview';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -22,24 +24,30 @@ const ProfilePage = () => {
 
   return (
     <div className="tw-h-screen">
-      <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto">
-        <h1 className="tw-text-xl tw-font-serif tw-font-semibold">{profile.username}</h1>
+      <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-h-screen">
+        <h1 className="tw-text-4xl tw-p-4 tw-font-serif tw-font-semibold tw-text-center">{profile.username}</h1>
         {profile.Drinks.length > 0 && (
           <>
-            <h3>Drinks by {profile.username}</h3>
+            <hr className="tw-border-white" />
+            <h3 className="tw-text-center tw-p-2">Drinks by {profile.username}</h3>
             <ul>
               {profile.Drinks.map((drink) => (
-                <li key={drink.id}>{drink.name}</li>
+                <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
+                  <Drink drink={drink} />
+                </div>
               ))}
             </ul>
           </>
         )}
         {profile.DrinkReviews.length > 0 && (
           <>
-            <h3>{profile.username}'s Reviews of Drinks</h3>
+            <hr className="tw-border-white" />
+            <h3 className="tw-text-center tw-p-2">{profile.username}'s Reviews of Drinks</h3>
             <ul>
               {profile.DrinkReviews.map((review) => (
-                <li key={review.id}>{review.review}</li>
+                <Link key={review.id} to={`/drinks/${review.drinkId}`}>
+                  <DrinkReview userId={userId} drinkId={review.drinkId} key={review.id} reviewObj={review} />
+                </Link>
               ))}
             </ul>
           </>
