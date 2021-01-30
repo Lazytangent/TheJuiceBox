@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   VenuesDrink.associate = function(models) {
-    // associations can be defined here
+    VenuesDrink.belongsTo(models.Venue, { foreignKey: 'venueId' });
+    VenuesDrink.belongsTo(models.Drink, { foreignKey: 'drinkId' });
   };
   return VenuesDrink;
 };

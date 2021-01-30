@@ -1,21 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
-import './index.css';
-import App from './App';
-import { ModalProvider } from './context/Modal';
-import UserAuthProvider from './context/AuthContext';
+import "./index.css";
+import App from "./App";
+import { ModalProvider } from "./context/Modal";
+import UserAuthProvider from "./context/AuthContext";
+import SearchProvider from "./context/SearchContext";
 
-import configureStore from './store';
-import { restoreCSRF, fetch } from './store/csrf';
+import configureStore from "./store";
+import { restoreCSRF, fetch } from "./store/csrf";
 
-import * as sessionActions from './store/session';
+import * as sessionActions from "./store/session";
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 
   window.csrfFetch = fetch;
@@ -28,9 +29,11 @@ const Root = () => {
     <Provider store={store}>
       <ModalProvider>
         <UserAuthProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <SearchProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SearchProvider>
         </UserAuthProvider>
       </ModalProvider>
     </Provider>
@@ -41,5 +44,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Root />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

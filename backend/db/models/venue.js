@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Venue.associate = function(models) {
-    // associations can be defined here
     Venue.belongsToMany(models.User, { through: 'CheckIns', foreignKey: 'venueId', otherKey: 'userId' });
     Venue.belongsToMany(models.Drink, { through: 'VenuesDrinks', foreignKey: 'venueId', otherKey: 'drinkId' });
   };

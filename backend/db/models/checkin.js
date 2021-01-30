@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   CheckIn.associate = function(models) {
-    // associations can be defined here
+    CheckIn.belongsTo(models.User, { foreignKey: 'userId' });
+    CheckIn.belongsTo(models.Venue, { foreignKey: 'venueId' });
   };
   return CheckIn;
 };
