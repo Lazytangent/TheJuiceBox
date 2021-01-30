@@ -32,19 +32,19 @@ const LandingPage = () => {
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">Bombastic Brewed Beers</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">You just have to try them out.</dd>
                   </div>
                 </div>
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">Best In Class Venues</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">Find the best places (in your home) to drink your drinks.</dd>
                   </div>
                 </div>
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">"Amazing. Just simply amazing." - Not The New York Times, 2020</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">Even they think we're pretty awesome.</dd>
                   </div>
                 </div>
               </dl>
