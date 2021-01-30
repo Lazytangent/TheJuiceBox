@@ -70,5 +70,3 @@ I ended up creating a React Context that housed the state variables and their co
 
 Another challenge was getting the page to work after a hard reload of the page where the Redux store would be reset to the initial state. I ended up working around this by having the main App component load the necessary items
 from the backend and database before the rendering of the pages that would need those resources from the Redux store.
-
-## Code Snippets
