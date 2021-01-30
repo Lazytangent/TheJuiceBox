@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Modal } from '../../context/Modal';
 import DeleteConfirmation from './DeleteConfirmation';
@@ -8,6 +9,7 @@ import { updateReview, getDrinks } from '../../store/drinks';
 
 const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [review, setReview] = useState(reviewObj.review);
   const [rating, setRating] = useState(reviewObj.stars);
@@ -66,7 +68,9 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
     <>
       <div className="tw-rounded tw-items-center tw-p-2 tw-flex tw-justify-around tw-border-2 tw-bg-gray-light tw-w-2/3 tw-m-auto" key={reviewObj.id}>
         <div>
-          <p>{review} - by {reviewObj.User.username}</p>
+          {location.pathname.startsWith('/users') ? <p>{review} - by {reviewObj.User.username}</p> : (
+            <p>{review} - by <Link to={`/users/${reviewObj.User.id}`} className="hover:tw-underline">{reviewObj.User.username}</Link></p>
+          )}
           <p>Rating: {rating} out of 5</p>
           <p>On {new Date(reviewObj.updatedAt).toISOString()}</p>
         </div>
