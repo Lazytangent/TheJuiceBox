@@ -61,13 +61,13 @@ const Navigation = ({ isLoaded }) => {
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-dark">
         <ul className="tw-flex tw-justify-between">
           <div className="tw-flex tw-px-2">
-            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-              <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
+            <li className="tw-rounded-md tw-flex tw-items-center tw-text-xl tw-p-1">
+              <NavLink to="/" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Home</NavLink>
             </li>
             {sessionUser && (
               <>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
+                  <NavLink to="/drinks" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Drinks</NavLink>
                 </li>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
                   <DrinkFormModal showDrinkForm={showDrinkForm} setShowDrinkForm={setShowDrinkForm} />
