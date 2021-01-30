@@ -102,4 +102,22 @@ router.delete('/:drinkId(\\d+)', asyncHandler(async (req, res) => {
   return res.json({ message: 'success' });
 }));
 
+router.post('/newDrinks', asyncHandler(async (req, res) => {
+  const { drinks } = req.body;
+  const drinkArr = [];
+
+  for (const drink of drinks) {
+    const newDrink = await Drink.create({
+      name: drink.strDrink,
+      description: drink.strInstructions,
+      imageUrl: drink.strDrinkThumb,
+      creatorId: 1,
+    });
+    drinkArr.push(newDrink);
+  }
+  return res.json({
+    drinks: drinkArr,
+  });
+}));
+
 module.exports = router;

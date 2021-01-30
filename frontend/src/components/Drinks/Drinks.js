@@ -6,7 +6,7 @@ const Drinks = () => {
   const drinksObj = useSelector(state => state.drinks);
 
   return (
-    <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-p-2 tw-h-screen">
+    <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-p-2 tw-min-h-screen">
       <h1 className="tw-text-4xl tw-text-center tw-font-serif">All the Drinks</h1>
       {Object.values(drinksObj).map(drink => (
         <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
