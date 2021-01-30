@@ -1,4 +1,8 @@
+import { useUserAuth } from '../../context/AuthContext';
+
 const LandingPage = () => {
+  const { setShowRegisterModal } = useUserAuth();
+
   return (
     <>
       <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-py-2 tw-h-screen">
@@ -48,6 +52,10 @@ const LandingPage = () => {
           </div>
         </div>
         <hr className="tw-border-white" />
+        <div className="tw-p-8 tw-flex tw-flex-col tw-items-center">
+          <h2 className="tw-text-5xl tw-font-serif tw-text-asphalt">Well what are you waiting for? Sign Up now!</h2>
+          <button onClick={() => setShowRegisterModal(true)} className="tw-text-3xl tw-my-8 tw-border tw-bg-green hover:tw-bg-green-dark tw-p-2 tw-rounded">Sign Up</button>
+        </div>
       </div>
     </>
   );
