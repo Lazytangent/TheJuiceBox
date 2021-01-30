@@ -1,5 +1,11 @@
 # The Juice Box
 
+![Logo](https://the-juice-box.s3.us-east-2.amazonaws.com/Logo1.png)
+
+## What is it?
+
+The Juice Box is an alternative way of searching for drinks.
+
 ## Developing
 
 To run this application locally for development, you'll need to:
@@ -56,5 +62,11 @@ Users can:
 * Delete their Reviews of Drinks
 
 ## Two Challenges
+
+Towards the beginning of the project, I wanted to implement a way to have the login and register modals be connected and allow the user to access either one at any point, even from the other modal.
+I ended up creating a React Context that housed the state variables and their corresponding updater functions to give access to the two modals from an outside component which would then control which modal, if any, were shown.
+
+Another challenge was getting the page to work after a hard reload of the page where the Redux store would be reset to the initial state. I ended up working around this by having the main App component load the necessary items
+from the backend and database before the rendering of the pages that would need those resources from the Redux store.
 
 ## Code Snippets
