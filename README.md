@@ -1,7 +1,7 @@
 # The Juice Box
 
 <p align="center">
-    ![Logo](https://the-juice-box.s3.us-east-2.amazonaws.com/Logo1.png)
+    <img src="https://the-juice-box.s3.us-east-2.amazonaws.com/Logo1.png" alt="Logo" />
 </p>
 
 ## What is it?
