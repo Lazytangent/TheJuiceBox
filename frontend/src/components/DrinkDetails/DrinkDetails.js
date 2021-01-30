@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "./DeleteConfirmation";
@@ -46,7 +46,7 @@ const DrinkDetails = () => {
           <img src={drink.imageUrl} alt={drink.name} className="tw-object-fill tw-max-w-60" />
         </div>
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-          <h3 className="tw-text-l tw-font-bold">The {drink.name} - created by {drink.Creator.username}</h3>
+          <h3 className="tw-text-xl tw-font-bold">The {drink.name} - created by <Link className="hover:tw-underline" to={`/users/${drink.creatorId}`}>{drink.Creator.username}</Link></h3>
           <p>{drink.description}</p>
           {user && drink.creatorId === user.id && (
             <div className="tw-w-2/4 tw-flex tw-flex-start">

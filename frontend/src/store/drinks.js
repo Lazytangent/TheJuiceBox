@@ -36,7 +36,7 @@ export const getDrinks = () => async (dispatch) => {
 export const grabDrinks = (query) => async (dispatch) => {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
   const drinks = response.data.drinks;
-  const res = await fetch('/api/drinks/newDrinks', {
+  await fetch('/api/drinks/newDrinks', {
     method: 'POST',
     body: JSON.stringify({ drinks }),
   });
