@@ -23,13 +23,13 @@ const ProfilePage = () => {
   if (!isLoaded) return null;
 
   return (
-    <div className="tw-h-screen">
-      <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-h-screen">
-        <h1 className="tw-text-4xl tw-p-4 tw-font-serif tw-font-semibold tw-text-center">{profile.username}</h1>
+    <div>
+      <div className="tw-max-w-7xl tw-mx-auto tw-min-h-screen">
+        <h1 className="tw-text-white tw-text-4xl tw-p-4 tw-font-serif tw-font-semibold tw-text-center">{profile.username}</h1>
         {profile.Drinks.length > 0 && (
           <>
             <hr className="tw-border-white" />
-            <h3 className="tw-text-center tw-p-2">Drinks by {profile.username}</h3>
+            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">Drinks by {profile.username}</h3>
             <ul>
               {profile.Drinks.map((drink) => (
                 <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
@@ -42,7 +42,7 @@ const ProfilePage = () => {
         {profile.DrinkReviews.length > 0 && (
           <>
             <hr className="tw-border-white" />
-            <h3 className="tw-text-center tw-p-2">{profile.username}'s Reviews of Drinks</h3>
+            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">{profile.username}'s Reviews of Drinks</h3>
             <ul>
               {profile.DrinkReviews.map((review) => (
                 <Link key={review.id} to={`/drinks/${review.drinkId}`}>
