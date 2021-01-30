@@ -1,4 +1,8 @@
+import { useUserAuth } from '../../context/AuthContext';
+
 const LandingPage = () => {
+  const { setShowRegisterModal } = useUserAuth();
+
   return (
     <>
       <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-py-2 tw-h-screen">
@@ -28,19 +32,19 @@ const LandingPage = () => {
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">Bombastic Brewed Beers</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">You just have to try them out.</dd>
                   </div>
                 </div>
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">Best In Class Venues</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">Find the best places (in your home) to drink your drinks.</dd>
                   </div>
                 </div>
                 <div className="tw-flex">
                   <div className="tw-ml-4">
                     <dt className="tw-text-lg tw-leading-6 tw-font-medium tw-text-gray-dark">"Amazing. Just simply amazing." - Not The New York Times, 2020</dt>
-                    <dd className="tw-mt-2 tw-text-base tw-text-black">Lorem ipsum dolor sit amet consect adipisicing elit.</dd>
+                    <dd className="tw-mt-2 tw-text-base tw-text-black">Even they think we're pretty awesome.</dd>
                   </div>
                 </div>
               </dl>
@@ -48,6 +52,10 @@ const LandingPage = () => {
           </div>
         </div>
         <hr className="tw-border-white" />
+        <div className="tw-p-8 tw-flex tw-flex-col tw-items-center">
+          <h2 className="tw-text-5xl tw-font-serif tw-text-asphalt">Well what are you waiting for? Sign Up now!</h2>
+          <button onClick={() => setShowRegisterModal(true)} className="tw-text-3xl tw-my-8 tw-border tw-bg-green hover:tw-bg-green-dark tw-p-2 tw-rounded">Sign Up</button>
+        </div>
       </div>
     </>
   );
