@@ -6,6 +6,8 @@ import Navigation from './components/Navigation';
 import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
 import DrinkDetails from './components/DrinkDetails';
+import Footer from './components/Footer';
+import ProfilePage from './components/ProfilePage';
 import { restoreUser } from './store/session';
 import { getDrinks } from './store/drinks';
 
@@ -31,10 +33,14 @@ function App() {
         <Route path="/drinks/:drinkId(\d+)">
           <DrinkDetails />
         </Route>
+        <Route path="/users/:userId">
+          <ProfilePage />
+        </Route>
         <Route>
           <h2>Page Not Found</h2>
         </Route>
       </Switch>
+      <Footer />
     </>
   );
 }

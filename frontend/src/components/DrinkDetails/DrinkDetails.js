@@ -6,7 +6,7 @@ import { Modal } from "../../context/Modal";
 import DeleteConfirmation from "./DeleteConfirmation";
 import EditModal from './EditModal';
 import DrinkReview from '../DrinkReview';
-import DrinkReviewForm from '../DrinkReviewForm';
+import DrinkReviewModal from '../DrinkReviewForm';
 import { getDrinks } from "../../store/drinks";
 
 const DrinkDetails = () => {
@@ -18,6 +18,7 @@ const DrinkDetails = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDrinkReview, setShowDrinkReview] = useState(false);
 
   useEffect(() => {
     dispatch(getDrinks());
@@ -59,7 +60,7 @@ const DrinkDetails = () => {
           )}
         </div>
       </div>
-      {user && user.id !== drink.creatorId && <DrinkReviewForm userId={user.id} drinkId={drink.id} />}
+      {user && user.id !== drink.creatorId && <DrinkReviewModal showDrinkReview={showDrinkReview} setShowDrinkReview={setShowDrinkReview} userId={user.id} drinkId={drink.id} />}
       <hr className="tw-border-white" />
       <div className="tw-p-2">
         <h2 className="tw-text-center tw-text-2xl tw-font-serif">Reviews</h2>

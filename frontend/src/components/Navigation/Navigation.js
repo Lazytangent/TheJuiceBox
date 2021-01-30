@@ -84,7 +84,7 @@ const Navigation = ({ isLoaded }) => {
       {showProfileMenu && (
         <div className="tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end">
           <ul className="tw-p-4 tw-text-right tw-bg-green tw-rounded tw-border-2 tw-border-black">
-            <li className="tw-p-1">{sessionUser.username}</li>
+            <li className="tw-p-1"><NavLink to={`/users/${sessionUser.id}`} className="hover:tw-underline">{sessionUser.username}</NavLink></li>
             <li className="tw-p-1">{sessionUser.email}</li>
             <li>
               <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-red hover:tw-bg-red-dark">Log Out</button>
