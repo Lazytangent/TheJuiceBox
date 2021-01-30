@@ -12,11 +12,11 @@ import { useUserAuth } from '../../context/AuthContext';
 
 const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
-  const [showDrinkForm, setShowDrinkForm] = useState(false);
-  const history = useHistory();
 
+  const [showDrinkForm, setShowDrinkForm] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const openMenu = () => {
@@ -61,13 +61,13 @@ const Navigation = ({ isLoaded }) => {
       <nav className="tw-p-1 tw-flex tw-flex-col tw-bg-blue-dark">
         <ul className="tw-flex tw-justify-between">
           <div className="tw-flex tw-px-2">
-            <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-              <NavLink to="/" className="hover:tw-underline" exact>Home</NavLink>
+            <li className="tw-rounded-md tw-flex tw-items-center tw-text-xl tw-p-1">
+              <NavLink to="/" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Home</NavLink>
             </li>
             {sessionUser && (
               <>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink to="/drinks" className="hover:tw-underline" exact>Drinks</NavLink>
+                  <NavLink to="/drinks" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Drinks</NavLink>
                 </li>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
                   <DrinkFormModal showDrinkForm={showDrinkForm} setShowDrinkForm={setShowDrinkForm} />
@@ -81,8 +81,8 @@ const Navigation = ({ isLoaded }) => {
           </div>
         </ul>
       </nav>
-      {showProfileMenu && (
-        <div className="tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end">
+      {sessionUser && (
+        <div className={`tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end ${showProfileMenu ? 'tw-transition tw-ease-out tw-duration-100 tw-transform tw-opacity-100 tw-scale-100' : 'tw-transition tw-ease-in tw-duration-100 tw-transform tw-opacity-0 tw-scale-95'}`}>
           <ul className="tw-p-4 tw-text-right tw-bg-green tw-rounded tw-border-2 tw-border-black">
             <li className="tw-p-1"><NavLink to={`/users/${sessionUser.id}`} className="hover:tw-underline">{sessionUser.username}</NavLink></li>
             <li className="tw-p-1">{sessionUser.email}</li>

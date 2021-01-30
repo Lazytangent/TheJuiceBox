@@ -30,7 +30,7 @@ const DrinkReviewForm = ({ userId, drinkId }) => {
           <label className="tw-p-1 tw-mx-1">Rating:</label>
           <input className="tw-p-1 tw-mx-1 tw-rounded tw-my-1" type="number" value={rating} onChange={e => setRating(e.target.value)} />
         </div>
-        <button className="tw-rounded tw-mx-1 tw-border tw-my-1 tw-bg-green hover:tw-bg-green-dark tw-p-1">Submit Review</button>
+        <button className="tw-rounded tw-mx-1 tw-border-2 tw-my-1 tw-bg-green hover:tw-bg-green-dark tw-p-1">Submit Review</button>
       </form>
     </div>
   );
