@@ -66,7 +66,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   return (
     <>
-      <div className="tw-rounded tw-items-center tw-p-2 tw-flex tw-justify-around tw-border-2 tw-bg-gray-light tw-w-2/3 tw-m-auto" key={reviewObj.id}>
+      <div className="tw-rounded tw-items-center tw-p-2 tw-mb-2 tw-flex tw-justify-around tw-border-2 tw-bg-gray-light tw-w-2/3 tw-m-auto" key={reviewObj.id}>
         <div>
           {location.pathname.startsWith('/users') ? <p>{review} - by {reviewObj.User.username}</p> : (
             <p>{review} - by <Link to={`/users/${reviewObj.User.id}`} className="hover:tw-underline">{reviewObj.User.username}</Link></p>
