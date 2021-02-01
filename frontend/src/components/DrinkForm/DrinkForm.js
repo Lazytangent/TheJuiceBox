@@ -7,7 +7,7 @@ import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import SubmitBtn from '../Parts/Forms/SubmitBtn';
 import { mixDrink } from '../../store/drinks';
 
-const DrinkForm = () => {
+const DrinkForm = ({ setShowDrinkForm }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,6 +18,7 @@ const DrinkForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setShowDrinkForm(false);
     const response = await dispatch(mixDrink({ name, description, image }));
     if (response.data && response.data.errors) setErrors(response.data.errors);
     else history.push(`/drinks/${response.data.drink.id}`);
