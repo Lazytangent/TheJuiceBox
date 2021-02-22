@@ -7,7 +7,7 @@ const DrinkReviewModal = ({ userId, drinkId, showDrinkReview, setShowDrinkReview
       <button className="tw-p-1 tw-border-2 tw-bg-green hover:tw-bg-green-dark tw-rounded" onClick={() => setShowDrinkReview(true)}>Drop a Review</button>
       {showDrinkReview && (
         <Modal onClose={() => setShowDrinkReview(false)}>
-          <DrinkReviewForm userId={userId} drinkId={drinkId} />
+          <DrinkReviewForm userId={userId} drinkId={drinkId} setShowDrinkReview={setShowDrinkReview} />
         </Modal>
       )}
     </div>
