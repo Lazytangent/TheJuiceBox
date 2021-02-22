@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import { writeReview } from '../../store/drinks';
 
-const DrinkReviewForm = ({ userId, drinkId }) => {
+const DrinkReviewForm = ({ setShowDrinkReview, userId, drinkId }) => {
   const dispatch = useDispatch();
 
   const [review, setReview] = useState('');
@@ -13,6 +13,7 @@ const DrinkReviewForm = ({ userId, drinkId }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setShowDrinkReview(false);
     const response = await dispatch(writeReview({ userId, drinkId, review, rating }));
     if (response.data.errors && response.data.errors.length) {
       setErrors([]);

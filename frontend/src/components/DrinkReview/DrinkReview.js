@@ -41,7 +41,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   if (editMode) {
     return (
       <>
-        <div className="tw-items-center tw-p-2 tw-rounded tw-border-2 tw-bg-gray-light tw-w-2/3 tw-flex tw-justify-around tw-m-auto tw-items-center" key={reviewObj.id}>
+        <div className="tw-items-center tw-p-2 tw-rounded tw-border-2 tw-bg-gray-light tw-w-2/3 tw-flex tw-justify-around tw-m-auto" key={reviewObj.id}>
           <div>
             <form onSubmit={submitClickHandler} className="tw-flex tw-items-center">
               <ErrorsDiv errors={errors} />
@@ -51,8 +51,8 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
             </form>
           </div>
           <div className="tw-flex tw-flex-col">
-            <button onClick={editClickHandler} className="tw-my-1 tw-border-2 hover:tw-bg-yellow-dark tw-p-1 tw-border-2 tw-rounded tw-bg-yellow">Edit Review</button>
-            <button onClick={deleteClickHandler} className="tw-my-1 tw-border-2 hover:tw-bg-red-dark tw-bg-red tw-p-1 tw-border-2 tw-rounded">Delete Review</button>
+            <button onClick={editClickHandler} className="tw-my-1 tw-border-2 hover:tw-bg-yellow-dark tw-p-1 tw-rounded tw-bg-yellow">Edit Review</button>
+            <button onClick={deleteClickHandler} className="tw-my-1 tw-border-2 hover:tw-bg-red-dark tw-bg-red tw-p-1 tw-rounded">Delete Review</button>
           </div>
         </div>
         {showDeleteModal && (
@@ -72,7 +72,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
             <p>{review} - by <Link to={`/users/${reviewObj.User.id}`} className="hover:tw-underline">{reviewObj.User.username}</Link></p>
           )}
           <p>Rating: {rating} out of 5</p>
-          <p>On {new Date(reviewObj.updatedAt).toISOString()}</p>
+          <p>On {new Date(reviewObj.updatedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
         </div>
         {userId === reviewObj.userId && (
           <div className="tw-flex tw-flex-col">
