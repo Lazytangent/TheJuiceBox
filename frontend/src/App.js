@@ -23,28 +23,34 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
-      <Switch>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-        <Route exact path="/drinks">
-          <Drinks />
-        </Route>
-        <Route path="/drinks/:drinkId(\d+)">
-          <DrinkDetails />
-        </Route>
-        <Route path="/users/:userId">
-          <ProfilePage />
-        </Route>
-        <Route path="/search">
-          <SearchPage />
-        </Route>
-        <Route>
-          <h2>Page Not Found</h2>
-        </Route>
-      </Switch>
-      <Footer />
+      <div className="grid-rows-1">
+        <Navigation isLoaded={isLoaded} />
+      </div>
+      <div className="grid-rows-1">
+        <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route exact path="/drinks">
+            <Drinks />
+          </Route>
+          <Route path="/drinks/:drinkId(\d+)">
+            <DrinkDetails />
+          </Route>
+          <Route path="/users/:userId">
+            <ProfilePage />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+          <Route>
+            <h2>Page Not Found</h2>
+          </Route>
+        </Switch>
+      </div>
+      <div className="grid-rows-1">
+        <Footer />
+      </div>
     </>
   );
 }
