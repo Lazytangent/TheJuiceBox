@@ -24,7 +24,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <div className="tw-max-w-7xl tw-mx-auto tw-min-h-screen">
+      <div className="tw-min-h-screen tw-mx-auto">
         <h1 className="tw-text-white tw-text-4xl tw-p-4 tw-font-serif tw-font-semibold tw-text-center">{profile.username}</h1>
         {profile.Drinks.length > 0 && (
           <>

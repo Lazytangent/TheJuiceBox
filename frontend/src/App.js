@@ -22,11 +22,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="grid-rows-1">
+    <div className="tw-grid tw-grid-rows-layout">
+      <div className="tw-row-span-1">
         <Navigation isLoaded={isLoaded} />
       </div>
-      <div className="grid-rows-1">
+      <div className="tw-row-span-1">
         <Switch>
           <Route exact path="/">
             <LandingPage />
@@ -48,10 +48,10 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <div className="grid-rows-1">
+      <div className="tw-row-span-1">
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 
