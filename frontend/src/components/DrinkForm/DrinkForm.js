@@ -30,9 +30,9 @@ const DrinkForm = ({ setShowDrinkForm }) => {
   }
 
   return (
-    <div className="tw-bg-gray tw-flex tw-justify-start tw-rounded tw-flex-col tw-items-center">
+    <div className="tw-bg-gray tw-flex tw-justify-start tw-rounded tw-flex-col tw-items-center tw-max-w-screen tw-w-screen">
       <form className="tw-bg-gray-light tw-p-4 tw-rounded" onSubmit={onSubmit}>
-        <h1 className="tw-text-3xl tw-text-center tw-font-serif tw-font-semibold">Drink Form</h1>
+        <h1 className="tw-text-3xl tw-text-center tw-font-semibold">Drink Form</h1>
         <ErrorsDiv errors={errors} />
         <FormDiv labelName="Drink Name:" col={true} required={true} type="text" value={name} onChange={e => setName(e.target.value)} />
         <FormDiv labelName="Description:" col={true} required={true} type="textarea" value={description} onChange={e => setDescription(e.target.value)} />
