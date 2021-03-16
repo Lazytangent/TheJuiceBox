@@ -1,15 +1,13 @@
 const fs = require("fs");
 
 const getData = async () => {
-  const drinks = [];
-  fs.readFile("../seeder-content/drinks.json", (err, data) => {
+  let drinks = [];
+  fs.readFile("../seeder-content/drinks.json", async (err, data) => {
     if (err) {
       console.error(err);
       return;
     }
-    // console.log(JSON.parse(data));
-    await drinks.concat(JSON.parse(data));
-    console.log(drinks);
+    drinks = JSON.parse(data);
   });
 }
 

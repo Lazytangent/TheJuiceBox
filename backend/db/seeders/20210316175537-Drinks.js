@@ -3,23 +3,20 @@ const fs = require("fs");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    let drinks;
     const getData = async () => {
-      const drinks = [];
       fs.readFile("../seeder-content/drinks.json", (err, data) => {
         if (err) {
           console.error(err);
           return;
         }
-        drinks.concat(data.toString());
+        drinks = JSON.parse(data);
       });
     }
-    return queryInterface.bulkInsert('People', [{
-      name: 'John Doe',
-      isBetaMember: false
-    }], {});
+    return queryInterface.bulkInsert('Drinks', drinks, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('People', null, {});
+    return queryInterface.bulkDelete('Drinks', null, {});
   }
 };
