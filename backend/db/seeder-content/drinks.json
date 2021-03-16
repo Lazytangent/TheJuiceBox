@@ -1,30 +1,36 @@
 [
   {
+    "creatorId": 1,
     "name": "Margarita",
     "description": "Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg"
   },
   {
+    "creatorId": 1,
     "name": "Blue Margarita",
     "description": "Rub rim of cocktail glass with lime juice. Dip rim in coarse salt. Shake tequila, blue curacao, and lime juice with ice, strain into the salt-rimmed glass, and serve.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/bry4qh1582751040.jpg"
   },
   {
+    "creatorId": 1,
     "name": "Tommy's Margarita",
     "description": "Shake and strain into a chilled cocktail glass.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/loezxn1504373874.jpg"
   },
   {
+    "creatorId": 1,
     "name": "Whitecap Margarita",
     "description": "Place all ingredients in a blender and blend until smooth. This makes one drink.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/srpxxp1441209622.jpg"
   },
   {
+    "creatorId": 1,
     "name": "Strawberry Margarita",
     "description": "Rub rim of cocktail glass with lemon juice and dip rim in salt. Shake schnapps, tequila, triple sec, lemon juice, and strawberries with ice, strain into the salt-rimmed glass, and serve.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/tqyrpw1439905311.jpg"
   },
   {
+    "creatorId": 1,
     "name": "Smashed Watermelon Margarita",
     "description": "In a mason jar muddle the watermelon and 5 mint leaves together into a puree and strain. Next add the grapefruit juice, juice of half a lime and the tequila as well as some ice. Put a lid on the jar and shake. Pour into a glass and add more ice. Garnish with fresh mint and a small slice of watermelon.",
     "imageUrl": "https://www.thecocktaildb.com/images/media/drink/dztcv51598717861.jpg"

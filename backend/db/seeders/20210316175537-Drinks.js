@@ -4,13 +4,13 @@ const fs = require("fs");
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const getData = async () => {
-      const drinks [];
+      const drinks = [];
       fs.readFile("../seeder-content/drinks.json", (err, data) => {
         if (err) {
           console.error(err);
           return;
         }
-        console.log(data);
+        drinks.concat(data.toString());
       });
     }
     return queryInterface.bulkInsert('People', [{
