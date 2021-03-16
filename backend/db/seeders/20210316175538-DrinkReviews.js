@@ -26,6 +26,10 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('DrinkReviews', null, {});
+    return queryInterface.bulkDelete('DrinkReviews', null, {
+      truncate: true,
+      cascade: true,
+      restartIdentity: true,
+    });
   }
 };
