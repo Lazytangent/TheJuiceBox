@@ -76,7 +76,9 @@ const Navigation = ({ isLoaded }) => {
             )}
           </div>
           <div className="tw-flex tw-px-2">
-            {sessionUser && <SearchBar />}
+            <div className="tw-hidden md:tw-block">
+              {sessionUser && <SearchBar />}
+            </div>
             {isLoaded && sessionLinks}
           </div>
         </ul>

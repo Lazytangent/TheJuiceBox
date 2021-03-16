@@ -63,6 +63,9 @@ module.exports = {
       backgroundImage: theme => ({
         'bar-backdrop': "url('https://the-juice-box.s3.us-east-2.amazonaws.com/HideoutInterior_SarahLarson.0.webp')",
       }),
+      gridTemplateRows: {
+        'layout': 'auto minmax(90vh, 1fr) auto',
+      },
     },
   },
   variants: {

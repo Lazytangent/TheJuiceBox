@@ -15,7 +15,7 @@ const SearchBar = () => {
   return (
     <div className="tw-flex tw-items-center tw-px-4">
       <form onSubmit={onSearch}>
-        <input type="search" value={input} onChange={e => setInput(e.target.value)} placeholder="Search..." className="tw-p-2 tw-rounded tw-w-72"/>
+        <input type="search" value={input} onChange={e => setInput(e.target.value)} placeholder="Search..." className="tw-p-2 tw-rounded md:tw-w-72"/>
       </form>
     </div>
   );
