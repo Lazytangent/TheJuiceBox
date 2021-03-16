@@ -22,7 +22,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="tw-grid tw-grid-rows-layout">
+    <div className="tw-w-screen md:tw-grid tw-grid-rows-layout">
       <div className="tw-row-span-1">
         <Navigation isLoaded={isLoaded} />
       </div>

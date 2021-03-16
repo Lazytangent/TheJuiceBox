@@ -5,7 +5,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-py-2">
+      <div className="tw-w-screen tw-bg-gray md:tw-max-w-7xl md:tw-mx-auto tw-py-2">
         <div className="tw-p-20 tw-m-4 tw-relative tw-m-1 tw-bg-center tw-bg-no-repeat tw-bg-bar-backdrop tw-text-white tw-text-center tw-text-4xl">
           <div className="tw-max-w-7xl tw-mx-auto tw-px-4">
             <h1 className="">COVID Sucks.</h1>
@@ -15,7 +15,7 @@ const LandingPage = () => {
         </div>
         <hr className="tw-border-white" />
         <div className="tw-py-12 tw-bg-gray-light tw-max-w-7xl tw-mx-auto">
-          <div className="tw-max-w-7xl tw-mx-auto tw-px-4">
+          <div className="md:tw-max-w-7xl md:tw-mx-auto tw-px-4">
             <div className="lg:tw-text-center">
               <p className="tw-mt-2 tw-text-3xl tw-leading-8 tw-font-extrabold tw-tracking-tight tw-text-black">A more responsible way to drink.</p>
               <p className="tw-mt-4 tw-max-w-2xl tw-text-xl tw-text-asphalt-subtle lg:tw-mx-auto">Here at The Juice Box, we believe that there's a safer way to spend the evenings. We hope you enjoy the Fruits of our Labor.</p>
@@ -53,7 +53,7 @@ const LandingPage = () => {
         </div>
         <hr className="tw-border-white" />
         <div className="tw-p-8 tw-flex tw-flex-col tw-items-center">
-          <h2 className="tw-text-5xl tw-font-serif tw-text-asphalt">Well what are you waiting for? Sign Up now!</h2>
+          <h2 className="tw-text-5xl tw-text-asphalt">Well what are you waiting for? Sign Up now!</h2>
           <button onClick={() => setShowRegisterModal(true)} className="tw-text-3xl tw-my-8 tw-border tw-bg-green hover:tw-bg-green-dark tw-p-2 tw-rounded">Sign Up</button>
         </div>
       </div>
