@@ -30,7 +30,7 @@ const DrinkForm = ({ setShowDrinkForm }) => {
   }
 
   return (
-    <div className="tw-bg-gray tw-flex tw-justify-start tw-rounded tw-flex-col tw-items-center tw-max-w-screen tw-w-screen">
+    <div className="tw-bg-gray md:tw-flex tw-justify-start tw-rounded tw-flex-col tw-items-center tw-w-screen md:tw-w-auto">
       <form className="tw-bg-gray-light tw-p-4 tw-rounded" onSubmit={onSubmit}>
         <h1 className="tw-text-3xl tw-text-center tw-font-semibold">Drink Form</h1>
         <ErrorsDiv errors={errors} />
@@ -43,6 +43,11 @@ const DrinkForm = ({ setShowDrinkForm }) => {
             </label>
             <input type="file" onChange={updateFile} />
           </div>
+          <div className="tw-hidden md:tw-block">
+            <SubmitBtn name="Mix Drink" color="purple" />
+          </div>
+        </div>
+        <div className="md:tw-hidden">
           <SubmitBtn name="Mix Drink" color="purple" />
         </div>
       </form>
