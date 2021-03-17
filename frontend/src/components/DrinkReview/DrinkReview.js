@@ -41,13 +41,13 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   if (editMode) {
     return (
       <>
-        <div className="tw-items-center tw-p-2 tw-rounded tw-border-2 tw-bg-gray-light tw-w-2/3 tw-flex tw-justify-around tw-m-auto" key={reviewObj.id}>
+        <div className="tw-items-center tw-p-2 tw-rounded tw-border-2 tw-bg-gray-light tw-w-2/3 md:tw-flex tw-justify-around tw-m-auto" key={reviewObj.id}>
           <div>
-            <form onSubmit={submitClickHandler} className="tw-flex tw-items-center">
+            <form onSubmit={submitClickHandler} className="tw-flex tw-flex-col md:tw-flex-row tw-justify-between tw-items-center">
               <ErrorsDiv errors={errors} />
-              <textarea value={review} onChange={e => setReview(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1"></textarea>
-              <input type="number" value={rating} onChange={e => setRating(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1" />
-              <button type="submit" className="tw-rounded tw-border-2 tw-bg-green hover:tw-bg-green-dark tw-p-1">Re-submit Review</button>
+              <textarea value={review} onChange={e => setReview(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1 tw-mb-2"></textarea>
+              <input type="number" value={rating} onChange={e => setRating(e.target.value)} className="tw-p-1 tw-rounded tw-mx-1 tw-mb-2" />
+              <button type="submit" className="tw-rounded tw-border-2 tw-bg-green hover:tw-bg-green-dark tw-p-1 tw-mb-1 tw-w-full">Re-submit Review</button>
             </form>
           </div>
           <div className="tw-flex tw-flex-col">
