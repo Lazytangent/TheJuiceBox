@@ -42,7 +42,7 @@ const DrinkDetails = () => {
 
   return (
     <div className="tw-bg-gray tw-max-w-7xl tw-mx-auto tw-p-2">
-      <h1 className="tw-text-center tw-font-serif tw-text-5xl tw-font-semibold">Drink No. {drink.id} Details</h1>
+      <h1 className="tw-text-center tw-text-5xl tw-font-semibold">Drink No. {drink.id} Details</h1>
       <div className="tw-rounded tw-grid-cols-3 tw-grid tw-p-8 tw-flex tw-flex-col tw-bg-gray-lightest tw-my-4 lg:tw-my-4 tw-items-center lg:tw-w-3/4 lg:tw-m-auto">
         <div className="tw-flex tw-justify-center tw-col-span-1 tw-p-4 tw-max-h-96">
           <img src={drink.imageUrl} alt={drink.name} className="tw-object-fill tw-max-w-60" />
@@ -65,7 +65,7 @@ const DrinkDetails = () => {
       {user && user.id !== drink.creatorId && <DrinkReviewModal showDrinkReview={showDrinkReview} setShowDrinkReview={setShowDrinkReview} userId={user.id} drinkId={drink.id} />}
       <hr className="tw-border-white" />
       <div className="tw-p-2">
-        <h2 className="tw-text-center tw-text-2xl tw-font-serif">Reviews</h2>
+        <h2 className="tw-text-center tw-text-2xl">Reviews</h2>
         {drink && drink.Reviews && drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
       </div>
       {showDeleteModal && (

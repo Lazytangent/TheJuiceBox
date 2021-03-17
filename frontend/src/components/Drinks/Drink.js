@@ -7,7 +7,7 @@ const Drink = ({ drink }) => {
         <img src={drink.imageUrl} alt={drink.name} className="tw-object-fill tw-rounded tw-max-h-60" />
       </div>
       <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-        <h1 className="tw-font-serif tw-text-xl tw-font-semibold">{drink.name}</h1>
+        <h1 className="tw-text-xl tw-font-semibold">{drink.name}</h1>
         <p>{drink.description}</p>
       </div>
     </Link>
