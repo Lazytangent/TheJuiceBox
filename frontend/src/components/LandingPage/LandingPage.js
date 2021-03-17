@@ -5,7 +5,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="tw-w-screen tw-bg-gray md:tw-max-w-7xl md:tw-mx-auto tw-py-2">
+      <div className="tw-h-full tw-w-screen tw-bg-gray md:tw-max-w-7xl md:tw-mx-auto tw-py-2">
         <div className="tw-p-20 tw-m-4 tw-relative tw-m-1 tw-bg-center tw-bg-no-repeat tw-bg-bar-backdrop tw-text-white tw-text-center tw-text-4xl">
           <div className="tw-max-w-7xl tw-mx-auto tw-px-4">
             <h1 className="">COVID Sucks.</h1>

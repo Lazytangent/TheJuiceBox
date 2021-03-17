@@ -76,10 +76,12 @@ const Navigation = ({ isLoaded }) => {
             )}
           </div>
           <div className="tw-flex tw-px-2">
-            <div className="tw-hidden md:tw-block">
+            <div className="tw-py-2 tw-hidden md:tw-block">
               {sessionUser && <SearchBar />}
             </div>
-            {isLoaded && sessionLinks}
+            <div className="tw-py-1">
+              {isLoaded && sessionLinks}
+            </div>
           </div>
         </ul>
       </nav>
