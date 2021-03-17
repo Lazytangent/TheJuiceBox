@@ -37,152 +37,152 @@
   },
   {
     "creatorId": 1,
-    "strDrink": "ABC",
-    "strInstructions": "Layered in a shot glass.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg"
+    "name": "ABC",
+    "description": "Layered in a shot glass.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "B-53",
-    "strInstructions": "Layer the Kahlua, Sambucca and Grand Marnier into a shot glas in that order. Better than B-52",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rwqxrv1461866023.jpg"
+    "name": "B-53",
+    "description": "Layer the Kahlua, Sambucca and Grand Marnier into a shot glas in that order. Better than B-52",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/rwqxrv1461866023.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "B-52",
-    "strInstructions": "Layer ingredients into a shot glass. Serve with a stirrer.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/5a3vg61504372070.jpg"
+    "name": "B-52",
+    "description": "Layer ingredients into a shot glass. Serve with a stirrer.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/5a3vg61504372070.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Derby",
-    "strInstructions": "Pour all ingredients into a mixing glass with ice. Stir. Strain into a cocktail glass. Garnish with a sprig of fresh mint in the drink.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/52weey1606772672.jpg"
+    "name": "Derby",
+    "description": "Pour all ingredients into a mixing glass with ice. Stir. Strain into a cocktail glass. Garnish with a sprig of fresh mint in the drink.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/52weey1606772672.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Bijou",
-    "strInstructions": "Stir in mixing glass with ice and strain\r\n",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rysb3r1513706985.jpg"
+    "name": "Bijou",
+    "description": "Stir in mixing glass with ice and strain\r\n",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/rysb3r1513706985.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Boxcar",
-    "strInstructions": "In a shaker half-filled with ice cubes, combine all of the ingredients. Shake well. Strain into a sour glass.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/pwgtpa1504366376.jpg"
+    "name": "Boxcar",
+    "description": "In a shaker half-filled with ice cubes, combine all of the ingredients. Shake well. Strain into a sour glass.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/pwgtpa1504366376.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Zombie",
-    "strInstructions": "\r\nBlend at high speed for no more than 5 seconds.\r\n\r\nPour into a glass, add ice cubes to fill, then add the garnish.\r\n\r\n*Donn\u2019s mix: Bring 3 crushed cinnamon sticks, 1 cup of sugar and 1 cup of water to a boil, stirring until the sugar is dissolved.\r\n\r\nSimmer for 2 minutes, then remove from the heat and let sit for at least 2 hours before straining into a clean glass bottle.\r\n\r\nThen add 1 part of the syrup and 2 parts of fresh grapefruit juice together.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/2en3jk1509557725.jpg"
+    "name": "Zombie",
+    "description": "\r\nBlend at high speed for no more than 5 seconds.\r\n\r\nPour into a glass, add ice cubes to fill, then add the garnish.\r\n\r\n*Donn\u2019s mix: Bring 3 crushed cinnamon sticks, 1 cup of sugar and 1 cup of water to a boil, stirring until the sugar is dissolved.\r\n\r\nSimmer for 2 minutes, then remove from the heat and let sit for at least 2 hours before straining into a clean glass bottle.\r\n\r\nThen add 1 part of the syrup and 2 parts of fresh grapefruit juice together.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/2en3jk1509557725.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Abilene",
-    "strInstructions": "Pour all of the ingredients into a highball glass almost filled with ice cubes. Stir well.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/smb2oe1582479072.jpg"
+    "name": "Abilene",
+    "description": "Pour all of the ingredients into a highball glass almost filled with ice cubes. Stir well.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/smb2oe1582479072.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Big Red",
-    "strInstructions": "Pour ingredients into 1 ounce shot glass",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/yqwuwu1441248116.jpg"
+    "name": "Big Red",
+    "description": "Pour ingredients into 1 ounce shot glass",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/yqwuwu1441248116.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Zambeer",
-    "strInstructions": "Mix sambuca with rootbeer and stir. Add ice",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/bje5401485619578.jpg"
+    "name": "Zambeer",
+    "description": "Mix sambuca with rootbeer and stir. Add ice",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/bje5401485619578.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Bellini",
-    "strInstructions": "Pour peach pur\u00e9e into chilled flute, add sparkling wine. Stir gently.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/eaag491504367543.jpg"
+    "name": "Bellini",
+    "description": "Pour peach pur\u00e9e into chilled flute, add sparkling wine. Stir gently.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/eaag491504367543.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Bramble",
-    "strInstructions": "Fill glass with crushed ice. Build gin, lemon juice and simple syrup over. Stir, and then pour blackberry liqueur over in a circular fashion to create marbling effect. Garnish with two blackberries and lemon slice.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/lvzl3r1504372526.jpg"
+    "name": "Bramble",
+    "description": "Fill glass with crushed ice. Build gin, lemon juice and simple syrup over. Stir, and then pour blackberry liqueur over in a circular fashion to create marbling effect. Garnish with two blackberries and lemon slice.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/lvzl3r1504372526.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Balmoral",
-    "strInstructions": "In a mixing glass half-filled with ice cubes, combine all of the ingredients. Stir well. Strain into a cocktail glass.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/vysuyq1441206297.jpg"
+    "name": "Balmoral",
+    "description": "In a mixing glass half-filled with ice cubes, combine all of the ingredients. Stir well. Strain into a cocktail glass.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/vysuyq1441206297.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Bluebird",
-    "strInstructions": "In a mixing glass half-filled with crushed ice, combine the gin, triple sec, Curacao, and bitters. Stir well. Strain into a cocktail glass and garnish with the lemon twist and the cherry.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/5jhyd01582579843.jpg"
+    "name": "Bluebird",
+    "description": "In a mixing glass half-filled with crushed ice, combine the gin, triple sec, Curacao, and bitters. Stir well. Strain into a cocktail glass and garnish with the lemon twist and the cherry.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/5jhyd01582579843.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Snowball",
-    "strInstructions": "Place one ice cube in the glass and add 1 1/2 oz of Advocaat. Fill up the glass with lemonade and decorate with a slice of lemon. Serve at once.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/7ibfs61504735416.jpg"
+    "name": "Snowball",
+    "description": "Place one ice cube in the glass and add 1 1/2 oz of Advocaat. Fill up the glass with lemonade and decorate with a slice of lemon. Serve at once.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/7ibfs61504735416.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Danbooka",
-    "strInstructions": "pour it in and mix it.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/vurrxr1441246074.jpg"
+    "name": "Danbooka",
+    "description": "pour it in and mix it.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/vurrxr1441246074.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "501 Blue",
-    "strInstructions": "Mix equal amounts into a glass with ice.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/ywxwqs1461867097.jpg"
+    "name": "501 Blue",
+    "description": "Mix equal amounts into a glass with ice.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/ywxwqs1461867097.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Brooklyn",
-    "strInstructions": "Combine ingredients with ice and stir until well-chilled. Strain into a chilled cocktail glass.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/ojsezf1582477277.jpg"
+    "name": "Brooklyn",
+    "description": "Combine ingredients with ice and stir until well-chilled. Strain into a chilled cocktail glass.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/ojsezf1582477277.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Boomerang",
-    "strInstructions": "In a mixing glass half-filled with ice cubes, combine the gin, vermouth, bitters, and maraschino liqueur. Stir well. Strain into a cocktail glass and garnish with the cherry.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/3m6yz81504389551.jpg"
+    "name": "Boomerang",
+    "description": "In a mixing glass half-filled with ice cubes, combine the gin, vermouth, bitters, and maraschino liqueur. Stir well. Strain into a cocktail glass and garnish with the cherry.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/3m6yz81504389551.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Queen Bee",
-    "strInstructions": "Shake all ingredients with ice, strain into a cocktail glass, and serve.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rvvpxu1478963194.jpg"
+    "name": "Queen Bee",
+    "description": "Shake all ingredients with ice, strain into a cocktail glass, and serve.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/rvvpxu1478963194.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Bora Bora",
-    "strInstructions": "Prepare in a blender or shaker, serve in a highball glass on the rocks. Garnish with 1 slice of pineapple and one cherry.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/xwuqvw1473201811.jpg"
+    "name": "Bora Bora",
+    "description": "Prepare in a blender or shaker, serve in a highball glass on the rocks. Garnish with 1 slice of pineapple and one cherry.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/xwuqvw1473201811.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Lunch Box",
-    "strInstructions": "Fill a pint glass almost full with beer. Then fill the rest with orange juice (careful not to fill it to the top). Then take the shot of Amaretto and drop it in.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/qywpvt1454512546.jpg"
+    "name": "Lunch Box",
+    "description": "Fill a pint glass almost full with beer. Then fill the rest with orange juice (careful not to fill it to the top). Then take the shot of Amaretto and drop it in.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/qywpvt1454512546.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Barracuda",
-    "strInstructions": "Shake pour ingredients with ice. Strain into glass, top with Sparkling wine.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/jwmr1x1504372337.jpg"
+    "name": "Barracuda",
+    "description": "Shake pour ingredients with ice. Strain into glass, top with Sparkling wine.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/jwmr1x1504372337.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Jitterbug",
-    "strInstructions": "Wet glass, dip rim in sugar. Then add Ice. Then add everything else. It's that simple!",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/wwqvrq1441245318.jpg"
+    "name": "Jitterbug",
+    "description": "Wet glass, dip rim in sugar. Then add Ice. Then add everything else. It's that simple!",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/wwqvrq1441245318.jpg"
   },
   {
     "creatorId": 1,
-    "strDrink": "Adam Bomb",
-    "strInstructions": "Add ice to blender (or to glass if prefer on the rocks) then fruit, and fruit juice depending on personal preference then add the Rum, Vodka, Tequila, and triple sec. blend till smooth, rim glass with sugar or salt and pour mixture in. garnish with lemon or lime slice.",
-    "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/tpxurs1454513016.jpg"
+    "name": "Adam Bomb",
+    "description": "Add ice to blender (or to glass if prefer on the rocks) then fruit, and fruit juice depending on personal preference then add the Rum, Vodka, Tequila, and triple sec. blend till smooth, rim glass with sugar or salt and pour mixture in. garnish with lemon or lime slice.",
+    "imageUrl": "https://www.thecocktaildb.com/images/media/drink/tpxurs1454513016.jpg"
   }
 ]
