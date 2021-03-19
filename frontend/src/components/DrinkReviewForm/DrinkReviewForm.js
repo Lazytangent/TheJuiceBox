@@ -25,7 +25,7 @@ const DrinkReviewForm = ({ setShowDrinkReview, userId, drinkId }) => {
 
   return (
     <div className="tw-bg-gray tw-flex-col tw-p-4 tw-rounded tw-flex tw-items-center tw-justify-center">
-      <h2 className="tw-text-xl tw-font-semibold tw-font-serif">
+      <h2 className="tw-text-xl tw-font-semibold">
         Leave a Review:
       </h2>
       <form

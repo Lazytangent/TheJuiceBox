@@ -44,7 +44,7 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
           <img src={drink.imageUrl} alt={drink.name} />
         </div>
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-          <h1 className="tw-font-serif tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
+          <h1 className="tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
           <form onSubmit={submitClickHandler}>
             <ErrorsDiv errors={errors} />
             <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
