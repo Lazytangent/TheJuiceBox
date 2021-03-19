@@ -27,7 +27,7 @@ const SearchPage = () => {
 
   return (
     <div className="tw-max-w-7xl tw-mx-auto tw-p-2 tw-min-h-screen">
-      <h2 className="tw-text-5xl tw-text-clouds tw-font-serif tw-font-semibold tw-text-center">Search Results</h2>
+      <h2 className="tw-text-5xl tw-text-clouds tw-font-semibold tw-text-center">Search Results</h2>
       {similar.map(drink => (
         <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
           <Drink drink={drink} />
