@@ -63,8 +63,12 @@ describe("Drink routes", () => {
   });
 
   describe("POST /api/drinks", () => {
-    it("should exist", () => {
-
+    it("should exist", async () => {
+      await request(app)
+        .post('/api/drinks')
+        .send(fakeDrink1)
+        .set('Accept', 'application/json')
+        .expect(200)
     });
   });
 });
