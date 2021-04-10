@@ -12,10 +12,10 @@ module.exports = {
         allowNull: false,
       }),
       queryInterface.addColumn("Venues", "lat", {
-        type: Sequelize.NUMERIC,
+        type: Sequelize.DECIMAL,
       }),
       queryInterface.addColumn("Venues", "lng", {
-        type: Sequelize.NUMERIC,
+        type: Sequelize.DECIMAL,
       }),
       queryInterface.removeColumn("Venues", "location"),
     ]);
