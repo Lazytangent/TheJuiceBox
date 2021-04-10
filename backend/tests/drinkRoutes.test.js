@@ -5,7 +5,7 @@ const app = require("../app");
 const { sequelize, User, Drink } = require("../db/models");
 
 beforeAll(async () => {
-  await sequelize.sync({ force: true, logging: true });
+  await sequelize.sync({ force: true, logging: false });
 });
 
 afterAll(async () => {
