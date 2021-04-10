@@ -53,7 +53,7 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' });
 });
 
-router.post('/demo', asyncHandler(async (req, res, next) => {
+router.post('/demo', asyncHandler(async (req, res, _next) => {
   const { credential, password } = req.body;
 
   const user = await User.login({ credential, password });
