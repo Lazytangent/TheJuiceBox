@@ -1,5 +1,4 @@
 const request = require("supertest");
-const bcrypt = require("bcryptjs");
 
 const app = require("../app");
 const { testUser, testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
