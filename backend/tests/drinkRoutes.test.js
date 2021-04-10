@@ -2,17 +2,17 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 
 const app = require('../app');
-const { sequelize, User, Drink } = require('../db/models');
+const { sequelize, User, Drink, DrinkReview } = require('../db/models');
+
+beforeAll(async () => {
+  await sequelize.sync({ force: true, logging: true });
+});
+
+afterAll(async () => {
+  await sequelize.close();
+});
 
 describe('Drink routes', () => {
-  beforeAll(async () => {
-    await sequelize.sync({ force: true, logging: false });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
-
   describe('GET /api/drinks', () => {
     it('should exist', async () => {
       await request(app)
@@ -54,10 +54,10 @@ describe('Drink routes', () => {
         .get('/api/drinks')
         .expect(200);
 
-      expect(res.body).toEqual(expect.arrayContaining([
+      expect(res.body).toEqual(expect.objectContaining({ drinks: expect.arrayContaining([
         expect.objectContaining(fakeDrink1),
         expect.objectContaining(fakeDrink2),
-      ]));
+      ])}));
     });
   });
 });
