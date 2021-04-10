@@ -12,8 +12,8 @@ const getCSRFTokens = async (app) => {
   const response = await request(app)
     .get('/api/csrf/restore');
 
-  csrfCookie = response.headers['set-cookie'].find(cookie => cookie.match(/^_csrf/));
-  csrfToken = response
+  const csrfCookie = response.headers['set-cookie'].find(cookie => cookie.match(/^_csrf/));
+  const csrfToken = response
     .headers['set-cookie']
     .find(cookie=> cookie.match(/^XSRF-TOKEN/))
     .split(/[=;]/)[1];
@@ -40,7 +40,7 @@ const loginUser = async (app) => {
       credential: testUser.username,
       password: testUser.password,
     });
-  return response.header['set-cookie'].find(cookie => cookie.match(/^token/));
+  return response.headers['set-cookie'].find(cookie => cookie.match(/^token/));
 };
 
 const testModelOptions = () => ({

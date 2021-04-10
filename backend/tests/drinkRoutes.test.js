@@ -2,7 +2,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 
 const app = require("../app");
-const { testModelOptions } = require('../utils/test-utils');
+const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
 const { sequelize, User, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
@@ -63,11 +63,21 @@ describe("Drink routes", () => {
   });
 
   describe("POST /api/drinks", () => {
+    let jwtCookie;
+    let tokens;
+
+    beforeAll(async () => {
+      jwtCookie = await loginUser(app);
+      tokens = await getCSRFTokens(app);
+    });
+
     it("should exist", async () => {
       await request(app)
         .post('/api/drinks')
-        .send(fakeDrink1)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
+        .send(fakeDrink1)
         .expect(200)
     });
   });
