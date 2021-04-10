@@ -2,6 +2,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 
 const app = require("../app");
+const { testModelOptions } = require('../utils/test-utils');
 const { sequelize, User, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
@@ -44,9 +45,9 @@ describe("Drink routes", () => {
     });
 
     it("should return all drinks in the database", async () => {
-      await User.create(fakeUser1);
-      await Drink.create(fakeDrink1);
-      await Drink.create(fakeDrink2);
+      await User.create(fakeUser1, testModelOptions());
+      await Drink.create(fakeDrink1, testModelOptions());
+      await Drink.create(fakeDrink2, testModelOptions());
 
       const res = await request(app).get("/api/drinks").expect(200);
 
