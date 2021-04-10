@@ -16,4 +16,26 @@ describe("Venue routes", () => {
   afterAll(async () => {
     await sequelize.close();
   });
+
+  const fakeVenue1 = {
+
+  };
+
+  const fakeVenue2 = {
+
+  };
+
+  describe("GET /api/venues", () => {
+    it("should exist", async () => {
+
+    });
+
+    it("should return JSON", async () => {
+
+    });
+
+    it("should return all venues in the database", async () => {
+
+    });
+  });
 });
