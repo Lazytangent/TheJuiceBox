@@ -8,7 +8,7 @@ const { Venue, CheckIn } = require('../../db/models');
 
 const router = express.Router();
 
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (_req, res) => {
   const venues = await Venue.findAll();
   res.json({ venues });
 }));
@@ -17,12 +17,13 @@ router.post('/:venueId(\\d+)/checkIn', restoreUser, asyncHandler(async (req, res
   const id = parseInt(req.params.venueId, 10);
   const venue = await Venue.findByPk(id);
   const { user } = req;
-  // Connect venue to user
+
   const checkIn = await CheckIn.create({
     userId: user.id,
     venueId: venue.id,
   });
   // Not done yet...
+  res.json({ venue });
 }));
 
 router.put('/:venueId(\\d+)/checkIn/:checkInId(\\d+)', asyncHandler(async (req, res) => {
