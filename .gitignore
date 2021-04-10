@@ -1,3 +1,4 @@
+.eslint*
 build
 .DS_Store
 
