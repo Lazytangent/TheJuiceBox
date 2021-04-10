@@ -2,7 +2,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 
 const app = require("../app");
-const { sequelize, User, Drink, DrinkReview } = require("../db/models");
+const { sequelize, User, Drink } = require("../db/models");
 
 beforeAll(async () => {
   await sequelize.sync({ force: true, logging: true });
