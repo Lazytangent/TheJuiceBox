@@ -47,7 +47,7 @@ const restoreUser = (req, res, next) => {
 
 const requireAuth = [
   restoreUser,
-  function (req, res, next) {
+  function (req, _res, next) {
     if (req.user) return next();
 
     const err = new Error('Unauthorized');
