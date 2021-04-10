@@ -13,6 +13,10 @@ import configureStore from "./store";
 import { restoreCSRF, fetch } from "./store/csrf";
 
 import * as sessionActions from "./store/session";
+import * as drinkActions from './store/drinks';
+import * as userActions from './store/users';
+import * as venueActions from './store/venues';
+import * as checkInActions from './store/venueCheckIns';
 
 const store = configureStore();
 
@@ -22,6 +26,10 @@ if (process.env.NODE_ENV !== "production") {
   window.csrfFetch = fetch;
   window.store = store;
   window.sessionActions = sessionActions;
+  window.drinkActions = drinkActions;
+  window.userActions = userActions;
+  window.venueActions = venueActions;
+  window.checkInActions = checkInActions;
 }
 
 const Root = () => {
