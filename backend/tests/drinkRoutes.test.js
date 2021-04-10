@@ -2,7 +2,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 
 const app = require("../app");
-const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
+const { testUser, testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
 const { sequelize, User, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
@@ -18,13 +18,6 @@ describe("Drink routes", () => {
   afterAll(async () => {
     await sequelize.close();
   });
-
-  const fakeUser1 = {
-    username: "testUser1",
-    email: "test@aa.io",
-    hashedPassword: bcrypt.hashSync("password"),
-    dateOfBirth: new Date("1990-12-31"),
-  };
 
   const fakeDrink1 = {
     name: "testDrink1",
@@ -50,7 +43,7 @@ describe("Drink routes", () => {
     });
 
     it("should return all drinks in the database", async () => {
-      await User.create(fakeUser1, testModelOptions());
+      await User.create(testUser, testModelOptions());
       await Drink.create(fakeDrink1, testModelOptions());
       await Drink.create(fakeDrink2, testModelOptions());
 
