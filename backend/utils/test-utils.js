@@ -2,7 +2,7 @@ const request = require('supertest');
 const { User } = require('../db/models');
 
 const testUser = {
-  username: 'testuser',
+  username: 'testUser1',
   email: 'test@aa.io',
   password: 'password',
   dateOfBirth: new Date('1990-12-31'),
@@ -27,7 +27,7 @@ const getCSRFTokens = async (app) => {
 const loginUser = async (app) => {
   const { csrfToken, csrfCookie } = await getCSRFTokens(app);
   const user = await User.findOne({
-    where: { username: 'testuser' },
+    where: { username: 'testUser1' },
   });
   if (!user) {
     await User.signup(testUser);

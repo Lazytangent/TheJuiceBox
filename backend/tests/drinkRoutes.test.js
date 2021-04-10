@@ -6,7 +6,12 @@ const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-ut
 const { sequelize, User, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
+  let jwtCookie;
+  let tokens;
+
   beforeAll(async () => {
+    jwtCookie = await loginUser(app);
+    tokens = await getCSRFTokens(app);
     await sequelize.sync({ force: true, logging: false });
   });
 
@@ -63,14 +68,6 @@ describe("Drink routes", () => {
   });
 
   describe("POST /api/drinks", () => {
-    let jwtCookie;
-    let tokens;
-
-    beforeAll(async () => {
-      jwtCookie = await loginUser(app);
-      tokens = await getCSRFTokens(app);
-    });
-
     it("should exist", async () => {
       await request(app)
         .post('/api/drinks')
@@ -80,5 +77,35 @@ describe("Drink routes", () => {
         .send(fakeDrink1)
         .expect(200)
     });
+
+    it("should should accept return JSON", async () => {
+      await request(app)
+        .post('/api/drinks')
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send(fakeDrink1)
+        .expect(200)
+        .expect("Content-Type", /json/);
+    });
+
+    it("should return the drink that was created", async () => {
+      const res = await request(app)
+        .post('/api/drinks')
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send(fakeDrink1)
+        .expect(200)
+        .expect("Content-Type", /json/);
+
+      expect(res.body).toEqual(
+        expect.objectContaining({ drink: expect.objectContaining(fakeDrink1) })
+      );
+    })
   });
+
+  describe("PUT /api/drinks/:drinkId", () => {
+
+  })
 });
