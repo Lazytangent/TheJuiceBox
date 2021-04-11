@@ -1,8 +1,8 @@
 const request = require("supertest");
 
 const app = require("../app");
-const { testUser, testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
-const { sequelize, User, Drink } = require("../db/models");
+const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
+const { sequelize, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
   let jwtCookie;
