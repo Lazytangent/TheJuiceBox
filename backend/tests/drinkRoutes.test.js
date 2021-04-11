@@ -98,7 +98,6 @@ describe("Drink routes", () => {
     it("should return an error if there is no authenticated user", async () => {
       await request(app)
         .post('/api/drinks')
-        .set('XSRF-TOKEN', tokens.csrfToken)
         .send(fakeDrink1)
         .expect(403)
     });
@@ -148,6 +147,13 @@ describe("Drink routes", () => {
       expect(res.body).toEqual(
         expect.objectContaining({ drink: expect.objectContaining(updateDrink) })
       );
+    });
+
+    it("should return an error if there is no authenticated user", async () => {
+      await request(app)
+        .post(`/api/drinks/${drink.id}`)
+        .send(updateDrink)
+        .expect(403)
     });
   });
 });
