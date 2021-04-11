@@ -94,6 +94,14 @@ describe("Drink routes", () => {
         expect.objectContaining({ drink: expect.objectContaining(fakeDrink1) })
       );
     })
+
+    it("should return an error if there is no authenticated user", async () => {
+      await request(app)
+        .post('/api/drinks')
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .send(fakeDrink1)
+        .expect(403)
+    });
   });
 
   describe("PUT /api/drinks/:drinkId", () => {
