@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Venue.associate = function(models) {
-    Venue.belongsToMany(models.User, { through: 'CheckIns', foreignKey: 'venueId', otherKey: 'userId' });
-    Venue.belongsToMany(models.Drink, { through: 'VenuesDrinks', foreignKey: 'venueId', otherKey: 'drinkId' });
+    Venue.belongsToMany(models.User, { through: models.CheckIn, foreignKey: 'venueId', otherKey: 'userId' });
+    Venue.belongsToMany(models.Drink, { through: models.VenuesDrink, foreignKey: 'venueId', otherKey: 'drinkId' });
   };
   return Venue;
 };
