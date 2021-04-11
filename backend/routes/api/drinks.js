@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const { check } = require("express-validator");
 
 const reviewsRouter = require("./drinkReviews");
-const { restoreUser } = require("../../utils/auth");
+const { requireAuth } = require("../../utils/auth");
 const { handleValidationErrors } = require("../../utils/validation");
 const { User, Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
@@ -48,7 +48,7 @@ const validateDrink = [
 router.post(
   "/",
   singleMulterUpload("image"),
-  restoreUser,
+  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const { name, description } = req.body;
@@ -74,7 +74,7 @@ router.post(
 router.put(
   "/:drinkId(\\d+)",
   singleMulterUpload("image"),
-  restoreUser,
+  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const drinkId = req.params.drinkId;
@@ -100,6 +100,7 @@ router.put(
 
 router.delete(
   "/:drinkId(\\d+)",
+  requireAuth,
   asyncHandler(async (req, res) => {
     const drinkId = req.params.drinkId;
     const id = parseInt(drinkId, 10);
