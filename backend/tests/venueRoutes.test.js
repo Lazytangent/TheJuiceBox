@@ -8,7 +8,7 @@ describe("Venue routes", () => {
   let tokens;
 
   beforeAll(async () => {
-    await sequelize.sync({ force: true, logging: console.log });
+    await sequelize.sync({ force: true, logging: false });
     jwtCookie = await loginUser(app);
     tokens = await getCSRFTokens(app);
   });
