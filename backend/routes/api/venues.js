@@ -2,7 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const { check } = require('express-validator');
 
-const { restoreUser } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Venue, CheckIn } = require('../../db/models');
 
@@ -13,7 +13,7 @@ router.get('/', asyncHandler(async (_req, res) => {
   res.json({ venues });
 }));
 
-router.post('/:venueId(\\d+)/checkIn', restoreUser, asyncHandler(async (req, res) => {
+router.post('/:venueId(\\d+)/checkIn', requireAuth, asyncHandler(async (req, res) => {
   const id = parseInt(req.params.venueId, 10);
   const venue = await Venue.findByPk(id);
   const { user } = req;
