@@ -42,7 +42,6 @@ describe("Drink routes", () => {
     });
 
     it("should return all drinks in the database", async () => {
-      await User.create(testUser, testModelOptions());
       await Drink.create(fakeDrink1, testModelOptions());
       await Drink.create(fakeDrink2, testModelOptions());
 
