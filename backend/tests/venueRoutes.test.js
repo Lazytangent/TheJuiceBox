@@ -62,4 +62,26 @@ describe("Venue routes", () => {
       );
     });
   });
+
+  describe("POST /api/venues/:venueId/checkIn", () => {
+    it("should exist", async () => {
+
+    });
+
+    it("should return JSON", async () => {
+
+    });
+
+    it("should return the checkIn object that was created when good data is passed in", async () => {
+
+    });
+
+    it("should return an error when bad data gets passed in", async () => {
+
+    });
+
+    it("should return an error if there is no user authenticated", async () => {
+
+    });
+  });
 });
