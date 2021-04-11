@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const { testUser, testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
+const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
 const { sequelize, Venue } = require('../db/models');
 
 describe("Venue routes", () => {
@@ -8,9 +8,9 @@ describe("Venue routes", () => {
   let tokens;
 
   beforeAll(async () => {
+    await sequelize.sync({ force: true, logging: console.log });
     jwtCookie = await loginUser(app);
     tokens = await getCSRFTokens(app);
-    await sequelize.sync({ force: true, logging: false });
   });
 
   afterAll(async () => {

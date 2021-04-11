@@ -9,9 +9,9 @@ describe("Drink routes", () => {
   let tokens;
 
   beforeAll(async () => {
+    await sequelize.sync({ force: true, logging: false });
     jwtCookie = await loginUser(app);
     tokens = await getCSRFTokens(app);
-    await sequelize.sync({ force: true, logging: false });
   });
 
   afterAll(async () => {
