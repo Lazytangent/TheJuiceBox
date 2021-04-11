@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Drink.associate = function(models) {
-    Drink.belongsToMany(models.User, { through: 'DrinkReviews', foreignKey: 'drinkId', otherKey: 'userId' });
-    Drink.belongsToMany(models.Venue, { through: 'VenuesDrinks', foreignKey: 'drinkId', otherKey: 'venueId' });
+    Drink.belongsToMany(models.User, { through: models.DrinkReview, foreignKey: 'drinkId', otherKey: 'userId' });
+    Drink.belongsToMany(models.Venue, { through: models.VenuesDrink, foreignKey: 'drinkId', otherKey: 'venueId' });
     Drink.belongsTo(models.User, { as: 'Creator', foreignKey: 'creatorId' });
     Drink.hasMany(models.DrinkReview, { as: 'Reviews', foreignKey: 'drinkId' });
   };

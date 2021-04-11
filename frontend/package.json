@@ -42,7 +42,10 @@
     ]
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "fetch-mock": "^9.11.0",
+    "node-fetch": "^2.6.1",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.4"
   },
   "proxy": "http://localhost:5000"
 }

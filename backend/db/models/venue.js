@@ -8,17 +8,25 @@ module.exports = (sequelize, DataTypes) => {
         len: [4, 50],
       },
     },
-    location: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     imageUrl: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
+    city: {
+      type: DataTypes.STRING,
+    },
+    state: {
+      type: DataTypes.STRING,
+    },
+    lat: {
+      type: DataTypes.DECIMAL,
+    },
+    lng: {
+      type: DataTypes.DECIMAL,
+    }
   }, {});
   Venue.associate = function(models) {
-    Venue.belongsToMany(models.User, { through: 'CheckIns', foreignKey: 'venueId', otherKey: 'userId' });
-    Venue.belongsToMany(models.Drink, { through: 'VenuesDrinks', foreignKey: 'venueId', otherKey: 'drinkId' });
+    Venue.belongsToMany(models.User, { through: models.CheckIn, foreignKey: 'venueId', otherKey: 'userId' });
+    Venue.belongsToMany(models.Drink, { through: models.VenuesDrink, foreignKey: 'venueId', otherKey: 'drinkId' });
   };
   return Venue;
 };

@@ -4,11 +4,15 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import drinksReducer from './drinks';
 import usersReducer from './users';
+import venuesReducer from './venues';
+import checkInsReducer from './venueCheckIns';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   drinks: drinksReducer,
   users: usersReducer,
+  venues: venuesReducer,
+  checkIns: checkInsReducer,
 });
 
 let enhancer;
