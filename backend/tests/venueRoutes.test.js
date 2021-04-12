@@ -186,7 +186,7 @@ describe("Venue routes", () => {
 
     it("should exist", async () => {
       await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -195,7 +195,7 @@ describe("Venue routes", () => {
 
     it("should return JSON", async () => {
       await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -205,7 +205,7 @@ describe("Venue routes", () => {
 
     it("should return a message upon a successful deletion", async () => {
       const res = await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -219,7 +219,7 @@ describe("Venue routes", () => {
 
     it("should return an error message if no user authenticated", async () => {
       const res = await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .expect(403)
         .expect("Content-Type", /json/)
 
