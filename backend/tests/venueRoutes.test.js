@@ -121,7 +121,7 @@ describe("Venue routes", () => {
 
   describe("PUT /api/venues/:venueId/checkIns/:checkInId", () => {
     let checkIn;
-    beforeAll(() => {
+    beforeAll(async () => {
       checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp: new Date() });
     });
 
