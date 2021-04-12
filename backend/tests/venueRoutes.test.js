@@ -97,7 +97,7 @@ describe("Venue routes", () => {
         .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
-        expect.objectContaining({ userId: 1, venueId: 1, timestamp })
+        expect.objectContaining({ userId: 1, venueId: 1, timestamp: timestamp.toISOString() })
       );
     });
 
@@ -108,14 +108,14 @@ describe("Venue routes", () => {
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
         .send({ timestamp: new Date('2200-12-31') })
-        .expect(403)
+        .expect(400)
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .post('/api/venues/1/checkIns')
         .send({ timestamp: new Date() })
-        .expect(401)
+        .expect(403)
     });
   });
 

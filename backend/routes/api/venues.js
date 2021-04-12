@@ -40,12 +40,15 @@ router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandl
     venueId: venue.id,
     timestamp,
   });
-  // Not done yet...
-  res.json({ checkIn });
+
+  res.json(checkIn);
 }));
 
-router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
+router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, asyncHandler(async (req, res) => {
   // For updates and creations of reviews of venues
+  const checkInId = parseInt(req.params.checkInId, 10);
+
+  const checkIn = await CheckIn.findByPk(checkInId);
 }));
 
 router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
