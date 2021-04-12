@@ -224,7 +224,7 @@ describe("Venue routes", () => {
         .expect("Content-Type", /json/)
 
       expect(res.body).toEqual(expect.objectContaining({
-        message: "There was no user authenticated."
+        message: "invalid csrf token"
       }));
     });
   });
