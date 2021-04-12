@@ -63,7 +63,7 @@ describe("Venue routes", () => {
     });
   });
 
-  describe("POST /api/venues/:venueId/checkIn", () => {
+  describe("POST /api/venues/:venueId/checkIns", () => {
     it("should exist", async () => {
 
     });
@@ -81,6 +81,46 @@ describe("Venue routes", () => {
     });
 
     it("should return an error if there is no user authenticated", async () => {
+
+    });
+  });
+
+  describe("PUT /api/venues/:venueId/checkIns/:checkInId", () => {
+    it("should exist", async () => {
+
+    });
+
+    it("should return JSON", async () => {
+
+    });
+
+    it("should return the checkIn object that was created when good data is passed in", async () => {
+
+    });
+
+    it("should return an error when bad data gets passed in", async () => {
+
+    });
+
+    it("should return an error if there is no user authenticated", async () => {
+
+    });
+  });
+
+  describe("DELETE /api/venues/:venueId/checkIns/:checkInId", () => {
+    it("should exist", async () => {
+
+    });
+
+    it("should return JSON", async () => {
+
+    });
+
+    it("should return a message upon a successful deletion", async () => {
+
+    });
+
+    it("should return an error message if no user authenticated", async () => {
 
     });
   });
