@@ -147,15 +147,33 @@ describe("Venue routes", () => {
     });
 
     it("should return the checkIn object that was created when good data is passed in", async () => {
+      const res = await request(app)
+        .put(`/api/venues/1/checkIns/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send({ stars: 5 })
+        .expect(200)
+        .expect("Content-Type", /json/)
 
+      expect(res.body).toEqual(expect.objectContaining({ stars: 5 }));
     });
 
     it("should return an error when bad data gets passed in", async () => {
-
+      await request(app)
+        .put(`/api/venues/1/checkIns/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send({ stars: -1 })
+        .expect(403)
     });
 
     it("should return an error if there is no user authenticated", async () => {
-
+      await request(app)
+        .put(`/api/venues/1/checkIns/${checkIn.id}`)
+        .send({ stars: 2 })
+        .expect(401)
     });
   });
 
