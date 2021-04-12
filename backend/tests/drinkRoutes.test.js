@@ -151,7 +151,7 @@ describe("Drink routes", () => {
 
     it("should return an error if there is no authenticated user", async () => {
       await request(app)
-        .post(`/api/drinks/${drink.id}`)
+        .put(`/api/drinks/${drink.id}`)
         .send(updateDrink)
         .expect(403)
     });

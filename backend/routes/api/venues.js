@@ -13,7 +13,7 @@ router.get('/', asyncHandler(async (_req, res) => {
   res.json({ venues });
 }));
 
-router.post('/:venueId(\\d+)/checkIn', requireAuth, asyncHandler(async (req, res) => {
+router.post('/:venueId(\\d+)/checkIns', requireAuth, asyncHandler(async (req, res) => {
   const id = parseInt(req.params.venueId, 10);
   const venue = await Venue.findByPk(id);
   const { user } = req;
@@ -26,11 +26,11 @@ router.post('/:venueId(\\d+)/checkIn', requireAuth, asyncHandler(async (req, res
   res.json({ venue });
 }));
 
-router.put('/:venueId(\\d+)/checkIn/:checkInId(\\d+)', asyncHandler(async (req, res) => {
+router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
   // For updates and creations of reviews of venues
 }));
 
-router.delete('/:venueId(\\d+)/checkIn/:checkInId(\\d+)', asyncHandler(async (req, res) => {
+router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
   // For removing a review of a venue
 }));
 
