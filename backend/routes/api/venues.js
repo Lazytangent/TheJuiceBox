@@ -13,17 +13,35 @@ router.get('/', asyncHandler(async (_req, res) => {
   res.json({ venues });
 }));
 
-router.post('/:venueId(\\d+)/checkIns', requireAuth, asyncHandler(async (req, res) => {
+const validateCheckIn = [
+  check("timestamp")
+    .exists({ checkFalse: true })
+    .notEmpty()
+    .withMessage("Please provide a timestamp.")
+    .isISO8601()
+    .custom((value) => {
+      const valueDate = new Date(value);
+      const currentDate = new Date();
+      if (currentDate - valueDate < 0) return false;
+      return true;
+    })
+    .withMessage("Timestamp for checkin must be in the past or the current timestamp."),
+  handleValidationErrors,
+];
+
+router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandler(async (req, res) => {
   const id = parseInt(req.params.venueId, 10);
   const venue = await Venue.findByPk(id);
   const { user } = req;
+  const { timestamp } = req.body;
 
   const checkIn = await CheckIn.create({
     userId: user.id,
     venueId: venue.id,
+    timestamp,
   });
   // Not done yet...
-  res.json({ venue });
+  res.json({ checkIn });
 }));
 
 router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
