@@ -25,7 +25,6 @@ describe("Venue routes", () => {
     tokens = await getCSRFTokens(app);
     await Venue.create(fakeVenue1, testModelOptions());
     await Venue.create(fakeVenue2, testModelOptions());
-
   });
 
   afterAll(async () => {
@@ -121,8 +120,9 @@ describe("Venue routes", () => {
 
   describe("PUT /api/venues/:venueId/checkIns/:checkInId", () => {
     let checkIn;
+    const timestamp = new Date();
     beforeAll(async () => {
-      checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp: new Date() });
+      checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp });
     });
 
     it("should exist", async () => {
@@ -131,7 +131,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 4 })
+        .send({ stars: 4, timestamp })
         .expect(200)
     });
 
@@ -141,7 +141,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 4 })
+        .send({ stars: 4, timestamp })
         .expect(200)
         .expect("Content-Type", /json/)
     });
@@ -152,7 +152,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 5 })
+        .send({ stars: 5, timestamp })
         .expect(200)
         .expect("Content-Type", /json/)
 
@@ -165,14 +165,14 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: -1 })
+        .send({ stars: -1, timestamp })
         .expect(400)
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .put(`/api/venues/1/checkIns/${checkIn.id}`)
-        .send({ stars: 2 })
+        .send({ stars: 2, timestamp })
         .expect(403)
     });
   });

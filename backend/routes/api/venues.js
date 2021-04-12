@@ -44,11 +44,25 @@ router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandl
   res.json(checkIn);
 }));
 
-router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, asyncHandler(async (req, res) => {
+const validateStars = [
+  check("stars")
+    .custom((value) => {
+      if (value < 0 || value > 5) return false;
+      return true;
+    })
+    .withMessage("Please provide number for stars between 0 and 5."),
+  handleValidationErrors,
+];
+
+router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, validateStars, asyncHandler(async (req, res) => {
   // For updates and creations of reviews of venues
   const checkInId = parseInt(req.params.checkInId, 10);
 
   const checkIn = await CheckIn.findByPk(checkInId);
+  const { timestamp, review, stars, liked } = req.body;
+  await checkIn.update({ timestamp, review, liked, stars });
+
+  res.json(checkIn);
 }));
 
 router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
