@@ -178,20 +178,54 @@ describe("Venue routes", () => {
   });
 
   describe("DELETE /api/venues/:venueId/checkIns/:checkInId", () => {
-    it("should exist", async () => {
+    let checkIn;
 
+    beforeEach(() => {
+      checkIn = await CheckIn.create({ venueId: 1, userId: 1, timestamp: new Date() });
+    });
+
+    it("should exist", async () => {
+      await request(app)
+        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .expect(200)
     });
 
     it("should return JSON", async () => {
-
+      await request(app)
+        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect("Content-Type", /json/)
     });
 
     it("should return a message upon a successful deletion", async () => {
+      const res = await request(app)
+        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .expect(200)
+        .expect("Content-Type", /json/)
 
+      expect(res.body).toEqual(expect.objectContaining({
+        message: "Successfully deleted."
+      }));
     });
 
     it("should return an error message if no user authenticated", async () => {
+      const res = await request(app)
+        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .expect(401)
+        .expect("Content-Type", /json/)
 
+      expect(res.body).toEqual(expect.objectContaining({
+        message: "There was no user authenticated."
+      }));
     });
   });
 });
