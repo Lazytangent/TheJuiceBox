@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
-const { sequelize, Venue } = require('../db/models');
+const { sequelize, Venue, CheckIn } = require('../db/models');
 
 describe("Venue routes", () => {
   let jwtCookie;
@@ -120,12 +120,30 @@ describe("Venue routes", () => {
   });
 
   describe("PUT /api/venues/:venueId/checkIns/:checkInId", () => {
-    it("should exist", async () => {
+    let checkIn;
+    beforeAll(() => {
+      checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp: new Date() });
+    });
 
+    it("should exist", async () => {
+      await request(app)
+        .put(`/api/venues/1/checkIns/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send({ stars: 4 })
+        .expect(200)
     });
 
     it("should return JSON", async () => {
-
+      await request(app)
+        .put(`/api/venues/1/checkIns/${checkIn.id}`)
+        .set('XSRF-TOKEN', tokens.csrfToken)
+        .set('Cookie', [tokens.csrfCookie, jwtCookie])
+        .set('Accept', 'application/json')
+        .send({ stars: 4 })
+        .expect(200)
+        .expect("Content-Type", /json/)
     });
 
     it("should return the checkIn object that was created when good data is passed in", async () => {
