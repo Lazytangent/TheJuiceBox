@@ -55,7 +55,6 @@ const validateStars = [
 ];
 
 router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, validateStars, asyncHandler(async (req, res) => {
-  // For updates and creations of reviews of venues
   const checkInId = parseInt(req.params.checkInId, 10);
 
   const checkIn = await CheckIn.findByPk(checkInId);
@@ -65,8 +64,17 @@ router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateChe
   res.json(checkIn);
 }));
 
-router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', asyncHandler(async (req, res) => {
-  // For removing a review of a venue
+router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, asyncHandler(async (req, res) => {
+  const checkInId = parseInt(req.params.checkInId, 10);
+
+  const checkIn = await CheckIn.findByPk(checkInId);
+  const { user } = req;
+
+  if (checkIn.userId !== user.id) res.json({ message: "Invalid user." });
+  else {
+    await checkIn.destroy();
+    res.json({ message: "Successfully deleted." });
+  }
 }));
 
 module.exports = router;
