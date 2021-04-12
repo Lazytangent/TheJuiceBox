@@ -25,7 +25,6 @@ describe("Venue routes", () => {
     tokens = await getCSRFTokens(app);
     await Venue.create(fakeVenue1, testModelOptions());
     await Venue.create(fakeVenue2, testModelOptions());
-
   });
 
   afterAll(async () => {
@@ -97,7 +96,7 @@ describe("Venue routes", () => {
         .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
-        expect.objectContaining({ userId: 1, venueId: 1, timestamp })
+        expect.objectContaining({ userId: 1, venueId: 1, timestamp: timestamp.toISOString() })
       );
     });
 
@@ -108,21 +107,22 @@ describe("Venue routes", () => {
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
         .send({ timestamp: new Date('2200-12-31') })
-        .expect(403)
+        .expect(400)
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .post('/api/venues/1/checkIns')
         .send({ timestamp: new Date() })
-        .expect(401)
+        .expect(403)
     });
   });
 
   describe("PUT /api/venues/:venueId/checkIns/:checkInId", () => {
     let checkIn;
+    const timestamp = new Date();
     beforeAll(async () => {
-      checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp: new Date() });
+      checkIn = await CheckIn.create({ userId: 1, venueId: 1, timestamp });
     });
 
     it("should exist", async () => {
@@ -131,7 +131,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 4 })
+        .send({ stars: 4, timestamp })
         .expect(200)
     });
 
@@ -141,7 +141,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 4 })
+        .send({ stars: 4, timestamp })
         .expect(200)
         .expect("Content-Type", /json/)
     });
@@ -152,7 +152,7 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: 5 })
+        .send({ stars: 5, timestamp })
         .expect(200)
         .expect("Content-Type", /json/)
 
@@ -165,15 +165,15 @@ describe("Venue routes", () => {
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
-        .send({ stars: -1 })
-        .expect(403)
+        .send({ stars: -1, timestamp })
+        .expect(400)
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .put(`/api/venues/1/checkIns/${checkIn.id}`)
-        .send({ stars: 2 })
-        .expect(401)
+        .send({ stars: 2, timestamp })
+        .expect(403)
     });
   });
 
@@ -186,7 +186,7 @@ describe("Venue routes", () => {
 
     it("should exist", async () => {
       await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -195,7 +195,7 @@ describe("Venue routes", () => {
 
     it("should return JSON", async () => {
       await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -205,7 +205,7 @@ describe("Venue routes", () => {
 
     it("should return a message upon a successful deletion", async () => {
       const res = await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
         .set('XSRF-TOKEN', tokens.csrfToken)
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
@@ -219,12 +219,12 @@ describe("Venue routes", () => {
 
     it("should return an error message if no user authenticated", async () => {
       const res = await request(app)
-        .delete(`/api/venues/1/checkIn/${checkIn.id}`)
-        .expect(401)
+        .delete(`/api/venues/1/checkIns/${checkIn.id}`)
+        .expect(403)
         .expect("Content-Type", /json/)
 
       expect(res.body).toEqual(expect.objectContaining({
-        message: "There was no user authenticated."
+        message: "invalid csrf token"
       }));
     });
   });
