@@ -166,14 +166,14 @@ describe("Venue routes", () => {
         .set('Cookie', [tokens.csrfCookie, jwtCookie])
         .set('Accept', 'application/json')
         .send({ stars: -1 })
-        .expect(403)
+        .expect(400)
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .put(`/api/venues/1/checkIns/${checkIn.id}`)
         .send({ stars: 2 })
-        .expect(401)
+        .expect(403)
     });
   });
 
@@ -220,7 +220,7 @@ describe("Venue routes", () => {
     it("should return an error message if no user authenticated", async () => {
       const res = await request(app)
         .delete(`/api/venues/1/checkIn/${checkIn.id}`)
-        .expect(401)
+        .expect(403)
         .expect("Content-Type", /json/)
 
       expect(res.body).toEqual(expect.objectContaining({
