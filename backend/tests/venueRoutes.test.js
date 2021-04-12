@@ -180,7 +180,7 @@ describe("Venue routes", () => {
   describe("DELETE /api/venues/:venueId/checkIns/:checkInId", () => {
     let checkIn;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       checkIn = await CheckIn.create({ venueId: 1, userId: 1, timestamp: new Date() });
     });
 
