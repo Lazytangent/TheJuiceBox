@@ -24,3 +24,24 @@ const drinks = [
 const SET_DRINKS = 'drinks/SET_DRINKS';
 const SET_DRINK = 'drinks/SET_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
+
+describe("getDrinks()", () => {
+  beforeEach(() => {
+    fetchMock.getOnce('/api/drinks', {
+      body: drinks,
+      headers: { "Content-Type": "application/json" },
+    });
+  });
+
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
+  test("should call GET /api/drinks at least once", () => {
+    const store = mockStore({ drinks: {} });
+    store.dispatch(drinkActions.getDrinks()).then(() => {
+      const result = fetchMock.called("/api/drinks");
+      expect(result).toBe(true);
+    });
+  });
+});
