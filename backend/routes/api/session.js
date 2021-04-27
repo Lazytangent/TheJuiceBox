@@ -17,17 +17,6 @@ router.get('/', restoreUser, (req, res) => {
   } else return res.json({});
 });
 
-const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors,
-];
-
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
   const { credential, password } = req.body;
 
