@@ -50,6 +50,8 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "setupFiles": ["dotenv/config"]
+    "setupFiles": [
+      "dotenv/config"
+    ]
   }
 }
