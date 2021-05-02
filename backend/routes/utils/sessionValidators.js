@@ -1,3 +1,5 @@
+const { check } = require('express-validator');
+
 const { handleValidationErrors } = require('../../utils/validation');
 
 const validateLogin = [
@@ -10,3 +12,7 @@ const validateLogin = [
     .withMessage('Please provide a password.'),
   handleValidationErrors,
 ];
+
+module.exports = {
+  validateLogin,
+};

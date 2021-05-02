@@ -1,12 +1,9 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validation');
+const { validateLogin } = require('../utils/sessionValidators');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
-
-const router = express.Router();
 
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
@@ -42,7 +39,7 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' });
 });
 
-router.post('/demo', asyncHandler(async (req, res, _next) => {
+router.post('/demo', asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
 
   const user = await User.login({ credential, password });
@@ -52,6 +49,6 @@ router.post('/demo', asyncHandler(async (req, res, _next) => {
   return res.json({
     user: user.toSafeObject(),
   });
-}))
+}));
 
 module.exports = router;
