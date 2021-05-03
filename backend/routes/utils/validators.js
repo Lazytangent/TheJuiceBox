@@ -49,7 +49,19 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
+const validateDrink = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Please provide a name for your drink."),
+  check("description")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a description."),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateLogin,
   validateSignup,
+  validateDrink,
 };

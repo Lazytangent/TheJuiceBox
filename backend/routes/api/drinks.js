@@ -1,14 +1,11 @@
-const express = require("express");
+const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
-const { check } = require("express-validator");
 
 const reviewsRouter = require("./drinkReviews");
+const { validateDrink } = require('../utils/validators');
 const { requireAuth } = require("../../utils/auth");
-const { handleValidationErrors } = require("../../utils/validation");
 const { User, Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
-
-const router = express.Router();
 
 router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
 
@@ -33,17 +30,6 @@ router.get(
     res.json({ drinks });
   })
 );
-
-const validateDrink = [
-  check("name")
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Please provide a name for your drink."),
-  check("description")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a description."),
-  handleValidationErrors,
-];
 
 router.post(
   "/",

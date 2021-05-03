@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
-const { validateSignup } = require('../utils/sessionValidators.js');
+const { validateSignup } = require('../utils/validators.js');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Drink, DrinkReview } = require('../../db/models');
 
