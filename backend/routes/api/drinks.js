@@ -49,8 +49,7 @@ router.put(
   requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
-    const drinkId = req.params.drinkId;
-    const id = parseInt(drinkId, 10);
+    const id = parseInt(req.params.drinkId, 10);
     const { name, description } = req.body;
     let imageUrl = null;
     if (req.file) {
@@ -77,15 +76,6 @@ router.delete(
     const drinkId = req.params.drinkId;
     const id = parseInt(drinkId, 10);
     const drink = await Drink.findByPk(id);
-    // const reviews = await DrinkReview.findAll({
-    //   where: {
-    //     drinkId: id,
-    //   },
-    // });
-
-    // for (let review of reviews) {
-    //   await review.destroy();
-    // }
     await drink.destroy();
 
     return res.json({ message: "success" });
