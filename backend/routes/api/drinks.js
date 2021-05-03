@@ -77,15 +77,15 @@ router.delete(
     const drinkId = req.params.drinkId;
     const id = parseInt(drinkId, 10);
     const drink = await Drink.findByPk(id);
-    const reviews = await DrinkReview.findAll({
-      where: {
-        drinkId: id,
-      },
-    });
+    // const reviews = await DrinkReview.findAll({
+    //   where: {
+    //     drinkId: id,
+    //   },
+    // });
 
-    for (let review of reviews) {
-      await review.destroy();
-    }
+    // for (let review of reviews) {
+    //   await review.destroy();
+    // }
     await drink.destroy();
 
     return res.json({ message: "success" });

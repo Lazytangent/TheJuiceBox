@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     Drink.belongsToMany(models.User, { through: models.DrinkReview, foreignKey: 'drinkId', otherKey: 'userId' });
     Drink.belongsToMany(models.Venue, { through: models.VenuesDrink, foreignKey: 'drinkId', otherKey: 'venueId' });
     Drink.belongsTo(models.User, { as: 'Creator', foreignKey: 'creatorId' });
-    Drink.hasMany(models.DrinkReview, { as: 'Reviews', foreignKey: 'drinkId' });
+    Drink.hasMany(models.DrinkReview, { as: 'Reviews', foreignKey: 'drinkId', onDelete: 'cascade', hooks: true });
   };
   Drink.findAllWithStuff = function() {
     const { DrinkReview, User } = require('./');
