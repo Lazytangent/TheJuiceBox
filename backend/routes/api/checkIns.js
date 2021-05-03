@@ -8,11 +8,7 @@ const { Venue, CheckIn } = require('../../db/models');
 
 router.get('/', restoreUser, asyncHandler(async (req, res) => {
   const { user } = req;
-  const checkIns = await CheckIn.findAll({
-    where: {
-      userId: user.id,
-    }
-  });
+  const checkIns = await CheckIn.findByUserId(user.id);
   res.json({ checkIns });
 }));
 

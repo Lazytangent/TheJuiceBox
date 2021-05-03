@@ -32,7 +32,6 @@ router.delete('/:reviewId(\\d+)', asyncHandler(async (req, res) => {
   const reviewId = req.params.reviewId;
   const id = parseInt(reviewId, 10);
   const review = await DrinkReview.findByPk(id);
-
   await review.destroy();
 
   return res.json({ message: 'success' });

@@ -38,5 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     CheckIn.belongsTo(models.User, { foreignKey: 'userId' });
     CheckIn.belongsTo(models.Venue, { foreignKey: 'venueId' });
   };
+  CheckIn.findByUserId = function(userId) {
+    return CheckIn.findAll({
+      where: { userId },
+    });
+  };
   return CheckIn;
 };
