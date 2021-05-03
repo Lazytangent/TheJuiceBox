@@ -47,9 +47,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  Drink.flattenDrinks = function(drinks) {
-    return { ...Object.fromEntries(drinks.map((drink) => [drink.id, drink])) };
-  };
-
   return Drink;
 };
