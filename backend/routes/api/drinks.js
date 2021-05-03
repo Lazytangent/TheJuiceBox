@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const reviewsRouter = require("./drinkReviews");
 const { validateDrink } = require('../utils/validators');
 const { requireAuth } = require("../../utils/auth");
-const { User, Drink, DrinkReview } = require("../../db/models");
+const { Drink } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
