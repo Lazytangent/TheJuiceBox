@@ -35,5 +35,14 @@ module.exports = (sequelize, DataTypes) => {
     Drink.belongsTo(models.User, { as: 'Creator', foreignKey: 'creatorId' });
     Drink.hasMany(models.DrinkReview, { as: 'Reviews', foreignKey: 'drinkId' });
   };
+  Drink.findAllWithStuff = function() {
+    const { DrinkReview, User } = require('./');
+    return Drink.findAll({
+      include: [
+        { model: DrinkReview, as: 'Reviews', include: User },
+        { model: User, as: 'Creator' },
+      ],
+    });
+  };
   return Drink;
 };

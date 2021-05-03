@@ -12,21 +12,7 @@ router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
 router.get(
   "/",
   asyncHandler(async (_req, res) => {
-    const drinks = await Drink.findAll({
-      include: [
-        {
-          model: DrinkReview,
-          as: "Reviews",
-          include: {
-            model: User,
-          },
-        },
-        {
-          model: User,
-          as: "Creator",
-        },
-      ],
-    });
+    const drinks = await Drink.findAllWithStuff();
     res.json({ drinks });
   })
 );
