@@ -16,7 +16,6 @@ router.get('/', restoreUser, (req, res) => {
 
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
   const { credential, password } = req.body;
-
   const user = await User.login({ credential, password });
 
   if (!user) {
@@ -28,7 +27,6 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
   }
 
   await setTokenCookie(res, user);
-
   return res.json({
     user: user.toSafeObject(),
   });
@@ -41,11 +39,9 @@ router.delete('/', (_req, res) => {
 
 router.post('/demo', asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
-
   const user = await User.login({ credential, password });
 
   await setTokenCookie(res, user);
-
   return res.json({
     user: user.toSafeObject(),
   });
