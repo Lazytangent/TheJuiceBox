@@ -1,33 +1,14 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
+const { validateCheckIn, validateStars } = require('../utils/validators');
 const { requireAuth } = require('../../utils/auth');
-const { handleValidationErrors } = require('../../utils/validation');
 const { Venue, CheckIn } = require('../../db/models');
-
-const router = express.Router();
 
 router.get('/', asyncHandler(async (_req, res) => {
   const venues = await Venue.findAll();
   res.json({ venues });
 }));
-
-const validateCheckIn = [
-  check("timestamp")
-    .exists({ checkFalse: true })
-    .notEmpty()
-    .withMessage("Please provide a timestamp.")
-    .isISO8601()
-    .custom((value) => {
-      const valueDate = new Date(value);
-      const currentDate = new Date();
-      if (currentDate - valueDate < 0) return false;
-      return true;
-    })
-    .withMessage("Timestamp for checkin must be in the past or the current timestamp."),
-  handleValidationErrors,
-];
 
 router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandler(async (req, res) => {
   const id = parseInt(req.params.venueId, 10);
@@ -43,16 +24,6 @@ router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandl
 
   res.json(checkIn);
 }));
-
-const validateStars = [
-  check("stars")
-    .custom((value) => {
-      if (value < 0 || value > 5) return false;
-      return true;
-    })
-    .withMessage("Please provide number for stars between 0 and 5."),
-  handleValidationErrors,
-];
 
 router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, validateStars, asyncHandler(async (req, res) => {
   const checkInId = parseInt(req.params.checkInId, 10);

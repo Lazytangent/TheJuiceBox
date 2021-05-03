@@ -1,23 +1,8 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validation');
+const { validateReview } = require('../utils/validators');
 const { DrinkReview } = require('../../db/models');
-
-const router = express.Router();
-
-const validateReview = [
-  check('review')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a review message.'),
-  check('rating')
-    .exists({ checkFalsy: false })
-    .notEmpty()
-    .withMessage('Please provide a value for the rating between 0 and 5, inclusive.'),
-  handleValidationErrors,
-];
 
 router.post('/', validateReview, asyncHandler(async (req, res) => {
   const { userId, drinkId, review, rating } = req.body;

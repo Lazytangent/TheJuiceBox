@@ -60,8 +60,49 @@ const validateDrink = [
   handleValidationErrors,
 ];
 
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage('Please provide a review message.'),
+  check('rating')
+    .exists({ checkFalsy: false })
+    .notEmpty()
+    .withMessage('Please provide a value for the rating between 0 and 5, inclusive.'),
+  handleValidationErrors,
+];
+
+const validateCheckIn = [
+  check("timestamp")
+    .exists({ checkFalse: true })
+    .notEmpty()
+    .withMessage("Please provide a timestamp.")
+    .isISO8601()
+    .custom((value) => {
+      const valueDate = new Date(value);
+      const currentDate = new Date();
+      if (currentDate - valueDate < 0) return false;
+      return true;
+    })
+    .withMessage("Timestamp for checkin must be in the past or the current timestamp."),
+  handleValidationErrors,
+];
+
+const validateStars = [
+  check("stars")
+    .custom((value) => {
+      if (value < 0 || value > 5) return false;
+      return true;
+    })
+    .withMessage("Please provide number for stars between 0 and 5."),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateLogin,
   validateSignup,
   validateDrink,
+  validateReview,
+  validateCheckIn,
+  validateStars,
 };
