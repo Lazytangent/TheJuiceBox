@@ -1,20 +1,12 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { restoreUser } = require('../../utils/auth');
-const { handleValidationErrors } = require('../../utils/validation');
-const { Venue, CheckIn } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
+const { CheckIn } = require('../../db/models');
 
-const router = express.Router();
-
-router.get('/', restoreUser, asyncHandler(async (req, res) => {
+router.get('/', requireAuth, asyncHandler(async (req, res) => {
   const { user } = req;
-  const checkIns = await CheckIn.findAll({
-    where: {
-      userId: user.id,
-    }
-  });
+  const checkIns = await CheckIn.findByUserId(user.id);
   res.json({ checkIns });
 }));
 

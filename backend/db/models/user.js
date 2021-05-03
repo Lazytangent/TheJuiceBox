@@ -100,6 +100,15 @@ module.exports = (sequelize, DataTypes) => {
     });
     return await User.scope('currentUser').findByPk(user.id);
   };
+  User.findUserWithStuff = function(id) {
+    const { Drink, DrinkReview } = require('./');
+    return User.findByPk(id, {
+      include: [
+        { model: Drink },
+        { model: DrinkReview, include: [ User, Drink ] },
+      ],
+    });
+  };
   User.associate = function(models) {
     User.belongsToMany(models.Drink, { through: models.DrinkReview, foreignKey: 'userId', otherKey: 'drinkId' });
     User.belongsToMany(models.Venue, { through: { model: models.CheckIn, unique: false }, foreignKey: 'userId', otherKey: 'venueId' });
