@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const reviewsRouter = require("./drinkReviews");
 const { validateDrink } = require('../utils/validators');
+const flattener = require('../utils/flattener');
 const { requireAuth } = require("../../utils/auth");
 const { Drink } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
@@ -13,7 +14,7 @@ router.get(
   "/",
   asyncHandler(async (_req, res) => {
     const drinks = await Drink.findAllWithStuff();
-    res.json({ drinks });
+    res.json(flattener(drinks));
   })
 );
 
@@ -37,9 +38,7 @@ router.post(
       creatorId: user.id,
     });
 
-    return res.json({
-      drink,
-    });
+    return res.json(drink);
   })
 );
 

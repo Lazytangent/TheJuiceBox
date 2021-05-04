@@ -4,31 +4,25 @@ const SET_DRINKS = 'drinks/SET_DRINKS';
 const CREATE_DRINK = 'drinks/CREATE_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
-const setDrinks = (drinks) => {
-  return {
-    type: SET_DRINKS,
-    drinks,
-  };
-};
+const setDrinks = (drinks) => ({
+  type: SET_DRINKS,
+  drinks,
+});
 
-const createDrink = (drink) => {
-  return {
-    type: CREATE_DRINK,
-    drink,
-  };
-};
+const createDrink = (drink) => ({
+  type: CREATE_DRINK,
+  drink,
+});
 
-const removeDrink = (id) => {
-  return {
-    type: REMOVE_DRINK,
-    id,
-  };
-};
+const removeDrink = (id) => ({
+  type: REMOVE_DRINK,
+  id,
+});
 
 export const getDrinks = () => async (dispatch) => {
   const response = await csrfFetch('/api/drinks');
   if (response.ok) {
-    dispatch(setDrinks(response.data.drinks));
+    dispatch(setDrinks(response.data));
   }
   return response;
 };
@@ -143,11 +137,7 @@ const initialState = {};
 const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DRINKS:
-      const drinks = action.drinks.reduce((acc, ele) => {
-        acc[ele.id] = ele;
-        return acc;
-      }, {});
-      return { ...state, ...drinks };
+      return { ...state, ...action.drinks };
     case CREATE_DRINK:
       return { ...state, [action.drink.id]: action.drink };
     case REMOVE_DRINK:
