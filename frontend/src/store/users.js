@@ -1,4 +1,4 @@
-import { fetch } from './csrf';
+import { csrfFetch } from './csrf';
 
 const SET_USER = 'users/SET_USER';
 
@@ -11,7 +11,7 @@ const setUser = (user) => {
 
 export const getUser = (id) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/users/${id}`);
+    const response = await csrfFetch(`/api/users/${id}`);
     dispatch(setUser(response.data.user));
     return response;
   } catch (err) {
