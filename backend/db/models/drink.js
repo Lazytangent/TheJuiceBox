@@ -41,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
     const { DrinkReview, User } = require('./');
     return Drink.findAll({
       include: [
-        { model: DrinkReview, as: 'Reviews', include: User },
         { model: User, as: 'Creator' },
       ],
     });

@@ -1,20 +1,32 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
-const { validateCheckIn, validateStars } = require('../utils/validators');
+const flattener = require('../utils/flattener');
+const { validateCheckIn } = require('../utils/validators');
 const { requireAuth } = require('../../utils/auth');
 const { Venue, CheckIn } = require('../../db/models');
+const checkInsRouter = require('./checkIns');
+
+router.use('/checkIns', checkInsRouter);
 
 router.get('/', asyncHandler(async (_req, res) => {
   const venues = await Venue.findAll();
-  res.json({ venues });
+  res.json(flattener(venues));
 }));
 
-router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandler(async (req, res) => {
+router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandler(async (req, res, next) => {
   const id = parseInt(req.params.venueId, 10);
   const venue = await Venue.findByPk(id);
   const { user } = req;
   const { timestamp } = req.body;
+
+  if (!venue) {
+    const err = new Error('Invalid Venue.');
+    err.status = 400;
+    err.title = 'Invalid Venue.';
+    err.errors = ['The provided venue does not exist.'];
+    return next(err);
+  }
 
   const checkIn = await CheckIn.create({
     userId: user.id,
@@ -23,29 +35,6 @@ router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandl
   });
 
   res.json(checkIn);
-}));
-
-router.put('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, validateCheckIn, validateStars, asyncHandler(async (req, res) => {
-  const checkInId = parseInt(req.params.checkInId, 10);
-
-  const checkIn = await CheckIn.findByPk(checkInId);
-  const { timestamp, review, stars, liked } = req.body;
-  await checkIn.update({ timestamp, review, liked, stars });
-
-  res.json(checkIn);
-}));
-
-router.delete('/:venueId(\\d+)/checkIns/:checkInId(\\d+)', requireAuth, asyncHandler(async (req, res) => {
-  const checkInId = parseInt(req.params.checkInId, 10);
-
-  const checkIn = await CheckIn.findByPk(checkInId);
-  const { user } = req;
-
-  if (checkIn.userId !== user.id) res.json({ message: "Invalid user." });
-  else {
-    await checkIn.destroy();
-    res.json({ message: "Successfully deleted." });
-  }
 }));
 
 module.exports = router;

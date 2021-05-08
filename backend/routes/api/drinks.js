@@ -2,25 +2,41 @@ const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
 
 const reviewsRouter = require("./drinkReviews");
-const { validateDrink } = require('../utils/validators');
+const { validateDrink, validateDrinkReview } = require('../utils/validators');
+const flattener = require('../utils/flattener');
 const { requireAuth } = require("../../utils/auth");
-const { Drink } = require("../../db/models");
+const { User, Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
-router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
+router.use(requireAuth);
+router.use('/reviews', reviewsRouter);
 
 router.get(
   "/",
   asyncHandler(async (_req, res) => {
     const drinks = await Drink.findAllWithStuff();
-    res.json({ drinks });
+    res.json(flattener(drinks));
   })
 );
+
+router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+  const drinkId = parseInt(req.params.drinkId, 10);
+  const drink = await Drink.findByPk(drinkId, {
+    include: { model: User, as: 'Creator' },
+  });
+  if (!drink) {
+    const err = new Error('Invalid drink.');
+    err.status = 400;
+    err.title = 'Invalid drink.';
+    err.errors = [`The drink with the id of ${drinkId} does not exist.`];
+    return next(err);
+  }
+  res.json(drink);
+}));
 
 router.post(
   "/",
   singleMulterUpload("image"),
-  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const { name, description } = req.body;
@@ -37,16 +53,13 @@ router.post(
       creatorId: user.id,
     });
 
-    return res.json({
-      drink,
-    });
+    return res.json(drink);
   })
 );
 
 router.put(
   "/:drinkId(\\d+)",
   singleMulterUpload("image"),
-  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.drinkId, 10);
@@ -63,15 +76,12 @@ router.put(
       imageUrl: imageUrl || drink.imageUrl,
     });
 
-    res.json({
-      drink,
-    });
+    res.json(drink);
   })
 );
 
 router.delete(
   "/:drinkId(\\d+)",
-  requireAuth,
   asyncHandler(async (req, res) => {
     const drinkId = req.params.drinkId;
     const id = parseInt(drinkId, 10);
@@ -84,9 +94,17 @@ router.delete(
 
 router.post(
   "/newDrinks",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const { drinks } = req.body;
     const drinkArr = [];
+
+    if (!drinks) {
+      const err = new Error('Invalid search query.');
+      err.status = 400;
+      err.title = 'Invalid search query.';
+      err.errors = ['Search query provided was unable to generate any new drinks.'];
+      return next(err);
+    }
 
     for (const drink of drinks) {
       if (!drink.strDrink.includes("Quick")) {
@@ -99,10 +117,26 @@ router.post(
         drinkArr.push(newDrink);
       }
     }
-    return res.json({
-      drinks: drinkArr,
-    });
+    return res.json(flattener(drinkArr));
   })
 );
+
+router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
+  const drinkId = parseInt(req.params.drinkId, 10);
+  const reviews = await DrinkReview.findAll({
+    where: {
+      drinkId,
+    },
+    include: User,
+  });
+  res.json(flattener(reviews));
+}));
+
+router.post('/:drinkId(\\d+)/reviews', validateDrinkReview, asyncHandler(async (req, res) => {
+  const { userId, drinkId, review, rating } = req.body;
+  const { id } = await DrinkReview.create({ userId, drinkId, review, stars: rating });
+  const reviewObj = await DrinkReview.findByPk(id, { include: User });
+  res.json(reviewObj);
+}));
 
 module.exports = router;

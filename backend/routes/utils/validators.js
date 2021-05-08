@@ -60,7 +60,7 @@ const validateDrink = [
   handleValidationErrors,
 ];
 
-const validateReview = [
+const validateDrinkReview = [
   check('review')
     .exists({ checkFalsy: true })
     .notEmpty()
@@ -102,7 +102,7 @@ module.exports = {
   validateLogin,
   validateSignup,
   validateDrink,
-  validateReview,
+  validateDrinkReview,
   validateCheckIn,
   validateStars,
 };

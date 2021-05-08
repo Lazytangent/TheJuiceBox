@@ -1,31 +1,20 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
-const { validateReview } = require('../utils/validators');
-const { DrinkReview } = require('../../db/models');
+const { validateDrinkReview } = require('../utils/validators');
+const { DrinkReview, User } = require('../../db/models');
 
-router.post('/', validateReview, asyncHandler(async (req, res) => {
-  const { userId, drinkId, review, rating } = req.body;
-  const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
-  res.json({
-    review: reviewObj,
-  });
-}));
-
-router.put('/:reviewId(\\d+)', validateReview, asyncHandler(async (req, res) => {
-  const reviewId = req.params.reviewId;
-  const id = parseInt(reviewId, 10);
+router.put('/:reviewId(\\d+)', validateDrinkReview, asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.reviewId, 10);
   const { review, rating } = req.body;
 
-  const reviewObj = await DrinkReview.findByPk(id);
+  const reviewObj = await DrinkReview.findByPk(id, { include: User });
   await reviewObj.update({
     review,
     stars: rating,
   });
 
-  res.json({
-    review,
-  });
+  res.json(reviewObj);
 }));
 
 router.delete('/:reviewId(\\d+)', asyncHandler(async (req, res) => {

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
 import drinksReducer from './drinks';
+import drinkReviewsReducer from './drinkReviews';
 import usersReducer from './users';
 import venuesReducer from './venues';
 import checkInsReducer from './venueCheckIns';
@@ -10,6 +11,7 @@ import checkInsReducer from './venueCheckIns';
 const rootReducer = combineReducers({
   session: sessionReducer,
   drinks: drinksReducer,
+  drinkReviews: drinkReviewsReducer,
   users: usersReducer,
   venues: venuesReducer,
   checkIns: checkInsReducer,

@@ -8,10 +8,8 @@ const { User } = require('../../db/models');
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
-    return res.json({
-      user: user.toSafeObject()
-    });
-  } else return res.json({});
+    return res.json(user.toSafeObject());
+  } else return res.json(null);
 });
 
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
@@ -26,10 +24,8 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  await setTokenCookie(res, user);
-  return res.json({
-    user: user.toSafeObject(),
-  });
+  setTokenCookie(res, user);
+  return res.json(user.toSafeObject());
 }));
 
 router.delete('/', (_req, res) => {
@@ -41,10 +37,8 @@ router.post('/demo', asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
   const user = await User.login({ credential, password });
 
-  await setTokenCookie(res, user);
-  return res.json({
-    user: user.toSafeObject(),
-  });
+  setTokenCookie(res, user);
+  return res.json(user.toSafeObject());
 }));
 
 module.exports = router;

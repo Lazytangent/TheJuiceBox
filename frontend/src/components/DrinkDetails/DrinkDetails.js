@@ -7,13 +7,15 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import EditModal from './EditModal';
 import DrinkReview from '../DrinkReview';
 import DrinkReviewModal from '../DrinkReviewForm';
-import { getDrinks } from "../../store/drinks";
+import { getDrinkById } from "../../store/drinks";
+import { getReviews } from '../../store/drinkReviews';
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
   const drink = useSelector((state) => state.drinks[drinkId]);
   const user = useSelector((state) => state.session.user);
+  const drinkReviews = useSelector((state) => Object.values(state.drinkReviews));
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -21,8 +23,9 @@ const DrinkDetails = () => {
   const [showDrinkReview, setShowDrinkReview] = useState(false);
 
   useEffect(() => {
-    dispatch(getDrinks());
-  }, [dispatch]);
+    dispatch(getDrinkById(drinkId));
+    dispatch(getReviews(drinkId));
+  }, [dispatch, drinkId]);
 
   useEffect(() => {
     if (drink && user) setIsLoaded(true);
@@ -66,7 +69,7 @@ const DrinkDetails = () => {
       <hr className="tw-border-white" />
       <div className="tw-p-2">
         <h2 className="tw-text-center tw-text-2xl">Reviews</h2>
-        {drink && drink.Reviews && drink.Reviews.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
+        {drinkReviews?.map(review => <DrinkReview userId={user.id} drinkId={drink.id} key={review.id} reviewObj={review} />)}
       </div>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
