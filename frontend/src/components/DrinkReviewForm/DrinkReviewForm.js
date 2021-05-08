@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
-import { writeReview } from "../../store/drinks";
+import { writeReview } from "../../store/drinkReviews";
 
 const DrinkReviewForm = ({ setShowDrinkReview, userId, drinkId }) => {
   const dispatch = useDispatch();

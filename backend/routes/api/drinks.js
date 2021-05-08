@@ -21,7 +21,9 @@ router.get(
 
 router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
   const drinkId = parseInt(req.params.drinkId, 10);
-  const drink = await Drink.findByPk(drinkId);
+  const drink = await Drink.findByPk(drinkId, {
+    include: { model: User, as: 'Creator' },
+  });
   if (!drink) {
     const err = new Error('Invalid drink.');
     err.status = 400;
@@ -124,7 +126,8 @@ router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
 
 router.post('/:drinkId(\\d+)/reviews', validateDrinkReview, asyncHandler(async (req, res) => {
   const { userId, drinkId, review, rating } = req.body;
-  const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
+  const { id } = await DrinkReview.create({ userId, drinkId, review, stars: rating });
+  const reviewObj = await DrinkReview.findByPk(id, { include: User });
   res.json(reviewObj);
 }));
 

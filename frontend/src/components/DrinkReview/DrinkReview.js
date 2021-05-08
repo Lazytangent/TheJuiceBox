@@ -25,7 +25,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   const submitClickHandler = async (e) => {
     e.preventDefault();
-    const response = await dispatch(updateReview({ userId, drinkId, review, rating, reviewId: reviewObj.id }));
+    const response = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
     if (response.data.errors && response.data.errors.length) {
       setErrors([]);
       setErrors((prev) => [...prev, ...response.data.errors]);

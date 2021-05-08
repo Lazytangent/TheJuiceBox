@@ -90,25 +90,11 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
 };
 
 export const deleteDrink = (id) => async (dispatch) => {
-  await dispatch(removeDrink(id));
   try {
     const response = await csrfFetch(`/api/drinks/${id}`, {
       method: 'DELETE',
     });
-    return response;
-  } catch (err) {
-    return err;
-  }
-};
-
-export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
-      method: 'POST',
-      body: JSON.stringify({ userId, drinkId, review, rating }),
-    });
-
-    dispatch(getDrinks());
+    await dispatch(removeDrink(id));
     return response;
   } catch (err) {
     return err;

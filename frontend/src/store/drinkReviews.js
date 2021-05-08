@@ -24,12 +24,27 @@ export const getReviews = (drinkId) => async (dispatch) => {
   dispatch(setReviews(res.data));
 };
 
+export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
+      method: 'POST',
+      body: JSON.stringify({ userId, drinkId, review, rating }),
+    });
+
+    dispatch(setReview(response.data));
+    return response;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const updateReview = (review) => async (dispatch) => {
   const res = await csrfFetch(`/api/drinks/reviews/${review.id}`, {
     method: "PUT",
     body: JSON.stringify(review),
   });
   dispatch(setReview(res.data));
+  return res;
 };
 
 export const deleteReview = (id) => async (dispatch) => {
