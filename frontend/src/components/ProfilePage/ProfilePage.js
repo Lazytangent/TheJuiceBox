@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
 import { getUser } from "../../store/users";
@@ -7,31 +7,26 @@ import Drink from '../Drinks/Drink';
 import DrinkReview from '../DrinkReview';
 
 const ProfilePage = () => {
-  const dispatch = useDispatch();
   const { userId } = useParams();
-
-  const [profile, setProfile] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.users[userId]);
 
   useEffect(() => {
-    dispatch(getUser(userId))
-      .then((res) => setProfile(res.data.user))
-      .then(() => setIsLoaded(true))
-      .catch((err) => console.error(err));
+    dispatch(getUser(userId));
   }, [dispatch, userId]);
 
-  if (!isLoaded) return null;
+  if (!user) return null;
 
   return (
     <div>
       <div className="tw-min-h-screen tw-mx-auto">
-        <h1 className="tw-text-white tw-text-4xl tw-p-4 tw-font-semibold tw-text-center">{profile.username}</h1>
-        {profile.Drinks.length > 0 && (
+        <h1 className="tw-text-white tw-text-4xl tw-p-4 tw-font-semibold tw-text-center">{user.username}</h1>
+        {user.Drinks.length > 0 && (
           <>
             <hr className="tw-border-white" />
-            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">Drinks by {profile.username}</h3>
+            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">Drinks by {user.username}</h3>
             <ul>
-              {profile.Drinks.map((drink) => (
+              {user.Drinks.map((drink) => (
                 <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
                   <Drink drink={drink} />
                 </div>
@@ -39,12 +34,12 @@ const ProfilePage = () => {
             </ul>
           </>
         )}
-        {profile.DrinkReviews.length > 0 && (
+        {user.DrinkReviews.length > 0 && (
           <>
             <hr className="tw-border-white" />
-            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">{profile.username}'s Reviews of Drinks</h3>
+            <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">{user.username}'s Reviews of Drinks</h3>
             <ul>
-              {profile.DrinkReviews.map((review) => (
+              {user.DrinkReviews.map((review) => (
                 <Link key={review.id} to={`/drinks/${review.drinkId}`}>
                   <DrinkReview userId={userId} drinkId={review.drinkId} key={review.id} reviewObj={review} />
                 </Link>

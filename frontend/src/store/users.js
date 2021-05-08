@@ -24,7 +24,7 @@ const initialState = {};
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return action.user;
+      return { ...state, [action.user.id]: action.user };
     default:
       return state;
   }
