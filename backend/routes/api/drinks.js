@@ -105,7 +105,6 @@ router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
       drinkId,
     },
   });
-  console.log(reviews);
   res.json(flattener(reviews));
 }));
 
