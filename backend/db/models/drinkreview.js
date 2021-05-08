@@ -1,6 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const DrinkReview = sequelize.define('DrinkReview', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

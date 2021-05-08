@@ -2,14 +2,13 @@ const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
 
 const reviewsRouter = require("./drinkReviews");
-const { validateDrink } = require('../utils/validators');
+const { validateDrink, validateDrinkReview } = require('../utils/validators');
 const flattener = require('../utils/flattener');
 const { requireAuth } = require("../../utils/auth");
-const { Drink } = require("../../db/models");
+const { Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 router.use(requireAuth);
-router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
 router.use('/reviews', reviewsRouter);
 
 router.get(
@@ -98,5 +97,22 @@ router.post(
     return res.json(flattener(drinkArr));
   })
 );
+
+router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
+  const drinkId = parseInt(req.params.drinkId, 10);
+  const reviews = await DrinkReview.findAll({
+    where: {
+      drinkId,
+    },
+  });
+  console.log(reviews);
+  res.json(flattener(reviews));
+}));
+
+router.post('/:drinkId(\\d+)/reviews', validateDrinkReview, asyncHandler(async (req, res) => {
+  const { userId, drinkId, review, rating } = req.body;
+  const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
+  res.json(reviewObj);
+}));
 
 module.exports = router;
