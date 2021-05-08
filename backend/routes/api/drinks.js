@@ -94,9 +94,17 @@ router.delete(
 
 router.post(
   "/newDrinks",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req, res, next) => {
     const { drinks } = req.body;
     const drinkArr = [];
+
+    if (!drinks) {
+      const err = new Error('Invalid search query.');
+      err.status = 400;
+      err.title = 'Invalid search query.';
+      err.errors = ['Search query provided was unable to generate any new drinks.'];
+      return next(err);
+    }
 
     for (const drink of drinks) {
       if (!drink.strDrink.includes("Quick")) {
