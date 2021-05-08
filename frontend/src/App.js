@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
+import styles from './App.module.css';
 import Navigation from './components/Navigation';
 import Drinks from './components/Drinks';
 import LandingPage from './components/LandingPage';
@@ -20,11 +21,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="md:tw-grid tw-grid-rows-layout">
-      <div className="tw-row-span-1">
+    <div className={styles.mainDiv}>
+      <div className={styles.navDiv}>
         <Navigation isLoaded={isLoaded} />
       </div>
-      <div className="tw-row-span-1">
+      <div className={styles.routesDiv}>
         <Switch>
           <Route exact path="/">
             <LandingPage />
@@ -46,7 +47,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <div className="tw-row-span-1">
+      <div className={styles.footerDiv}>
         <Footer />
       </div>
     </div>

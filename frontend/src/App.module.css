@@ -1,0 +1,18 @@
+@media screen and (min-width: 768px) {
+  .mainDiv {
+    display: grid;
+    grid-template-rows: auto minmax(90vh, 1fr) auto;
+  }
+}
+
+.navDiv {
+  grid-row: 1;
+}
+
+.routesDiv {
+  grid-row: 2;
+}
+
+.footerDiv {
+  grid-row: 3;
+}
