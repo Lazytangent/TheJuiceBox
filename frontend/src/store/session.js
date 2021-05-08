@@ -3,18 +3,14 @@ import { csrfFetch } from './csrf';
 const SET_SESSION = 'session/SET_SESSION';
 const REMOVE_SESSION = 'session/REMOVE_SESSION';
 
-const setSession = (user) => {
-  return {
-    type: SET_SESSION,
-    user,
-  };
-};
+const setSession = (user) => ({
+  type: SET_SESSION,
+  user,
+});
 
-const removeSession = () => {
-  return {
-    type: REMOVE_SESSION,
-  };
-};
+const removeSession = () => ({
+  type: REMOVE_SESSION,
+});
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
@@ -26,7 +22,7 @@ export const login = (user) => async (dispatch) => {
         password,
       }),
     });
-    dispatch(setSession(response.data.user));
+    dispatch(setSession(response.data));
     return response;
   } catch (err) {
     return err;
@@ -36,7 +32,7 @@ export const login = (user) => async (dispatch) => {
 export const restoreUser = () => async (dispatch) => {
   try {
     const response = await csrfFetch('/api/session');
-    dispatch(setSession(response.data.user));
+    dispatch(setSession(response.data));
     return response;
   } catch (err) {
     return err;
@@ -49,7 +45,7 @@ export const registerUser = (user) => async (dispatch) => {
       method: 'POST',
       body: JSON.stringify(user),
     });
-    dispatch(setSession(response.data.user));
+    dispatch(setSession(response.data));
     return response;
   } catch (err) {
     return err;
@@ -74,7 +70,7 @@ export const demoLogin = () => async (dispatch) => {
       method: 'POST',
       body: JSON.stringify({ credential: 'Demo-Dave', password: 'password' }),
     });
-    dispatch(setSession(response.data.user));
+    dispatch(setSession(response.data));
     return response;
   } catch (err) {
     return err;

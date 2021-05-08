@@ -25,7 +25,7 @@ export const getReviews = (drinkId) => async (dispatch) => {
 };
 
 export const updateReview = (review) => async (dispatch) => {
-  const res = await csrfFetch(`/api/drink/reviews/${review.id}`, {
+  const res = await csrfFetch(`/api/drinks/reviews/${review.id}`, {
     method: "PUT",
     body: JSON.stringify(review),
   });
@@ -33,7 +33,7 @@ export const updateReview = (review) => async (dispatch) => {
 };
 
 export const deleteReview = (id) => async (dispatch) => {
-  await csrfFetch(`/api/drink/reviews/${id}`, {
+  await csrfFetch(`/api/drinks/reviews/${id}`, {
     method: "DELETE",
   });
   dispatch(removeReview(id));

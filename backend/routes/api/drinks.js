@@ -10,6 +10,7 @@ const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 router.use(requireAuth);
 router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
+router.use('/reviews', reviewsRouter);
 
 router.get(
   "/",
