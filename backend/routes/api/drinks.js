@@ -5,7 +5,7 @@ const reviewsRouter = require("./drinkReviews");
 const { validateDrink, validateDrinkReview } = require('../utils/validators');
 const flattener = require('../utils/flattener');
 const { requireAuth } = require("../../utils/auth");
-const { Drink, DrinkReview } = require("../../db/models");
+const { User, Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 router.use(requireAuth);
@@ -18,6 +18,19 @@ router.get(
     res.json(flattener(drinks));
   })
 );
+
+router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+  const drinkId = parseInt(req.params.drinkId, 10);
+  const drink = await Drink.findByPk(drinkId);
+  if (!drink) {
+    const err = new Error('Invalid drink.');
+    err.status = 400;
+    err.title = 'Invalid drink.';
+    err.errors = [`The drink with the id of ${drinkId} does not exist.`];
+    return next(err);
+  }
+  res.json(drink);
+}));
 
 router.post(
   "/",
@@ -104,6 +117,7 @@ router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
     where: {
       drinkId,
     },
+    include: User,
   });
   res.json(flattener(reviews));
 }));

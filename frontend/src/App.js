@@ -18,7 +18,6 @@ function App() {
 
   useEffect(() => {
     dispatch(restoreUser()).then(() => setIsLoaded(true));
-    dispatch(getDrinks());
   }, [dispatch]);
 
   return (

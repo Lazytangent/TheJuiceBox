@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const SET_DRINKS = 'drinks/SET_DRINKS';
-const CREATE_DRINK = 'drinks/CREATE_DRINK';
+const SET_DRINK = 'drinks/SET_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
 const setDrinks = (drinks) => ({
@@ -9,8 +9,8 @@ const setDrinks = (drinks) => ({
   drinks,
 });
 
-const createDrink = (drink) => ({
-  type: CREATE_DRINK,
+const setDrink = (drink) => ({
+  type: SET_DRINK,
   drink,
 });
 
@@ -27,6 +27,14 @@ export const getDrinks = () => async (dispatch) => {
   return response;
 };
 
+export const getDrinkById = (drinkId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/drinks/${drinkId}`);
+  if (response.ok) {
+    dispatch(setDrink(response.data));
+  }
+  return response;
+};
+
 export const grabDrinks = (query) => async (dispatch) => {
   const response = await csrfFetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
   const drinks = response.data.drinks;
@@ -35,7 +43,6 @@ export const grabDrinks = (query) => async (dispatch) => {
     body: JSON.stringify({ drinks }),
   });
   dispatch(setDrinks(res.data));
-  // dispatch(getDrinks());
 };
 
 export const mixDrink = (drink) => async (dispatch) => {
@@ -53,7 +60,7 @@ export const mixDrink = (drink) => async (dispatch) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(createDrink(response.data.drink));
+    dispatch(setDrink(response.data.drink));
     return response;
   } catch (err) {
     return err;
@@ -75,7 +82,7 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
       },
     });
 
-    dispatch(createDrink(response.data.drink));
+    dispatch(setDrink(response.data.drink));
     return response;
   } catch (err) {
     return err;
@@ -114,7 +121,7 @@ const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DRINKS:
       return { ...state, ...action.drinks };
-    case CREATE_DRINK:
+    case SET_DRINK:
       return { ...state, [action.drink.id]: action.drink };
     case REMOVE_DRINK:
       const newState = { ...state };

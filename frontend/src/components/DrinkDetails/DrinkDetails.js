@@ -7,7 +7,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import EditModal from './EditModal';
 import DrinkReview from '../DrinkReview';
 import DrinkReviewModal from '../DrinkReviewForm';
-import { getDrinks } from "../../store/drinks";
+import { getDrinkById } from "../../store/drinks";
 import { getReviews } from '../../store/drinkReviews';
 
 const DrinkDetails = () => {
@@ -15,7 +15,7 @@ const DrinkDetails = () => {
   const { drinkId } = useParams();
   const drink = useSelector((state) => state.drinks[drinkId]);
   const user = useSelector((state) => state.session.user);
-  const drinkReviews = useSelector((state) => state.drinkReviews);
+  const drinkReviews = useSelector((state) => Object.values(state.drinkReviews));
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -23,7 +23,7 @@ const DrinkDetails = () => {
   const [showDrinkReview, setShowDrinkReview] = useState(false);
 
   useEffect(() => {
-    dispatch(getDrinks());
+    dispatch(getDrinkById(drinkId));
     dispatch(getReviews(drinkId));
   }, [dispatch, drinkId]);
 

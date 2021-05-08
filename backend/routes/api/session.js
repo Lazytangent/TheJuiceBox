@@ -9,7 +9,7 @@ router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
     return res.json(user.toSafeObject());
-  } else return res.json({});
+  } else return res.json(null);
 });
 
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
