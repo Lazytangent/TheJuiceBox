@@ -1,11 +1,13 @@
 import { csrfFetch } from './csrf';
 
-const SET_USER = 'users/SET_USER';
+export const SET_USER = 'users/SET_USER';
 
-const setUser = (user) => {
+const setUser = ({ user, drinks, reviews }) => {
   return {
     type: SET_USER,
     user,
+    drinks,
+    reviews,
   };
 };
 

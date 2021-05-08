@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { SET_USER } from './users';
 
 const SET_DRINKS = 'drinks/SET_DRINKS';
 const SET_DRINK = 'drinks/SET_DRINK';
@@ -105,6 +106,8 @@ const initialState = {};
 
 const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_USER:
+      return { ...action.drinks };
     case SET_DRINKS:
       return { ...state, ...action.drinks };
     case SET_DRINK:
