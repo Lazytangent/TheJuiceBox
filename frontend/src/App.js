@@ -10,7 +10,6 @@ import Footer from './components/Footer';
 import ProfilePage from './components/ProfilePage';
 import SearchPage from './components/SearchPage';
 import { restoreUser } from './store/session';
-import { getDrinks } from './store/drinks';
 
 function App() {
   const dispatch = useDispatch();
