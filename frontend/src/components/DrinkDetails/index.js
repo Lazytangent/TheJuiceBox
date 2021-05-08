@@ -1,3 +1,1 @@
-import DrinkDetails from './DrinkDetails';
-
-export default DrinkDetails;
+export { default } from './DrinkDetails';
