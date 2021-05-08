@@ -7,9 +7,7 @@ const { DrinkReview } = require('../../db/models');
 router.post('/', validateReview, asyncHandler(async (req, res) => {
   const { userId, drinkId, review, rating } = req.body;
   const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
-  res.json({
-    review: reviewObj,
-  });
+  res.json(reviewObj);
 }));
 
 router.put('/:reviewId(\\d+)', validateReview, asyncHandler(async (req, res) => {
@@ -23,9 +21,7 @@ router.put('/:reviewId(\\d+)', validateReview, asyncHandler(async (req, res) => 
     stars: rating,
   });
 
-  res.json({
-    review,
-  });
+  res.json(review);
 }));
 
 router.delete('/:reviewId(\\d+)', asyncHandler(async (req, res) => {

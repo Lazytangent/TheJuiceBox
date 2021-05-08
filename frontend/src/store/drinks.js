@@ -30,11 +30,12 @@ export const getDrinks = () => async (dispatch) => {
 export const grabDrinks = (query) => async (dispatch) => {
   const response = await csrfFetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
   const drinks = response.data.drinks;
-  await csrfFetch('/api/drinks/newDrinks', {
+  const res = await csrfFetch('/api/drinks/newDrinks', {
     method: 'POST',
     body: JSON.stringify({ drinks }),
   });
-  dispatch(getDrinks());
+  dispatch(setDrinks(res.data));
+  // dispatch(getDrinks());
 };
 
 export const mixDrink = (drink) => async (dispatch) => {
