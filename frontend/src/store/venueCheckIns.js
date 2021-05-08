@@ -13,8 +13,8 @@ const setCheckIns = (checkIns) => ({
   checkIns,
 });
 
-export const getCheckIns = async (dispatch) => {
-  const res = await csrfFetch('/api/checkIns');
+export const getUsersCheckIns = async (dispatch) => {
+  const res = await csrfFetch('/api/users/checkIns');
   dispatch(setCheckIns(res.data));
   return res.data;
 };
@@ -30,7 +30,7 @@ const initialState = {};
 const checkInsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CHECK_INS:
-      return { ...Object.fromEntries(action.checkIns.map((checkIn) => [checkIn.id, checkIn])) };
+      return { ...state, ...action.checkIns };
     case SET_CHECK_IN:
       return { ...state, [action.checkIn.id]: action.checkIn };
     default:

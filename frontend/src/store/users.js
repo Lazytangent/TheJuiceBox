@@ -12,7 +12,7 @@ const setUser = (user) => {
 export const getUser = (id) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/users/${id}`);
-    dispatch(setUser(response.data.user));
+    dispatch(setUser(response.data));
     return response;
   } catch (err) {
     return err;
