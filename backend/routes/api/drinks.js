@@ -5,9 +5,10 @@ const reviewsRouter = require("./drinkReviews");
 const { validateDrink } = require('../utils/validators');
 const flattener = require('../utils/flattener');
 const { requireAuth } = require("../../utils/auth");
-const { Drink, DrinkReview } = require("../../db/models");
+const { Drink } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
+router.use(requireAuth);
 router.use("/:drinkId(\\d+)/reviews", reviewsRouter);
 
 router.get(
@@ -21,7 +22,6 @@ router.get(
 router.post(
   "/",
   singleMulterUpload("image"),
-  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const { name, description } = req.body;
@@ -45,7 +45,6 @@ router.post(
 router.put(
   "/:drinkId(\\d+)",
   singleMulterUpload("image"),
-  requireAuth,
   validateDrink,
   asyncHandler(async (req, res) => {
     const id = parseInt(req.params.drinkId, 10);
@@ -68,7 +67,6 @@ router.put(
 
 router.delete(
   "/:drinkId(\\d+)",
-  requireAuth,
   asyncHandler(async (req, res) => {
     const drinkId = req.params.drinkId;
     const id = parseInt(drinkId, 10);
@@ -99,15 +97,5 @@ router.post(
     return res.json(flattener(drinkArr));
   })
 );
-
-router.get('/:drinkId(\\d+)/reviews', requireAuth, asyncHandler(async (req, res) => {
-  const drinkId = parseInt(req.params.drinkId, 10);
-  const reviews = await DrinkReview.findAll({
-    where: {
-      drinkId,
-    },
-  });
-  res.json(flattener(reviews));
-}));
 
 module.exports = router;

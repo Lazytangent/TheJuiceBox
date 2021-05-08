@@ -1,8 +1,19 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
+const flattener = require('../utils/flattener');
 const { validateReview } = require('../utils/validators');
 const { DrinkReview } = require('../../db/models');
+
+router.get('', asyncHandler(async (req, res) => {
+  const drinkId = parseInt(req.params.drinkId, 10);
+  const reviews = await DrinkReview.findAll({
+    where: {
+      drinkId,
+    },
+  });
+  res.json(flattener(reviews));
+}));
 
 router.post('/', validateReview, asyncHandler(async (req, res) => {
   const { userId, drinkId, review, rating } = req.body;
