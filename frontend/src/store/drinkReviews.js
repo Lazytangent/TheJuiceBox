@@ -42,7 +42,15 @@ export const deleteReview = (id) => async (dispatch) => {
 const initialState = {};
 
 const drinkReviewsReducer = (state = initialState, action) => {
+  const newState = { ...state };
   switch (action.type) {
+    case SET_REVIEWS:
+      return { ...state, ...action.reviews };
+    case SET_REVIEW:
+      return { ...state, [action.review.id]: action.review };
+    case REMOVE_REVIEW:
+      delete newState[action.id];
+      return newState;
     default:
       return state;
   }

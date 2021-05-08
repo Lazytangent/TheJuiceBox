@@ -107,31 +107,6 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
   }
 };
 
-export const updateReview = ({ userId, drinkId, reviewId, review, rating }) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ userId, drinkId, review, rating }),
-    });
-    dispatch(getDrinks());
-    return response;
-  } catch (err) {
-    return err;
-  }
-}
-
-export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-      method: 'DELETE',
-    });
-    dispatch(getDrinks());
-    return response;
-  } catch (err) {
-    return err;
-  }
-};
-
 const initialState = {};
 
 const drinksReducer = (state = initialState, action) => {
