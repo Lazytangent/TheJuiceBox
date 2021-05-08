@@ -28,7 +28,7 @@ const ProfilePage = () => {
             <hr className="tw-border-white" />
             <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">Drinks by {user.username}</h3>
             <ul>
-              {drinks.map((drink) => (
+              {drinks?.map((drink) => (
                 <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
                   <Drink drink={drink} />
                 </div>
@@ -41,7 +41,7 @@ const ProfilePage = () => {
             <hr className="tw-border-white" />
             <h3 className="tw-text-xl tw-text-white tw-text-center tw-p-2">{user.username}'s Reviews of Drinks</h3>
             <ul>
-              {reviews.map((review) => (
+              {reviews?.map((review) => (
                 <Link key={review.id} to={`/drinks/${review.drinkId}`}>
                   <DrinkReview userId={userId} drinkId={review.drinkId} key={review.id} reviewObj={review} />
                 </Link>
