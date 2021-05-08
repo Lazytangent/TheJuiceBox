@@ -24,7 +24,7 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  await setTokenCookie(res, user);
+  setTokenCookie(res, user);
   return res.json(user.toSafeObject());
 }));
 
@@ -37,7 +37,7 @@ router.post('/demo', asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
   const user = await User.login({ credential, password });
 
-  await setTokenCookie(res, user);
+  setTokenCookie(res, user);
   return res.json(user.toSafeObject());
 }));
 
