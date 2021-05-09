@@ -2,7 +2,7 @@ import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
 import { SET_DRINK } from './drinks';
 
-export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews.map((reviewId) => state.drinkReviews.byIds[reviewId]);
+export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
 
 const SET_REVIEWS = 'drinkReviews/SET_REVIEWS';
 const SET_REVIEW = 'drinkReviews/SET_REVIEW';

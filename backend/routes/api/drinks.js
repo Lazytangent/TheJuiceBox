@@ -54,8 +54,9 @@ router.post(
       imageUrl,
       creatorId: user.id,
     });
+    drink.dataValues.Reviews = [];
 
-    return res.json(drink);
+    return res.json({ drink, reviews: {} });
   })
 );
 
@@ -71,14 +72,15 @@ router.put(
       imageUrl = await singlePublicFileUpload(req.file);
     }
 
-    const drink = await Drink.findByPk(id);
+    const drink = await Drink.findWithIds(id);
     await drink.update({
       name,
       description,
       imageUrl: imageUrl || drink.imageUrl,
     });
+    console.log(drink);
 
-    res.json(drink);
+    res.json({ drink, reviews: {} });
   })
 );
 

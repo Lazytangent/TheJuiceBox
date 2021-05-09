@@ -25,7 +25,6 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
     setIsLoaded(false);
     const response = await dispatch(updateDrink({ id: drink.id, name, description, image }));
     if (response.data && response.data.errors) setErrors(response.data.errors);
-    else dispatch(getDrinks());
   };
 
   const deleteClickHandler = () => {

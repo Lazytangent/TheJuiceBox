@@ -64,7 +64,7 @@ export const mixDrink = (drink) => async (dispatch) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(setDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -85,7 +85,7 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(setDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -110,14 +110,19 @@ const initialState = {
 };
 
 const drinksReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_USER:
     case SET_DRINKS:
-      return { ...state, byIds: { ...action.drinks }, allIds: Object.keys(action.drinks), };
+      newState = { ...state, byIds: { ...action.drinks }, };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_DRINK:
-      return { ...state, byIds: { ...state.byIds, [action.drink.id]: action.drink }, allIds: [ ...state.allIds, action.drink.id ] };
+      newState = { ...state, byIds: { ...state.byIds, [action.drink.id]: action.drink } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case REMOVE_DRINK:
-      const newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => id !== action.id) };
+      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => parseInt(id, 10) !== action.id) };
       delete newState.byIds[action.id];
       return newState;
     default:

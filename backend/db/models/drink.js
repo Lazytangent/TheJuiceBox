@@ -46,5 +46,13 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Drink.findWithIds = async function(drinkId) {
+    const { DrinkReview } = require('./');
+    const drink = await Drink.findByPk(drinkId);
+    const reviews = await DrinkReview.findAll({ where: { drinkId } });
+    drink.dataValues.Reviews = reviews.map((review) => review.id);
+    return drink;
+  };
+
   return Drink;
 };
