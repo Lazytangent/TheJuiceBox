@@ -1,6 +1,8 @@
 import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
 
+export const allDrinksSelector = () => (state) => state.drinks.allIds.map((id) => state.drinks.byIds[id]);
+
 export const SET_DRINK = 'drinks/SET_DRINK';
 const SET_DRINKS = 'drinks/SET_DRINKS';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';

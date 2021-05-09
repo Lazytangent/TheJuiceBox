@@ -2,6 +2,8 @@ import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
 import { SET_DRINK } from './drinks';
 
+export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews.map((reviewId) => state.drinkReviews.byIds[reviewId]);
+
 const SET_REVIEWS = 'drinkReviews/SET_REVIEWS';
 const SET_REVIEW = 'drinkReviews/SET_REVIEW';
 const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
@@ -56,19 +58,27 @@ export const deleteReview = (id) => async (dispatch) => {
   dispatch(removeReview(id));
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const drinkReviewsReducer = (state = initialState, action) => {
-  const newState = { ...state };
+  let newState = { ...state };
   switch (action.type) {
     case SET_USER:
     case SET_REVIEWS:
     case SET_DRINK:
-      return { ...state, ...action.reviews };
+      newState = { ...state, byIds: { ...state.byIds, ...action.reviews } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_REVIEW:
-      return { ...state, [action.review.id]: action.review };
+      newState = { ...state, byIds: { ...state.byIds, [action.review.id]: action.review } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case REMOVE_REVIEW:
-      delete newState[action.id];
+      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => id !== action.id) };
+      delete newState.byIds[action.id];
       return newState;
     default:
       return state;

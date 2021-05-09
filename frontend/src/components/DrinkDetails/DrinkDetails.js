@@ -8,14 +8,15 @@ import EditModal from './EditModal';
 import DrinkReview from '../DrinkReview';
 import DrinkReviewModal from '../DrinkReviewForm';
 import { getDrinkById } from "../../store/drinks";
-import { getReviews } from '../../store/drinkReviews';
+import { drinkReviewsSelector } from '../../store/drinkReviews';
+// import { getReviews } from '../../store/drinkReviews';
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
-  const drink = useSelector((state) => state.drinks[drinkId]);
+  const drink = useSelector((state) => state.drinks.byIds[drinkId]);
   const user = useSelector((state) => state.session.user);
-  const drinkReviews = useSelector((state) => Object.values(state.drinkReviews));
+  const drinkReviews = useSelector(drinkReviewsSelector(drinkId));
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -24,7 +25,7 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinkById(drinkId));
-    dispatch(getReviews(drinkId));
+    // dispatch(getReviews(drinkId));
   }, [dispatch, drinkId]);
 
   useEffect(() => {
