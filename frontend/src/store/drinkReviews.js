@@ -61,9 +61,8 @@ const drinkReviewsReducer = (state = initialState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case SET_USER:
-      return { ...action.reviews };
     case SET_REVIEWS:
-      return { ...action.reviews };
+      return { ...state, ...action.reviews };
     case SET_REVIEW:
       return { ...state, [action.review.id]: action.review };
     case REMOVE_REVIEW:

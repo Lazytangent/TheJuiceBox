@@ -106,7 +106,6 @@ const initialState = {};
 const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return { ...action.drinks };
     case SET_DRINKS:
       return { ...state, ...action.drinks };
     case SET_DRINK:
