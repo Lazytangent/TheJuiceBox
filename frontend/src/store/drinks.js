@@ -82,7 +82,6 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
         'Content-Type': 'multipart/form-data',
       },
     });
-
     dispatch(setDrink(response.data.drink));
     return response;
   } catch (err) {

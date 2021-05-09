@@ -104,8 +104,8 @@ module.exports = (sequelize, DataTypes) => {
     const { Drink, DrinkReview } = require('./');
     return User.findByPk(id, {
       include: [
-        { model: Drink },
-        { model: DrinkReview, include: [ User, Drink ] },
+        { model: Drink, attributes: ['id'] },
+        { model: DrinkReview, attributes: ['id'] },
       ],
     });
   };

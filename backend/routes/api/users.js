@@ -19,6 +19,8 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const user = await User.findByPk(userId);
   const drinks = await Drink.findAll({ where: { creatorId: userId } });
   const reviews = await DrinkReview.findAll({ where: { userId }, include: User });
+  user.Drinks = drinks.map((drink) => drink.id);
+  user.DrinkReviews = reviews.map((review) => review.id);
 
   res.json({ user, drinks, reviews });
 }));
