@@ -1,3 +1,16 @@
+/**
+  * Express router providing user related routes.
+  * @module routes/api/users
+  * @requires express
+  * @requires express-async-handler
+  */
+
+/**
+  * Express router to mount user related functions on.
+  * @type {object}
+  * @const
+  * @namespace usersRouter
+  */
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
@@ -6,6 +19,15 @@ const { validateSignup } = require('../utils/validators.js');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, CheckIn, Drink, DrinkReview } = require('../../db/models');
 
+/**
+  * Route handling user signup.
+  * @name POST /api/users
+  * @function
+  * @memberof module:routes/api/users~usersRouter
+  * @inner
+  * @param {string} path - Express path
+  * @param {callback} middleware - Express middleware
+  */
 router.post('/', validateSignup, asyncHandler(async (req, res) => {
   const { email, password, username, dateOfBirth } = req.body;
   const user = await User.signup({ email, username, password, dateOfBirth });
