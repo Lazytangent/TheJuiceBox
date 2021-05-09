@@ -1,0 +1,35 @@
+.deleteConfirmationModal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.25rem;
+}
+
+.buttonDiv {
+  padding: 0.25rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.yesBtn {
+  padding: 0.25rem;
+  border-width: 2px;
+  background-color: #ff8080;
+  border-radius: 0.25rem;
+  transition-duration: 0.5s;
+}
+
+.yesBtn:hover {
+  background-color: #ff5458;
+}
+
+.noBtn {
+  padding: 0.25rem;
+  background-color: #91ddff;
+  border-radius: 0.25rem;
+  border-width: 2px;
+  transition-duration: 0.5s;
+}
+
+.noBtn:hover {
+  background-color: #65b2ff;
+}
