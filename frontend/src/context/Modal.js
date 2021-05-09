@@ -1,6 +1,8 @@
 import { createContext, useRef, useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
+import styles from './Modal.module.css';
+
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
@@ -26,9 +28,9 @@ export const Modal = ({ onClose, children }) => {
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
-    <div className="tw-fixed tw-inset-0 tw-flex tw-justify-center tw-items-center">
-      <div className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-70"id="modal-background" onClick={onClose} />
-      <div className="tw-absolute tw-bg-black tw-w-auto" id="modal-content">
+    <div className={styles.modalMainDiv}>
+      <div className={styles.modalBackground} id="modal-background" onClick={onClose} />
+      <div className={styles.modalContent} id="modal-content">
         {children}
       </div>
     </div>,
