@@ -1,5 +1,6 @@
 import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
+import { SET_DRINK } from './drinks';
 
 const SET_REVIEWS = 'drinkReviews/SET_REVIEWS';
 const SET_REVIEW = 'drinkReviews/SET_REVIEW';
@@ -62,6 +63,7 @@ const drinkReviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
     case SET_REVIEWS:
+    case SET_DRINK:
       return { ...state, ...action.reviews };
     case SET_REVIEW:
       return { ...state, [action.review.id]: action.review };

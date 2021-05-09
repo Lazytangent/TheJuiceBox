@@ -31,7 +31,9 @@ router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) =
     err.errors = [`The drink with the id of ${drinkId} does not exist.`];
     return next(err);
   }
-  res.json(drink);
+  const reviews = await DrinkReview.findAll({ where: { drinkId } });
+  drink.dataValues.Reviews = reviews.map((review) => review.id);
+  res.json({ drink, reviews: flattener(reviews) });
 }));
 
 router.post(

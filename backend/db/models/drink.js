@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Drink.findAllWithStuff = function() {
-    const { DrinkReview, User } = require('./');
+    const { User } = require('./');
     return Drink.findAll({
       include: [
         { model: User, as: 'Creator' },

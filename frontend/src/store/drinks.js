@@ -1,8 +1,8 @@
 import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
 
+export const SET_DRINK = 'drinks/SET_DRINK';
 const SET_DRINKS = 'drinks/SET_DRINKS';
-const SET_DRINK = 'drinks/SET_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
 const setDrinks = (drinks) => ({
@@ -10,9 +10,10 @@ const setDrinks = (drinks) => ({
   drinks,
 });
 
-const setDrink = (drink) => ({
+const setDrink = ({ drink, reviews }) => ({
   type: SET_DRINK,
   drink,
+  reviews,
 });
 
 const removeDrink = (id) => ({
@@ -101,18 +102,21 @@ export const deleteDrink = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
     case SET_DRINKS:
-      return { ...state, ...action.drinks };
+      return { ...state, byIds: { ...action.drinks }, allIds: Object.keys(action.drinks), };
     case SET_DRINK:
-      return { ...state, [action.drink.id]: action.drink };
+      return { ...state, byIds: { ...state.byIds, [action.drink.id]: action.drink }, allIds: [ ...state.allIds, action.drink.id ] };
     case REMOVE_DRINK:
-      const newState = { ...state };
-      delete newState[action.id];
+      const newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => id !== action.id) };
+      delete newState.byIds[action.id];
       return newState;
     default:
       return state;
