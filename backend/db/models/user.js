@@ -1,84 +1,94 @@
-'use strict';
-const { Validator } = require('sequelize');
-const bcrypt = require('bcryptjs');
+"use strict";
+const { Validator } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [4, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error('Cannot be an email.');
-          }
+  const User = sequelize.define(
+    "User",
+    {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [4, 30],
+          isNotEmail(value) {
+            if (Validator.isEmail(value)) {
+              throw new Error("Cannot be an email.");
+            }
+          },
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 256],
+        },
+      },
+      hashedPassword: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [60, 60],
+        },
+      },
+      dateOfBirth: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        validate: {
+          isDate: true,
+          isTwentyOne(value) {
+            const currentDate = new Date();
+            const inputDate = new Date(value);
+            if (currentDate - inputDate < 662774400000) {
+              throw new Error("Cannot be under 21.");
+            }
+          },
+          isNotTooOld(value) {
+            const inputDate = new Date(value);
+            const oldDate = new Date("1903-01-03");
+            if (inputDate - oldDate <= 0) {
+              throw new Error("Cannot be that old.");
+            }
+          },
         },
       },
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [3, 256]
-      }
-    },
-    hashedPassword: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [60, 60]
+    {
+      defaultScope: {
+        attributes: {
+          exclude: [
+            "hashedPassword",
+            "email",
+            "dateOfBirth",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
       },
-    },
-    dateOfBirth: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      validate: {
-        isDate: true,
-        isTwentyOne(value) {
-          const currentDate = new Date();
-          const inputDate = new Date(value);
-          if (currentDate - inputDate < 662774400000) {
-            throw new Error('Cannot be under 21.');
-          }
+      scopes: {
+        currentUser: {
+          attributes: { exclude: ["hashedPassword"] },
         },
-        isNotTooOld(value) {
-          const inputDate = new Date(value);
-          const oldDate = new Date('1903-01-03');
-          if (inputDate - oldDate <= 0) {
-            throw new Error('Cannot be that old.');
-          }
+        loginUser: {
+          attributes: {},
         },
-      }
+      },
     }
-  }, {
-    defaultScope: {
-      attributes: {
-        exclude: ['hashedPassword', 'email', 'dateOfBirth', 'createdAt', 'updatedAt'],
-      },
-    },
-    scopes: {
-      currentUser: {
-        attributes: { exclude: ['hashedPassword'] },
-      },
-      loginUser: {
-        attributes: {},
-      },
-    },
-  });
-  User.prototype.toSafeObject = function() {
+  );
+  User.prototype.toSafeObject = function () {
     const { id, username, email } = this;
     return { id, username, email };
   };
-  User.prototype.validatePassword = function(password) {
+  User.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
-  User.getCurrentUserById = async function(id) {
-    return await User.scope('currentUser').findByPk(id);
+  User.getCurrentUserById = async function (id) {
+    return await User.scope("currentUser").findByPk(id);
   };
-  User.login = async function({ credential, password }) {
-    const { Op } = require('sequelize');
-    const user = await User.scope('loginUser').findOne({
+  User.login = async function ({ credential, password }) {
+    const { Op } = require("sequelize");
+    const user = await User.scope("loginUser").findOne({
       where: {
         [Op.or]: {
           username: credential,
@@ -87,10 +97,10 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
     if (user && user.validatePassword(password)) {
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.scope("currentUser").findByPk(user.id);
     }
   };
-  User.signup = async function({ username, email, password, dateOfBirth }) {
+  User.signup = async function ({ username, email, password, dateOfBirth }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       username,
@@ -98,23 +108,31 @@ module.exports = (sequelize, DataTypes) => {
       hashedPassword,
       dateOfBirth,
     });
-    return await User.scope('currentUser').findByPk(user.id);
+    return await User.scope("currentUser").findByPk(user.id);
   };
-  User.findUserWithStuff = function(id) {
-    const { Drink, DrinkReview } = require('./');
+  User.findUserWithStuff = function (id) {
+    const { Drink, DrinkReview } = require("./");
     return User.findByPk(id, {
       include: [
-        { model: Drink, attributes: ['id'] },
-        { model: DrinkReview, attributes: ['id'] },
+        { model: Drink, attributes: ["id"] },
+        { model: DrinkReview, attributes: ["id"] },
       ],
     });
   };
-  User.associate = function(models) {
-    User.belongsToMany(models.Drink, { through: models.DrinkReview, foreignKey: 'userId', otherKey: 'drinkId' });
-    User.belongsToMany(models.Venue, { through: { model: models.CheckIn, unique: false }, foreignKey: 'userId', otherKey: 'venueId' });
-    User.hasMany(models.Drink, { foreignKey: 'creatorId' });
-    User.hasMany(models.CheckIn, { as: 'Checks', foreignKey: 'userId' });
-    User.hasMany(models.DrinkReview, { foreignKey: 'userId' });
+  User.associate = function (models) {
+    User.belongsToMany(models.Drink, {
+      through: models.DrinkReview,
+      foreignKey: "userId",
+      otherKey: "drinkId",
+    });
+    User.belongsToMany(models.Venue, {
+      through: { model: models.CheckIn, unique: false },
+      foreignKey: "userId",
+      otherKey: "venueId",
+    });
+    User.hasMany(models.Drink, { foreignKey: "creatorId" });
+    User.hasMany(models.CheckIn, { as: "Checks", foreignKey: "userId" });
+    User.hasMany(models.DrinkReview, { foreignKey: "userId" });
   };
   return User;
 };
