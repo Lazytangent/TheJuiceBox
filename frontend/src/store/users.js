@@ -6,14 +6,14 @@ export const usersReviewsSelector = (userId) => (state) => state.users[userId].D
 
 export const SET_USER = 'users/SET_USER';
 
-const setUser = ({ user, drinks, reviews }) => {
-  return {
-    type: SET_USER,
+const setUser = ({ user, drinks, reviews }) => ({
+  type: SET_USER,
+  payload: {
     user,
     drinks,
     reviews,
-  };
-};
+  },
+});
 
 export const getUser = (id) => async (dispatch) => {
   try {
@@ -34,7 +34,7 @@ const usersReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_USER:
-      newState = { ...state, byIds: { ...state.byIds, [action.user.id]: action.user } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.user.id]: action.payload.user } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     default:

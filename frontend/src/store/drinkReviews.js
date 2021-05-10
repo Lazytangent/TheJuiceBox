@@ -4,29 +4,18 @@ import { SET_DRINK } from './drinks';
 
 export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
 
-const SET_REVIEWS = 'drinkReviews/SET_REVIEWS';
 const SET_REVIEW = 'drinkReviews/SET_REVIEW';
 const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
 
-const setReviews = (reviews) => ({
-  type: SET_REVIEWS,
-  reviews,
-});
-
 const setReview = (review) => ({
   type: SET_REVIEW,
-  review,
+  payload: review,
 });
 
 const removeReview = (id) => ({
   type: REMOVE_REVIEW,
-  id,
+  payload: id,
 });
-
-export const getReviews = (drinkId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`);
-  dispatch(setReviews(res.data));
-};
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
@@ -67,13 +56,12 @@ const drinkReviewsReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case SET_USER:
-    case SET_REVIEWS:
     case SET_DRINK:
-      newState = { ...state, byIds: { ...state.byIds, ...action.reviews } };
+      newState = { ...state, byIds: { ...state.byIds, ...action.payload.reviews } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_REVIEW:
-      newState = { ...state, byIds: { ...state.byIds, [action.review.id]: action.review } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_REVIEW:

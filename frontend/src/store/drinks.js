@@ -9,18 +9,20 @@ const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
 const setDrinks = (drinks) => ({
   type: SET_DRINKS,
-  drinks,
+  payload: { drinks },
 });
 
 const setDrink = ({ drink, reviews }) => ({
   type: SET_DRINK,
-  drink,
-  reviews,
+  payload: {
+    drink,
+    reviews,
+  },
 });
 
 const removeDrink = (id) => ({
   type: REMOVE_DRINK,
-  id,
+  payload: id,
 });
 
 export const getDrinks = () => async (dispatch) => {
@@ -114,11 +116,11 @@ const drinksReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
     case SET_DRINKS:
-      newState = { ...state, byIds: { ...action.drinks }, };
+      newState = { ...state, byIds: { ...action.payload.drinks }, };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_DRINK:
-      newState = { ...state, byIds: { ...state.byIds, [action.drink.id]: action.drink } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_DRINK:
