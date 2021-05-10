@@ -1,5 +1,9 @@
 import { csrfFetch } from './csrf';
 
+export const userSelector = (userId) => (state) => state.users.byIds[userId];
+export const usersDrinksSelector = (userId) => (state) => state.users[userId].Drinks.map((drinkId) => state.drinks.byIds[drinkId]);
+export const usersReviewsSelector = (userId) => (state) => state.users[userId].DrinkReviews.map((reviewId) => state.drinkReviews.byIds[reviewId]);
+
 export const SET_USER = 'users/SET_USER';
 
 const setUser = ({ user, drinks, reviews }) => {
@@ -21,12 +25,18 @@ export const getUser = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const usersReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_USER:
-      return { ...state, [action.user.id]: action.user };
+      newState = { ...state, byIds: { ...state.byIds, [action.user.id]: action.user } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     default:
       return state;
   }

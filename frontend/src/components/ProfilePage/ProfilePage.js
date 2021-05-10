@@ -2,16 +2,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 
-import { getUser } from "../../store/users";
+import { getUser, userSelector, usersDrinksSelector, usersReviewsSelector } from "../../store/users";
 import Drink from '../Drinks/Drink';
 import DrinkReview from '../DrinkReview';
 
 const ProfilePage = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users[userId]);
-  const drinks = useSelector((state) => Object.values(state.drinks));
-  const reviews = useSelector((state) => Object.values(state.drinkReviews));
+  const user = useSelector(userSelector(userId));
+  const drinks = useSelector(usersDrinksSelector(userId));
+  const reviews = useSelector(usersReviewsSelector(userId));
 
   useEffect(() => {
     dispatch(getUser(userId));
