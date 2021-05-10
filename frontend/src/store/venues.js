@@ -5,12 +5,12 @@ const SET_VENUE = 'venues/SET_VENUE';
 
 const setVenues = (venues) => ({
   type: SET_VENUES,
-  venues,
+  payload: venues,
 });
 
 const setVenue = (venue) => ({
   type: SET_VENUE,
-  venue,
+  payload: venue,
 });
 
 export const getVenues = async (dispatch) => {
@@ -25,14 +25,22 @@ export const getVenue = async (dispatch, venueId) => {
   return res.data;
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const venuesReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_VENUES:
-      return { ...Object.fromEntries(action.venues.map((venue) => [venue.id, venue])) };
+      newState = { ...state, byIds: { ...state.byIds, ...action.payload } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_VENUE:
-      return { ...state, [action.venue.id]: action.venue };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     default:
       return state;
   }

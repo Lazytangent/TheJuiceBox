@@ -38,12 +38,20 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Drink.findAllWithStuff = function() {
-    const { DrinkReview, User } = require('./');
+    const { User } = require('./');
     return Drink.findAll({
       include: [
         { model: User, as: 'Creator' },
       ],
     });
+  };
+
+  Drink.findWithIds = async function(drinkId) {
+    const { DrinkReview } = require('./');
+    const drink = await Drink.findByPk(drinkId);
+    const reviews = await DrinkReview.findAll({ where: { drinkId } });
+    drink.dataValues.Reviews = reviews.map((review) => review.id);
+    return drink;
   };
 
   return Drink;
