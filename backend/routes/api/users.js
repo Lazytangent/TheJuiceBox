@@ -44,7 +44,7 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   user.dataValues.Drinks = drinks.map((drink) => drink.id);
   user.dataValues.DrinkReviews = reviews.map((review) => review.id);
 
-  res.json({ user, drinks, reviews });
+  res.json({ user, drinks: flattener(drinks), reviews: flattener(reviews) });
 }));
 
 router.get('/checkIns', requireAuth, asyncHandler(async (req, res) => {

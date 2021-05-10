@@ -1,8 +1,8 @@
 import { csrfFetch } from './csrf';
 
 export const userSelector = (userId) => (state) => state.users.byIds[userId];
-export const usersDrinksSelector = (userId) => (state) => state.users[userId].Drinks.map((drinkId) => state.drinks.byIds[drinkId]);
-export const usersReviewsSelector = (userId) => (state) => state.users[userId].DrinkReviews.map((reviewId) => state.drinkReviews.byIds[reviewId]);
+export const usersDrinksSelector = (userId) => (state) => state.users.byIds[userId]?.Drinks?.map((drinkId) => state.drinks.byIds[drinkId]);
+export const usersReviewsSelector = (userId) => (state) => state.users.byIds[userId]?.DrinkReviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
 
 export const SET_USER = 'users/SET_USER';
 

@@ -120,7 +120,7 @@ const drinksReducer = (state = initialState, action) => {
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_DRINK:
-      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.drink.id]: action.payload.drink } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_DRINK:
