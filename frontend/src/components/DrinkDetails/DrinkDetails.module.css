@@ -1,1 +1,19 @@
+.mainDiv {
+  min-height: 100%;
+  background-color: #767676;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem;
+}
 
+.mainHeading {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.drinkCard {
+
+}
