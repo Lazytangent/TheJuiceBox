@@ -1,23 +1,28 @@
 import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
 
+export const allDrinksSelector = () => (state) => state.drinks.allIds.map((id) => state.drinks.byIds[id]);
+
+export const SET_DRINK = 'drinks/SET_DRINK';
 const SET_DRINKS = 'drinks/SET_DRINKS';
-const SET_DRINK = 'drinks/SET_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
 const setDrinks = (drinks) => ({
   type: SET_DRINKS,
-  drinks,
+  payload: { drinks },
 });
 
-const setDrink = (drink) => ({
+const setDrink = ({ drink, reviews }) => ({
   type: SET_DRINK,
-  drink,
+  payload: {
+    drink,
+    reviews,
+  },
 });
 
 const removeDrink = (id) => ({
   type: REMOVE_DRINK,
-  id,
+  payload: id,
 });
 
 export const getDrinks = () => async (dispatch) => {
@@ -61,7 +66,7 @@ export const mixDrink = (drink) => async (dispatch) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(setDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -82,8 +87,7 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
         'Content-Type': 'multipart/form-data',
       },
     });
-
-    dispatch(setDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -102,19 +106,26 @@ export const deleteDrink = (id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const drinksReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_USER:
-      return { ...action.drinks };
     case SET_DRINKS:
-      return { ...state, ...action.drinks };
+      newState = { ...state, byIds: { ...action.payload.drinks }, };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_DRINK:
-      return { ...state, [action.drink.id]: action.drink };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.drink.id]: action.payload.drink } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case REMOVE_DRINK:
-      const newState = { ...state };
-      delete newState[action.id];
+      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => parseInt(id, 10) !== action.id) };
+      delete newState.byIds[action.id];
       return newState;
     default:
       return state;

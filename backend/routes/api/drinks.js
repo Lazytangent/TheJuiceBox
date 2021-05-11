@@ -31,7 +31,9 @@ router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) =
     err.errors = [`The drink with the id of ${drinkId} does not exist.`];
     return next(err);
   }
-  res.json(drink);
+  const reviews = await DrinkReview.findAll({ where: { drinkId }, include: User });
+  drink.dataValues.Reviews = reviews.map((review) => review.id);
+  res.json({ drink, reviews: flattener(reviews) });
 }));
 
 router.post(
@@ -52,8 +54,9 @@ router.post(
       imageUrl,
       creatorId: user.id,
     });
+    drink.dataValues.Reviews = [];
 
-    return res.json(drink);
+    return res.json({ drink, reviews: {} });
   })
 );
 
@@ -69,14 +72,15 @@ router.put(
       imageUrl = await singlePublicFileUpload(req.file);
     }
 
-    const drink = await Drink.findByPk(id);
+    const drink = await Drink.findWithIds(id);
     await drink.update({
       name,
       description,
       imageUrl: imageUrl || drink.imageUrl,
     });
+    console.log(drink);
 
-    res.json(drink);
+    res.json({ drink, reviews: {} });
   })
 );
 

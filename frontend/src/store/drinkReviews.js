@@ -1,29 +1,21 @@
 import { csrfFetch } from './csrf';
 import { SET_USER } from './users';
+import { SET_DRINK } from './drinks';
 
-const SET_REVIEWS = 'drinkReviews/SET_REVIEWS';
+export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
+
 const SET_REVIEW = 'drinkReviews/SET_REVIEW';
 const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
 
-const setReviews = (reviews) => ({
-  type: SET_REVIEWS,
-  reviews,
-});
-
 const setReview = (review) => ({
   type: SET_REVIEW,
-  review,
+  payload: review,
 });
 
 const removeReview = (id) => ({
   type: REMOVE_REVIEW,
-  id,
+  payload: id,
 });
-
-export const getReviews = (drinkId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`);
-  dispatch(setReviews(res.data));
-};
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
@@ -55,19 +47,26 @@ export const deleteReview = (id) => async (dispatch) => {
   dispatch(removeReview(id));
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const drinkReviewsReducer = (state = initialState, action) => {
-  const newState = { ...state };
+  let newState = { ...state };
   switch (action.type) {
     case SET_USER:
-      return { ...action.reviews };
-    case SET_REVIEWS:
-      return { ...action.reviews };
+    case SET_DRINK:
+      newState = { ...state, byIds: { ...state.byIds, ...action.payload.reviews } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_REVIEW:
-      return { ...state, [action.review.id]: action.review };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case REMOVE_REVIEW:
-      delete newState[action.id];
+      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => id !== action.id) };
+      delete newState.byIds[action.id];
       return newState;
     default:
       return state;

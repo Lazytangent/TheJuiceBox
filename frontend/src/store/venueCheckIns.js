@@ -5,12 +5,12 @@ const SET_CHECK_INS = 'venueCheckIns/SET_CHECK_INS';
 
 const setCheckIn = (checkIn) => ({
   type: SET_CHECK_IN,
-  checkIn,
+  payload: checkIn,
 });
 
 const setCheckIns = (checkIns) => ({
   type: SET_CHECK_INS,
-  checkIns,
+  payload: checkIns,
 });
 
 export const getUsersCheckIns = async (dispatch) => {
@@ -25,14 +25,22 @@ export const getCheckIn = async (dispatch, venueId) => {
   return res.data;
 };
 
-const initialState = {};
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const checkInsReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_CHECK_INS:
-      return { ...state, ...action.checkIns };
+      newState = { ...state, byIds: { ...state.byIds, ...action.checkIns } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_CHECK_IN:
-      return { ...state, [action.checkIn.id]: action.checkIn };
+      newState = { ...state, byIds: { ...state.byIds, [action.checkIn.id]: action.checkIn } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     default:
       return state;
   }
