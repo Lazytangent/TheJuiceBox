@@ -1,28 +1,26 @@
 import { csrfFetch } from './csrf';
+import { SET_CHECK_IN, SET_CHECK_INS } from './constants';
+import { setCheckIn, setCheckIns } from './actions';
 
-const SET_CHECK_IN = 'venueCheckIns/SET_CHECK_IN';
-const SET_CHECK_INS = 'venueCheckIns/SET_CHECK_INS';
-
-const setCheckIn = (checkIn) => ({
-  type: SET_CHECK_IN,
-  payload: checkIn,
-});
-
-const setCheckIns = (checkIns) => ({
-  type: SET_CHECK_INS,
-  payload: checkIns,
-});
-
-export const getUsersCheckIns = async (dispatch) => {
-  const res = await csrfFetch('/api/users/checkIns');
-  dispatch(setCheckIns(res.data));
-  return res.data;
+export const getCheckIns = () => async (dispatch) => {
+  const res = await csrfFetch('/api/checkIns');
+  const checkIns = await res.json();
+  dispatch(setCheckIns(checkIns));
+  return checkIns;
 };
 
-export const getCheckIn = async (dispatch, venueId) => {
+export const getUsersCheckIns = () => async (dispatch) => {
+  const res = await csrfFetch('/api/users/checkIns');
+  const checkIns = await res.json();
+  dispatch(setCheckIns(checkIns));
+  return checkIns;
+};
+
+export const getCheckIn = (venueId) => async (dispatch) => {
   const res = await csrfFetch(`/api/venues/${venueId}/checkIns`);
-  dispatch(setCheckIn(res.data));
-  return res.data;
+  const checkIn = await res.json();
+  dispatch(setCheckIn(checkIn));
+  return checkIn;
 };
 
 const initialState = {

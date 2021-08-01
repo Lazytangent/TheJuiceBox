@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import DeleteConfirmation from './DeleteConfirmation';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
-import { getDrinks } from '../../store/drinks';
 import { updateReview } from '../../store/drinkReviews';
 
 const DrinkReview = ({ userId, drinkId, reviewObj }) => {
@@ -25,13 +24,12 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   const submitClickHandler = async (e) => {
     e.preventDefault();
-    const response = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
-    if (response.data.errors && response.data.errors.length) {
+    const updatedReview = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
+    if (updatedReview?.errors) {
       setErrors([]);
-      setErrors((prev) => [...prev, ...response.data.errors]);
+      setErrors((prev) => [...prev, ...updatedReview?.errors]);
     } else {
       setEditMode(false);
-      dispatch(getDrinks());
     }
   };
 
@@ -69,11 +67,11 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
     <>
       <div className="tw-rounded tw-items-center tw-p-2 tw-mb-2 tw-flex tw-justify-around tw-border-2 tw-bg-gray-light tw-w-2/3 tw-m-auto" key={reviewObj.id}>
         <div className="md:tw-w-full">
-          {location.pathname.startsWith('/users') ? <p>{review} - by {reviewObj.User.username}</p> : (
+          {location.pathname.startsWith('/users') ? <p>{reviewObj.review} - by {reviewObj.User.username}</p> : (
             <p>{review} - by <Link to={`/users/${reviewObj.User.id}`} className="hover:tw-underline">{reviewObj.User.username}</Link></p>
           )}
           <hr />
-          <p className="tw-font-bold">{rating} out of 5 stars</p>
+          <p className="tw-font-bold">{reviewObj.stars} out of 5 stars</p>
           <p>On {new Date(reviewObj.updatedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
         </div>
         {userId === reviewObj.userId && (

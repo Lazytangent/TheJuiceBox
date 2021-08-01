@@ -9,7 +9,6 @@ import DrinkReview from '../DrinkReview';
 import DrinkReviewModal from '../DrinkReviewForm';
 import { getDrinkById } from "../../store/drinks";
 import { drinkReviewsSelector } from '../../store/drinkReviews';
-// import { getReviews } from '../../store/drinkReviews';
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ const DrinkDetails = () => {
 
   useEffect(() => {
     dispatch(getDrinkById(drinkId));
-    // dispatch(getReviews(drinkId));
   }, [dispatch, drinkId]);
 
   useEffect(() => {

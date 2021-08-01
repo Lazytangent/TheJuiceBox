@@ -1,28 +1,19 @@
 import { csrfFetch } from './csrf';
+import { SET_VENUE, SET_VENUES } from './constants';
+import { setVenue, setVenues } from './actions';
 
-const SET_VENUES = 'venues/SET_VENUES';
-const SET_VENUE = 'venues/SET_VENUE';
-
-const setVenues = (venues) => ({
-  type: SET_VENUES,
-  payload: venues,
-});
-
-const setVenue = (venue) => ({
-  type: SET_VENUE,
-  payload: venue,
-});
-
-export const getVenues = async (dispatch) => {
+export const getVenues = () => async (dispatch) => {
   const res = await csrfFetch('/api/venues');
-  dispatch(setVenues(res.data));
-  return res.data;
+  const venues = await res.json();
+  dispatch(setVenues(venues));
+  return venues;
 };
 
-export const getVenue = async (dispatch, venueId) => {
+export const getVenue = (venueId) => async (dispatch) => {
   const res = await csrfFetch(`/api/venues/${venueId}`);
-  dispatch(setVenue(res.data));
-  return res.data;
+  const venue = await res.json();
+  dispatch(setVenue(venue));
+  return venue;
 };
 
 const initialState = {
