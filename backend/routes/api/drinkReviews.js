@@ -1,53 +1,26 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validation');
-const { DrinkReview } = require('../../db/models');
+const { validateDrinkReview } = require('../utils/validators');
+const { DrinkReview, User } = require('../../db/models');
 
-const router = express.Router();
-
-const validateReview = [
-  check('review')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a review message.'),
-  check('rating')
-    .exists({ checkFalsy: false })
-    .notEmpty()
-    .withMessage('Please provide a value for the rating between 0 and 5, inclusive.'),
-  handleValidationErrors,
-];
-
-router.post('/', validateReview, asyncHandler(async (req, res) => {
-  const { userId, drinkId, review, rating } = req.body;
-  const reviewObj = await DrinkReview.create({ userId, drinkId, review, stars: rating });
-  res.json({
-    review: reviewObj,
-  });
-}));
-
-router.put('/:reviewId(\\d+)', validateReview, asyncHandler(async (req, res) => {
-  const reviewId = req.params.reviewId;
-  const id = parseInt(reviewId, 10);
+router.put('/:reviewId(\\d+)', validateDrinkReview, asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.reviewId, 10);
   const { review, rating } = req.body;
 
-  const reviewObj = await DrinkReview.findByPk(id);
+  const reviewObj = await DrinkReview.findByPk(id, { include: User });
   await reviewObj.update({
     review,
     stars: rating,
   });
 
-  res.json({
-    review,
-  });
+  res.json(reviewObj);
 }));
 
 router.delete('/:reviewId(\\d+)', asyncHandler(async (req, res) => {
   const reviewId = req.params.reviewId;
   const id = parseInt(reviewId, 10);
   const review = await DrinkReview.findByPk(id);
-
   await review.destroy();
 
   return res.json({ message: 'success' });

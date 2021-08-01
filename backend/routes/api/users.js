@@ -1,81 +1,56 @@
-const express = require('express');
+/**
+  * Express router providing user related routes.
+  * @module routes/api/users
+  * @requires express
+  * @requires express-async-handler
+  */
+
+/**
+  * Express router to mount user related functions on.
+  * @type {object}
+  * @const
+  * @namespace usersRouter
+  */
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validation');
+const flattener = require('../utils/flattener');
+const { validateSignup } = require('../utils/validators.js');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Drink, DrinkReview } = require('../../db/models');
+const { User, CheckIn, Drink, DrinkReview } = require('../../db/models');
 
-const router = express.Router();
-
-const validateSignup = [
-  check('email')
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage('Please provide a valid email.'),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters.'),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage('Username cannot be an email'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
-  check('confirmPassword')
-    .exists({ checkFalsy: true })
-    .custom((value, { req }) => value === req.body.password)
-    .withMessage('Password confirmation field does not match password field.'),
-  check('dateOfBirth')
-    .exists({ checkFalsy: true })
-    .isISO8601()
-    .custom((value) => {
-      const valueDate = new Date(value);
-      const oldDate = new Date('1903-01-03');
-      if (valueDate - oldDate <= 0) {
-        return false;
-      } else {
-        return true;
-      }
-    })
-    .withMessage('Date of Birth must be a valid date.'),
-  handleValidationErrors,
-];
-
+/**
+  * Route handling user signup.
+  * @name POST /api/users
+  * @function
+  * @memberof module:routes/api/users~usersRouter
+  * @inner
+  * @param {string} path - Express path
+  * @param {callback} middleware - Express middleware
+  */
 router.post('/', validateSignup, asyncHandler(async (req, res) => {
   const { email, password, username, dateOfBirth } = req.body;
   const user = await User.signup({ email, username, password, dateOfBirth });
 
-  await setTokenCookie(res, user);
-
-  return res.json({ user: user.toSafeObject() });
+  setTokenCookie(res, user);
+  return res.json(user.toSafeObject());
 }));
 
 router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const userId = parseInt(req.params.id, 10);
-  const user = await User.findByPk(userId, {
-    include: [
-      {
-        model: Drink,
-      },
-      {
-        model: DrinkReview,
-        include: [
-          {
-            model: User,
-          },
-          {
-            model: Drink,
-          },
-        ],
-      },
-    ]
-  });
+  const user = await User.findByPk(userId);
+  const drinks = await Drink.findAll({ where: { creatorId: userId } });
+  const reviews = await DrinkReview.findAll({ where: { userId }, include: User });
+  user.dataValues.Drinks = drinks.map((drink) => drink.id);
+  user.dataValues.DrinkReviews = reviews.map((review) => review.id);
 
-  res.json({ user });
+  res.json({ user, drinks: flattener(drinks), reviews: flattener(reviews) });
+}));
+
+router.get('/checkIns', requireAuth, asyncHandler(async (req, res) => {
+  const { user } = req;
+  const checkIns = await CheckIn.findByUserId(user.id);
+  res.json(flattener(checkIns));
 }));
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-export async function fetch(url, options = {}) {
+export async function csrfFetch(url, options = {}) {
   options.method = options.method || 'GET';
   options.headers = options.headers || {};
 
@@ -28,5 +28,5 @@ export async function fetch(url, options = {}) {
 }
 
 export function restoreCSRF() {
-  return fetch('/api/csrf/restore');
+  return csrfFetch('/api/csrf/restore');
 }

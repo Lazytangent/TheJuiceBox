@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux';
+import { deleteReview } from '../../store/drinkReviews';
 
-import { deleteReview } from '../../store/drinks';
-
-const DeleteConfirmation = ({ drinkId, reviewId, setShowDeleteModal }) => {
+const DeleteConfirmation = ({ reviewId, setShowDeleteModal }) => {
   const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(deleteReview(drinkId, reviewId));
+    dispatch(deleteReview(reviewId));
+    setShowDeleteModal(false);
   };
 
   const closeModal = () => {

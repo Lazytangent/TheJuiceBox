@@ -1,46 +1,54 @@
-import { fetch } from './csrf';
+import { csrfFetch } from './csrf';
+import { SET_USER } from './users';
 
+export const allDrinksSelector = () => (state) => state.drinks.allIds.map((id) => state.drinks.byIds[id]);
+
+export const SET_DRINK = 'drinks/SET_DRINK';
 const SET_DRINKS = 'drinks/SET_DRINKS';
-const CREATE_DRINK = 'drinks/CREATE_DRINK';
 const REMOVE_DRINK = 'drinks/REMOVE_DRINK';
 
-const setDrinks = (drinks) => {
-  return {
-    type: SET_DRINKS,
-    drinks,
-  };
-};
+const setDrinks = (drinks) => ({
+  type: SET_DRINKS,
+  payload: { drinks },
+});
 
-const createDrink = (drink) => {
-  return {
-    type: CREATE_DRINK,
+const setDrink = ({ drink, reviews }) => ({
+  type: SET_DRINK,
+  payload: {
     drink,
-  };
-};
+    reviews,
+  },
+});
 
-const removeDrink = (id) => {
-  return {
-    type: REMOVE_DRINK,
-    id,
-  };
-};
+const removeDrink = (id) => ({
+  type: REMOVE_DRINK,
+  payload: id,
+});
 
 export const getDrinks = () => async (dispatch) => {
-  const response = await fetch('/api/drinks');
+  const response = await csrfFetch('/api/drinks');
   if (response.ok) {
-    dispatch(setDrinks(response.data.drinks));
+    dispatch(setDrinks(response.data));
+  }
+  return response;
+};
+
+export const getDrinkById = (drinkId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/drinks/${drinkId}`);
+  if (response.ok) {
+    dispatch(setDrink(response.data));
   }
   return response;
 };
 
 export const grabDrinks = (query) => async (dispatch) => {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
+  const response = await csrfFetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
   const drinks = response.data.drinks;
-  await fetch('/api/drinks/newDrinks', {
+  const res = await csrfFetch('/api/drinks/newDrinks', {
     method: 'POST',
     body: JSON.stringify({ drinks }),
   });
-  dispatch(getDrinks());
+  dispatch(setDrinks(res.data));
 };
 
 export const mixDrink = (drink) => async (dispatch) => {
@@ -51,14 +59,14 @@ export const mixDrink = (drink) => async (dispatch) => {
   formData.append('image', image);
 
   try {
-    const response = await fetch('/api/drinks', {
+    const response = await csrfFetch('/api/drinks', {
       method: 'POST',
       body: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(createDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -72,15 +80,14 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
   formData.append('image', image);
 
   try {
-    const response = await fetch(`/api/drinks/${id}`, {
+    const response = await csrfFetch(`/api/drinks/${id}`, {
       method: 'PUT',
       body: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-
-    dispatch(createDrink(response.data.drink));
+    dispatch(setDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -88,71 +95,37 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
 };
 
 export const deleteDrink = (id) => async (dispatch) => {
-  await dispatch(removeDrink(id));
   try {
-    const response = await fetch(`/api/drinks/${id}`, {
+    const response = await csrfFetch(`/api/drinks/${id}`, {
       method: 'DELETE',
     });
+    await dispatch(removeDrink(id));
     return response;
   } catch (err) {
     return err;
   }
 };
 
-export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/drinks/${drinkId}/reviews`, {
-      method: 'POST',
-      body: JSON.stringify({ userId, drinkId, review, rating }),
-    });
-
-    dispatch(getDrinks());
-    return response;
-  } catch (err) {
-    return err;
-  }
+const initialState = {
+  byIds: {},
+  allIds: [],
 };
-
-export const updateReview = ({ userId, drinkId, reviewId, review, rating }) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ userId, drinkId, review, rating }),
-    });
-    dispatch(getDrinks());
-    return response;
-  } catch (err) {
-    return err;
-  }
-}
-
-export const deleteReview = (drinkId, reviewId) => async (dispatch) => {
-  try {
-    const response = await fetch(`/api/drinks/${drinkId}/reviews/${reviewId}`, {
-      method: 'DELETE',
-    });
-    dispatch(getDrinks());
-    return response;
-  } catch (err) {
-    return err;
-  }
-};
-
-const initialState = {};
 
 const drinksReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
+    case SET_USER:
     case SET_DRINKS:
-      const drinks = action.drinks.reduce((acc, ele) => {
-        acc[ele.id] = ele;
-        return acc;
-      }, {});
-      return { ...state, ...drinks };
-    case CREATE_DRINK:
-      return { ...state, [action.drink.id]: action.drink };
+      newState = { ...state, byIds: { ...action.payload.drinks }, };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
+    case SET_DRINK:
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.drink.id]: action.payload.drink } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case REMOVE_DRINK:
-      const newState = { ...state };
-      delete newState[action.id];
+      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => parseInt(id, 10) !== action.id) };
+      delete newState.byIds[action.id];
       return newState;
     default:
       return state;

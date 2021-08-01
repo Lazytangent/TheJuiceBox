@@ -34,9 +34,17 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   }, {});
+
   CheckIn.associate = function(models) {
     CheckIn.belongsTo(models.User, { foreignKey: 'userId' });
     CheckIn.belongsTo(models.Venue, { foreignKey: 'venueId' });
   };
+
+  CheckIn.findByUserId = function(userId) {
+    return CheckIn.findAll({
+      where: { userId },
+    });
+  };
+
   return CheckIn;
 };
