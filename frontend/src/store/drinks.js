@@ -70,9 +70,9 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
         'Content-Type': 'multipart/form-data',
       },
     });
-    const drink = await res.json();
-    dispatch(createDrink(drink));
-    return drink;
+    const { drink, reviews, errors } = await res.json();
+    dispatch(createDrink(drink, reviews));
+    return errors;
   } catch (err) {
     return err;
   }

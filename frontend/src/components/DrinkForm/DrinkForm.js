@@ -19,9 +19,9 @@ const DrinkForm = ({ setShowDrinkForm }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setShowDrinkForm(false);
-    const response = await dispatch(mixDrink({ name, description, image }));
-    if (response.data && response.data.errors) setErrors(response.data.errors);
-    else history.push(`/drinks/${response.data.drink.id}`);
+    const drink = await dispatch(mixDrink({ name, description, image }));
+    if (drink?.errors) setErrors(drink?.errors);
+    else history.push(`/drinks/${drink.id}`);
   };
 
   const updateFile = (e) => {

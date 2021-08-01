@@ -23,8 +23,8 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
     e.preventDefault();
     setEditMode(false);
     setIsLoaded(false);
-    const response = await dispatch(updateDrink({ id: drink.id, name, description, image }));
-    if (response.data && response.data.errors) setErrors(response.data.errors);
+    const errors = await dispatch(updateDrink({ id: drink.id, name, description, image }));
+    if (errors) setErrors(errors);
   };
 
   const deleteClickHandler = () => {
