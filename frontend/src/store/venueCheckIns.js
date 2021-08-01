@@ -2,23 +2,25 @@ import { csrfFetch } from './csrf';
 import { SET_CHECK_IN, SET_CHECK_INS } from './constants';
 import { setCheckIn, setCheckIns } from './actions';
 
-export const getCheckIns = async (dispatch) => {
+export const getCheckIns = () => async (dispatch) => {
   const res = await csrfFetch('/api/checkIns');
   const checkIns = await res.json();
   dispatch(setCheckIns(checkIns));
   return checkIns;
 };
 
-export const getUsersCheckIns = async (dispatch) => {
+export const getUsersCheckIns = () => async (dispatch) => {
   const res = await csrfFetch('/api/users/checkIns');
-  dispatch(setCheckIns(res.data));
-  return res.data;
+  const checkIns = await res.json();
+  dispatch(setCheckIns(checkIns));
+  return checkIns;
 };
 
-export const getCheckIn = async (dispatch, venueId) => {
+export const getCheckIn = (venueId) => async (dispatch) => {
   const res = await csrfFetch(`/api/venues/${venueId}/checkIns`);
-  dispatch(setCheckIn(res.data));
-  return res.data;
+  const checkIn = await res.json();
+  dispatch(setCheckIn(checkIn));
+  return checkIn;
 };
 
 const initialState = {

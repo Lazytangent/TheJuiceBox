@@ -15,13 +15,13 @@ const removeReview = (id) => ({
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
+    const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
       method: 'POST',
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
-
-    dispatch(setReview(response.data));
-    return response;
+    const newReview = await res.json();
+    dispatch(setReview(newReview));
+    return res;
   } catch (err) {
     return err;
   }
@@ -32,15 +32,18 @@ export const updateReview = (review) => async (dispatch) => {
     method: "PUT",
     body: JSON.stringify(review),
   });
-  dispatch(setReview(res.data));
+  const updatedReview = await res.json();
+  dispatch(setReview(updatedReview));
   return res;
 };
 
 export const deleteReview = (id) => async (dispatch) => {
-  await csrfFetch(`/api/drinks/reviews/${id}`, {
+  const res = await csrfFetch(`/api/drinks/reviews/${id}`, {
     method: "DELETE",
   });
-  dispatch(removeReview(id));
+  if (res.ok) {
+    dispatch(removeReview(id));
+  }
 };
 
 const initialState = {

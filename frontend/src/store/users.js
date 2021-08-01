@@ -8,9 +8,10 @@ export const usersReviewsSelector = (userId) => (state) => state.users.byIds[use
 
 export const getUser = (id) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/users/${id}`);
-    dispatch(setUser(response.data));
-    return response;
+    const res = await csrfFetch(`/api/users/${id}`);
+    const { user, drinks, reviews } = await res.json();
+    dispatch(setUser({ user, drinks, reviews }));
+    return res;
   } catch (err) {
     return err;
   }
