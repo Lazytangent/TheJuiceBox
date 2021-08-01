@@ -5,7 +5,7 @@ import { Modal } from '../../context/Modal';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import DeleteConfirmation from './DeleteConfirmation';
 import FormDiv from "../Parts/Forms/FormDiv";
-import { updateDrink, getDrinks } from "../../store/drinks";
+import { updateDrink } from "../../store/drinks";
 
 const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, user, setEditMode }) => {
   const dispatch = useDispatch();
