@@ -1,4 +1,6 @@
 import { csrfFetch } from './csrf';
+import { SET_VENUE, SET_VENUES } from './constants';
+import { setVenue, setVenues } from './actions';
 
 export const getVenues = async (dispatch) => {
   const res = await csrfFetch('/api/venues');

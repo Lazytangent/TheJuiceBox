@@ -10,7 +10,7 @@ import UserAuthProvider from "./context/AuthContext";
 import SearchProvider from "./context/SearchContext";
 
 import configureStore from "./store";
-import { restoreCSRF, fetch } from "./store/csrf";
+import { restoreCSRF, csrfFetch } from "./store/csrf";
 
 import * as sessionActions from "./store/session";
 import * as drinkActions from './store/drinks';
@@ -23,7 +23,7 @@ const store = configureStore();
 if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 
-  window.csrfFetch = fetch;
+  window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
   window.drinkActions = drinkActions;
