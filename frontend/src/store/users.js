@@ -1,17 +1,10 @@
-import { fetch } from './csrf';
-
-const SET_USER = 'users/SET_USER';
-
-const setUser = (user) => {
-  return {
-    type: SET_USER,
-    user,
-  };
-};
+import { csrfFetch } from './csrf';
+import { SET_USER } from './constants';
+import { setUser } from './actions';
 
 export const getUser = (id) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/users/${id}`);
+    const response = await csrfFetch(`/api/users/${id}`);
     dispatch(setUser(response.data.user));
     return response;
   } catch (err) {

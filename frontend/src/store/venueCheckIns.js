@@ -1,25 +1,16 @@
-const SET_CHECK_IN = 'venueCheckIns/SET_CHECK_IN';
-const SET_CHECK_INS = 'venueCheckIns/SET_CHECK_INS';
-
-const setCheckIn = (checkIn) => ({
-  type: SET_CHECK_IN,
-  checkIn,
-});
-
-const setCheckIns = (checkIns) => ({
-  type: SET_CHECK_INS,
-  checkIns,
-});
+import { csrfFetch } from './csrf';
+import { SET_CHECK_IN, SET_CHECK_INS } from './constants';
+import { setCheckIn, setCheckIns } from './actions';
 
 export const getCheckIns = async (dispatch) => {
-  const res = await fetch('/api/checkIns');
+  const res = await csrfFetch('/api/checkIns');
   const checkIns = await res.json();
   dispatch(setCheckIns(checkIns));
   return checkIns;
 };
 
 export const getCheckIn = async (dispatch, venueId) => {
-  const res = await fetch(`/api/venues/${venueId}/checkIns`);
+  const res = await csrfFetch(`/api/venues/${venueId}/checkIns`);
   const checkIn = await res.json();
   dispatch(setCheckIn(checkIn));
   return checkIn;
