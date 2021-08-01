@@ -34,7 +34,7 @@ export const updateReview = (review) => async (dispatch) => {
   });
   const updatedReview = await res.json();
   dispatch(setReview(updatedReview));
-  return res;
+  return updatedReview;
 };
 
 export const deleteReview = (id) => async (dispatch) => {

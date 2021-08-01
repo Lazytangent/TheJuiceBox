@@ -1,13 +1,17 @@
 'use strict';
 const fs = require("fs");
 const data = require("../seeder-content/drinks.json");
-const { Drink } = require("../models");
+const { User, Drink } = require("../models");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const users = await User.findAll();
     const drinks = [];
     for (const drink of data) {
-      drinks.push(drink);
+      drinks.push(({
+        ...drink,
+        creatorId: users[Math.floor(Math.random() * users.length)].id,
+      }));
     }
     return queryInterface.bulkInsert('Drinks', drinks, {});
   },
