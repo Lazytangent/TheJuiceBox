@@ -5,7 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import DeleteConfirmation from './DeleteConfirmation';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
-import { updateReview, getDrinks } from '../../store/drinks';
+import { getDrinks } from '../../store/drinks';
+import { updateReview } from '../../store/drinkReviews';
 
 const DrinkReview = ({ userId, drinkId, reviewObj }) => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   const submitClickHandler = async (e) => {
     e.preventDefault();
-    const response = await dispatch(updateReview({ userId, drinkId, review, rating, reviewId: reviewObj.id }));
+    const response = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
     if (response.data.errors && response.data.errors.length) {
       setErrors([]);
       setErrors((prev) => [...prev, ...response.data.errors]);
@@ -57,7 +58,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
         </div>
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
-            <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={reviewObj.id} />
+            <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} reviewId={reviewObj.id} />
           </Modal>
         )}
       </>
@@ -84,7 +85,7 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
       </div>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
-          <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} drinkId={drinkId} reviewId={reviewObj.id} />
+          <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} reviewId={reviewObj.id} />
         </Modal>
       )}
     </>

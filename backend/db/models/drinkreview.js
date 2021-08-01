@@ -1,6 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const DrinkReview = sequelize.define('DrinkReview', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,9 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   }, {});
+
   DrinkReview.associate = function(models) {
     DrinkReview.belongsTo(models.User, { foreignKey: 'userId' });
     DrinkReview.belongsTo(models.Drink, { foreignKey: 'drinkId' });
   };
+
   return DrinkReview;
 };

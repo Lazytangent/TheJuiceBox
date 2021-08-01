@@ -9,21 +9,34 @@ export const getVenues = async (dispatch) => {
   return venues;
 };
 
-export const getVenue = async (dispatch, venueId) => {
-  const res = await csrfFetch(`/api/venues/${venueId}`);
-  const venue = await res.json();
-  dispatch(setVenue(venue));
-  return venue;
+export const getVenues = async (dispatch) => {
+  const res = await csrfFetch('/api/venues');
+  dispatch(setVenues(res.data));
+  return res.data;
 };
 
-const initialState = {};
+export const getVenue = async (dispatch, venueId) => {
+  const res = await csrfFetch(`/api/venues/${venueId}`);
+  dispatch(setVenue(res.data));
+  return res.data;
+};
+
+const initialState = {
+  byIds: {},
+  allIds: [],
+};
 
 const venuesReducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case SET_VENUES:
-      return { ...Object.fromEntries(action.venues.map((venue) => [venue.id, venue])) };
+      newState = { ...state, byIds: { ...state.byIds, ...action.payload } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     case SET_VENUE:
-      return { ...state, [action.venue.id]: action.venue };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState.allIds = Object.keys(newState.byIds);
+      return newState;
     default:
       return state;
   }

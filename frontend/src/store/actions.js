@@ -45,12 +45,14 @@ export const removeDrink = (id) => {
   };
 };
 
-export const setUser = (user) => {
-  return {
-    type: SET_USER,
+export const setUser = ({ user, drinks, reviews }) => ({
+  type: SET_USER,
+  payload: {
     user,
-  };
-};
+    drinks,
+    reviews,
+  },
+});
 
 export const setCheckIn = (checkIn) => ({
   type: SET_CHECK_IN,

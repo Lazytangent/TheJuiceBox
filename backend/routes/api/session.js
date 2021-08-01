@@ -1,36 +1,19 @@
-const express = require('express');
+const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validation');
+const { validateLogin } = require('../utils/validators');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
-
-const router = express.Router();
 
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
-    return res.json({
-      user: user.toSafeObject()
-    });
-  } else return res.json({});
+    return res.json(user.toSafeObject());
+  } else return res.json(null);
 });
-
-const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors,
-];
 
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
   const { credential, password } = req.body;
-
   const user = await User.login({ credential, password });
 
   if (!user) {
@@ -41,11 +24,8 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     return next(err);
   }
 
-  await setTokenCookie(res, user);
-
-  return res.json({
-    user: user.toSafeObject(),
-  });
+  setTokenCookie(res, user);
+  return res.json(user.toSafeObject());
 }));
 
 router.delete('/', (_req, res) => {
@@ -53,16 +33,12 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' });
 });
 
-router.post('/demo', asyncHandler(async (req, res, _next) => {
+router.post('/demo', asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
-
   const user = await User.login({ credential, password });
 
-  await setTokenCookie(res, user);
-
-  return res.json({
-    user: user.toSafeObject(),
-  });
-}))
+  setTokenCookie(res, user);
+  return res.json(user.toSafeObject());
+}));
 
 module.exports = router;
