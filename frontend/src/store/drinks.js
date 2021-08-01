@@ -5,19 +5,21 @@ import { setDrinks, createDrink, removeDrink } from './actions';
 export const allDrinksSelector = () => (state) => state.drinks.allIds.map((id) => state.drinks.byIds[id]);
 
 export const getDrinks = () => async (dispatch) => {
-  const response = await csrfFetch('/api/drinks');
-  if (response.ok) {
-    dispatch(setDrinks(response.data));
+  const res = await csrfFetch('/api/drinks');
+  const drinks = await res.json();
+  if (res.ok) {
+    dispatch(setDrinks(drinks));
   }
-  return response;
+  return drinks;
 };
 
 export const getDrinkById = (drinkId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/drinks/${drinkId}`);
-  if (response.ok) {
-    dispatch(createDrink(response.data));
+  const res = await csrfFetch(`/api/drinks/${drinkId}`);
+  const { drink, reviews } = await res.json();
+  if (res.ok) {
+    dispatch(createDrink(drink, reviews));
   }
-  return response;
+  return drink;
 };
 
 export const grabDrinks = (query) => async (dispatch) => {
@@ -27,7 +29,8 @@ export const grabDrinks = (query) => async (dispatch) => {
     method: 'POST',
     body: JSON.stringify({ drinks }),
   });
-  dispatch(setDrinks(res.data));
+  const drinksFromDatabase = await res.json();
+  dispatch(setDrinks(drinksFromDatabase));
 };
 
 export const mixDrink = (drink) => async (dispatch) => {
@@ -38,15 +41,16 @@ export const mixDrink = (drink) => async (dispatch) => {
   formData.append('image', image);
 
   try {
-    const response = await csrfFetch('/api/drinks', {
+    const res = await csrfFetch('/api/drinks', {
       method: 'POST',
       body: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(createDrink(response.data));
-    return response;
+    const newDrink = await res.json();
+    dispatch(createDrink(newDrink));
+    return newDrink;
   } catch (err) {
     return err;
   }
@@ -59,15 +63,16 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
   formData.append('image', image);
 
   try {
-    const response = await csrfFetch(`/api/drinks/${id}`, {
+    const res = await csrfFetch(`/api/drinks/${id}`, {
       method: 'PUT',
       body: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(createDrink(response.data));
-    return response;
+    const drink = await res.json();
+    dispatch(createDrink(drink));
+    return drink;
   } catch (err) {
     return err;
   }
