@@ -27,14 +27,19 @@ export const removeSession = () => {
 export const setDrinks = (drinks) => {
   return {
     type: SET_DRINKS,
-    drinks,
+    payload: {
+      drinks,
+    },
   };
 };
 
-export const createDrink = (drink) => {
+export const createDrink = (drink, reviews) => {
   return {
     type: CREATE_DRINK,
-    drink,
+    payload: {
+      drink,
+      reviews,
+    },
   };
 };
 
