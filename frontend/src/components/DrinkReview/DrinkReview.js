@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import DeleteConfirmation from './DeleteConfirmation';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
-import { getDrinks } from '../../store/drinks';
 import { updateReview } from '../../store/drinkReviews';
 
 const DrinkReview = ({ userId, drinkId, reviewObj }) => {
@@ -25,13 +24,12 @@ const DrinkReview = ({ userId, drinkId, reviewObj }) => {
 
   const submitClickHandler = async (e) => {
     e.preventDefault();
-    const response = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
-    if (response.data.errors && response.data.errors.length) {
+    const updatedReview = await dispatch(updateReview({ userId, drinkId, review, rating, id: reviewObj.id }));
+    if (updatedReview?.errors) {
       setErrors([]);
-      setErrors((prev) => [...prev, ...response.data.errors]);
+      setErrors((prev) => [...prev, ...updatedReview?.errors]);
     } else {
       setEditMode(false);
-      dispatch(getDrinks());
     }
   };
 
