@@ -1,11 +1,7 @@
 import { csrfFetch } from './csrf';
-import { SET_USER } from './users';
-import { SET_DRINK } from './drinks';
+import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from './constants';
 
 export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
-
-const SET_REVIEW = 'drinkReviews/SET_REVIEW';
-const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
 
 const setReview = (review) => ({
   type: SET_REVIEW,
@@ -56,7 +52,7 @@ const drinkReviewsReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case SET_USER:
-    case SET_DRINK:
+    case CREATE_DRINK:
       newState = { ...state, byIds: { ...state.byIds, ...action.payload.reviews } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;

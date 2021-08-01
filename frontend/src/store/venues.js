@@ -9,12 +9,6 @@ export const getVenues = async (dispatch) => {
   return venues;
 };
 
-export const getVenues = async (dispatch) => {
-  const res = await csrfFetch('/api/venues');
-  dispatch(setVenues(res.data));
-  return res.data;
-};
-
 export const getVenue = async (dispatch, venueId) => {
   const res = await csrfFetch(`/api/venues/${venueId}`);
   dispatch(setVenue(res.data));

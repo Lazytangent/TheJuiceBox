@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import { SET_DRINKS, CREATE_DRINK, REMOVE_DRINK } from './constants';
+import { SET_USER, SET_DRINKS, CREATE_DRINK, REMOVE_DRINK } from './constants';
 import { setDrinks, createDrink, removeDrink } from './actions';
 
 export const allDrinksSelector = () => (state) => state.drinks.allIds.map((id) => state.drinks.byIds[id]);
@@ -15,7 +15,7 @@ export const getDrinks = () => async (dispatch) => {
 export const getDrinkById = (drinkId) => async (dispatch) => {
   const response = await csrfFetch(`/api/drinks/${drinkId}`);
   if (response.ok) {
-    dispatch(setDrink(response.data));
+    dispatch(createDrink(response.data));
   }
   return response;
 };
@@ -45,7 +45,7 @@ export const mixDrink = (drink) => async (dispatch) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(setDrink(response.data));
+    dispatch(createDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -66,7 +66,7 @@ export const updateDrink = ({ id, name, description, image }) => async (dispatch
         'Content-Type': 'multipart/form-data',
       },
     });
-    dispatch(setDrink(response.data));
+    dispatch(createDrink(response.data));
     return response;
   } catch (err) {
     return err;
@@ -85,6 +85,11 @@ export const deleteDrink = (id) => async (dispatch) => {
   }
 };
 
+const initialState = {
+  allIds: [],
+  byIds: {},
+};
+
 const drinksReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
@@ -93,7 +98,7 @@ const drinksReducer = (state = initialState, action) => {
       newState = { ...state, byIds: { ...action.payload.drinks }, };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
-    case SET_DRINK:
+    case CREATE_DRINK:
       newState = { ...state, byIds: { ...state.byIds, [action.payload.drink.id]: action.payload.drink } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
