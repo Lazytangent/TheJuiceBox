@@ -1,17 +1,8 @@
 import { csrfFetch } from './csrf';
 import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from './constants';
+import { setReview, removeReview } from './actions';
 
 export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
-
-const setReview = (review) => ({
-  type: SET_REVIEW,
-  payload: review,
-});
-
-const removeReview = (id) => ({
-  type: REMOVE_REVIEW,
-  payload: id,
-});
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
@@ -20,8 +11,8 @@ export const writeReview = ({ userId, drinkId, review, rating }) => async (dispa
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
     const newReview = await res.json();
-    dispatch(setReview(newReview));
-    return res;
+    dispatch(setReview(newReview, drinkId));
+    return newReview;
   } catch (err) {
     return err;
   }
@@ -33,7 +24,7 @@ export const updateReview = (review) => async (dispatch) => {
     body: JSON.stringify(review),
   });
   const updatedReview = await res.json();
-  dispatch(setReview(updatedReview));
+  dispatch(setReview(updatedReview, updatedReview.drinkId));
   return updatedReview;
 };
 
@@ -41,8 +32,9 @@ export const deleteReview = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/drinks/reviews/${id}`, {
     method: "DELETE",
   });
+  const { drinkId } = await res.json();
   if (res.ok) {
-    dispatch(removeReview(id));
+    dispatch(removeReview(id, drinkId));
   }
 };
 
@@ -60,7 +52,7 @@ const drinkReviewsReducer = (state = initialState, action) => {
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_REVIEW:
-      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.review.id]: action.payload.review } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_REVIEW:

@@ -4,6 +4,8 @@ import {
   SET_DRINKS,
   CREATE_DRINK,
   REMOVE_DRINK,
+  SET_REVIEW,
+  REMOVE_REVIEW,
   SET_USER,
   SET_CHECK_IN,
   SET_CHECK_INS,
@@ -49,6 +51,22 @@ export const removeDrink = (id) => {
     id,
   };
 };
+
+export const setReview = (review, drinkId) => ({
+  type: SET_REVIEW,
+  payload: {
+    review,
+    drinkId,
+  },
+});
+
+export const removeReview = (id, drinkId) => ({
+  type: REMOVE_REVIEW,
+  payload: {
+    id,
+    drinkId,
+  },
+});
 
 export const setUser = ({ user, drinks, reviews }) => ({
   type: SET_USER,
