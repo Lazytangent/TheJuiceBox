@@ -15,5 +15,8 @@
 }
 
 .drinkCard {
-
+  border-radius: 0.25rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 2rem;
 }
