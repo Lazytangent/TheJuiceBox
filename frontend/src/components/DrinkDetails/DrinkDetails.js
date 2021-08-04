@@ -6,14 +6,13 @@ import DrinkReview from "../DrinkReview";
 import DrinkReviewModal from "../DrinkReviewForm";
 import DrinkDetailsCard from "./DrinkDetailsCard";
 import { getDrinkById } from "../../store/drinks";
-import { session, drinks, drinkReviews as reviews } from '../../store/selectors';
+import { session, drinks } from '../../store/selectors';
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
   const drink = useSelector(drinks.byId(drinkId));
   const user = useSelector(session.user());
-  const drinkReviews = useSelector(reviews.byDrinkId(drinkId));
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showDrinkReview, setShowDrinkReview] = useState(false);
@@ -50,12 +49,10 @@ const DrinkDetails = () => {
       <hr className="tw-border-white" />
       <div className="tw-p-2">
         <h2 className="tw-text-center tw-text-2xl">Reviews</h2>
-        {drinkReviews?.map((review) => (
+        {drink.Reviews?.map((reviewId) => (
           <DrinkReview
-            userId={user.id}
-            drinkId={drink.id}
-            key={review.id}
-            reviewObj={review}
+            key={reviewId}
+            reviewId={reviewId}
           />
         ))}
       </div>
