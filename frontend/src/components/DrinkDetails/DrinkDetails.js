@@ -6,14 +6,14 @@ import DrinkReview from "../DrinkReview";
 import DrinkReviewModal from "../DrinkReviewForm";
 import DrinkDetailsCard from "./DrinkDetailsCard";
 import { getDrinkById } from "../../store/drinks";
-import { drinkReviewsSelector } from "../../store/drinkReviews";
+import { session, drinks, drinkReviews as reviews } from '../../store/selectors';
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
   const { drinkId } = useParams();
-  const drink = useSelector((state) => state.drinks.byIds[drinkId]);
-  const user = useSelector((state) => state.session.user);
-  const drinkReviews = useSelector(drinkReviewsSelector(drinkId));
+  const drink = useSelector(drinks.byId(drinkId));
+  const user = useSelector(session.user());
+  const drinkReviews = useSelector(reviews.byDrinkId(drinkId));
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [showDrinkReview, setShowDrinkReview] = useState(false);
