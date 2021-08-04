@@ -1,60 +1,36 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 
-import ProfileButton from './ProfileButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
-import SearchBar from './SearchBar';
-import DrinkFormModal from '../DrinkForm';
-import { logoutUser } from '../../store/session';
-import { useUserAuth } from '../../context/AuthContext';
+import { session } from "../../store/selectors";
+import { logoutUser } from "../../store/session";
+import { useUserAuth } from "../../context/AuthContext";
+import SearchBar from "./SearchBar";
+import DrinkFormModal from "../DrinkForm";
+import SessionLinks from "./SessionLinks";
 
 const Navigation = ({ isLoaded }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector(session.user());
   const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
 
   const [showDrinkForm, setShowDrinkForm] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  const openMenu = () => {
-    if (showProfileMenu) return;
-    setShowProfileMenu(true);
-  };
-
   const logout = () => {
     dispatch(logoutUser());
     setShowLoginModal(false);
     setShowRegisterModal(false);
-    history.push('/');
+    history.push("/");
   };
 
   useEffect(() => {
     if (!showProfileMenu) return;
     const closeMenu = () => setShowProfileMenu(false);
-    document.addEventListener('click', closeMenu);
-    return () => document.removeEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenu);
   }, [showProfileMenu]);
-
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = <ProfileButton user={sessionUser} openMenu={openMenu} />;
-  } else {
-    sessionLinks = (
-      <li className="tw-flex tw-justify-between">
-        <ul className="tw-flex">
-          <li className="tw-text-xl tw-p-1">
-            <LoginFormModal />
-          </li>
-          <li className="tw-text-xl tw-p-1">
-            <SignupFormModal />
-          </li>
-        </ul>
-      </li>
-    );
-  }
 
   return (
     <>
@@ -62,15 +38,30 @@ const Navigation = ({ isLoaded }) => {
         <ul className="tw-flex tw-justify-between">
           <div className="tw-flex tw-px-2">
             <li className="tw-rounded-md tw-flex tw-items-center tw-text-xl tw-p-1">
-              <NavLink to="/" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Home</NavLink>
+              <NavLink
+                to="/"
+                className="hover:tw-bg-blue tw-rounded-md tw-p-1"
+                exact
+              >
+                Home
+              </NavLink>
             </li>
             {sessionUser && (
               <>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink to="/drinks" className="hover:tw-bg-blue tw-rounded-md tw-p-1" exact>Drinks</NavLink>
+                  <NavLink
+                    to="/drinks"
+                    className="hover:tw-bg-blue tw-rounded-md tw-p-1"
+                    exact
+                  >
+                    Drinks
+                  </NavLink>
                 </li>
                 <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <DrinkFormModal showDrinkForm={showDrinkForm} setShowDrinkForm={setShowDrinkForm} />
+                  <DrinkFormModal
+                    showDrinkForm={showDrinkForm}
+                    setShowDrinkForm={setShowDrinkForm}
+                  />
                 </li>
               </>
             )}
@@ -80,24 +71,47 @@ const Navigation = ({ isLoaded }) => {
               {sessionUser && <SearchBar />}
             </div>
             <div className="tw-py-1">
-              {isLoaded && sessionLinks}
+              {isLoaded && (
+                <SessionLinks
+                  showProfileMenu={showProfileMenu}
+                  setShowProfileMenu={setShowProfileMenu}
+                />
+              )}
             </div>
           </div>
         </ul>
       </nav>
       {sessionUser && (
-        <div className={`tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end ${showProfileMenu ? 'tw-transition tw-ease-out tw-duration-100 tw-transform tw-opacity-100 tw-scale-100' : 'tw-transition tw-ease-in tw-duration-100 tw-transform tw-opacity-0 tw-scale-95'}`}>
+        <div
+          className={`tw-absolute tw-right-0 tw-z-10 tw-flex tw-justify-end ${
+            showProfileMenu
+              ? "tw-transition tw-ease-out tw-duration-100 tw-transform tw-opacity-100 tw-scale-100"
+              : "tw-transition tw-ease-in tw-duration-100 tw-transform tw-opacity-0 tw-scale-95"
+          }`}
+        >
           <ul className="tw-p-4 tw-text-right tw-bg-green tw-rounded tw-border-2 tw-border-black">
-            <li className="tw-p-1"><NavLink to={`/users/${sessionUser.id}`} className="hover:tw-underline">{sessionUser.username}</NavLink></li>
+            <li className="tw-p-1">
+              <NavLink
+                to={`/users/${sessionUser.id}`}
+                className="hover:tw-underline"
+              >
+                {sessionUser.username}
+              </NavLink>
+            </li>
             <li className="tw-p-1">{sessionUser.email}</li>
             <li>
-              <button onClick={logout} className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-red hover:tw-bg-red-dark">Log Out</button>
+              <button
+                onClick={logout}
+                className="tw-p-1 tw-w-100 tw-px-2 tw-border tw-rounded tw-bg-red hover:tw-bg-red-dark"
+              >
+                Log Out
+              </button>
             </li>
           </ul>
         </div>
       )}
     </>
-  )
+  );
 };
 
 export default Navigation;
