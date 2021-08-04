@@ -2,8 +2,6 @@ import { csrfFetch } from './csrf';
 import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from './constants';
 import { setReview, removeReview } from './actions';
 
-export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
-
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
     const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
