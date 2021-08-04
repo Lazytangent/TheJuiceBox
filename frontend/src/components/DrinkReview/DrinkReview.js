@@ -10,7 +10,7 @@ import EditReviewForm from "./EditReview";
 const DrinkReview = ({ reviewId }) => {
   const location = useLocation();
   const reviewObj = useSelector(drinkReviews.byId(reviewId));
-  const userId = useSelector(session.user());
+  const { id: userId } = useSelector(session.user());
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

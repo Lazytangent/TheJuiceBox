@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getDrinks, allDrinksSelector } from '../../store/drinks';
+import { drinks } from '../../store/selectors';
+import { getDrinks } from '../../store/drinks';
 import Drink from './Drink';
 import SearchBar from "../Navigation/SearchBar";
 
 const Drinks = () => {
   const dispatch = useDispatch();
-  const drinksObj = useSelector(allDrinksSelector());
+  const drinkIds = useSelector(drinks.allIds());
 
   useEffect(() => {
     dispatch(getDrinks());
@@ -19,9 +20,9 @@ const Drinks = () => {
         <SearchBar />
       </div>
       <h1 className="tw-text-clouds tw-text-5xl tw-font-semibold tw-text-center">All the Drinks</h1>
-      {drinksObj.map(drink => (
-        <div className="tw-flex tw-justify-center tw-p-4" key={drink.id}>
-          <Drink drink={drink} />
+      {drinkIds.map(drinkId => (
+        <div className="tw-flex tw-justify-center tw-p-4" key={drinkId}>
+          <Drink drinkId={drinkId} />
         </div>)
       )}
     </div>
