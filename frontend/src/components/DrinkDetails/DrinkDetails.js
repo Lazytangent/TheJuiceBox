@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { Modal } from "../../context/Modal";
-import DeleteConfirmation from "./DeleteConfirmation";
-import EditModal from "./EditModal";
 import DrinkReview from "../DrinkReview";
 import DrinkReviewModal from "../DrinkReviewForm";
 import DrinkDetailsCard from "./DrinkDetailsCard";
@@ -19,8 +16,6 @@ const DrinkDetails = () => {
   const drinkReviews = useSelector(drinkReviewsSelector(drinkId));
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDrinkReview, setShowDrinkReview] = useState(false);
 
   useEffect(() => {
@@ -30,14 +25,6 @@ const DrinkDetails = () => {
   useEffect(() => {
     if (drink && user) setIsLoaded(true);
   }, [drink, user]);
-
-  const editClickHandler = () => {
-    setEditMode((prev) => !prev);
-  };
-
-  const deleteClickHandler = () => {
-    setShowDeleteModal(true);
-  };
 
   if (!isLoaded) {
     return null;
@@ -50,10 +37,9 @@ const DrinkDetails = () => {
       </h1>
       <DrinkDetailsCard
         drinkId={drinkId}
-        editClickHandler={editClickHandler}
-        deleteClickHandler={deleteClickHandler}
+        setIsLoaded={setIsLoaded}
       />
-      {user && user.id !== drink.creatorId && (
+      {user?.id !== drink.creatorId && (
         <DrinkReviewModal
           showDrinkReview={showDrinkReview}
           setShowDrinkReview={setShowDrinkReview}
@@ -73,26 +59,6 @@ const DrinkDetails = () => {
           />
         ))}
       </div>
-      {showDeleteModal && (
-        <Modal onClose={() => setShowDeleteModal(false)}>
-          <DeleteConfirmation
-            setShowDeleteModal={setShowDeleteModal}
-            id={drink.id}
-          />
-        </Modal>
-      )}
-      {editMode && (
-        <Modal onClose={() => setEditMode(false)}>
-          <EditModal
-            drink={drink}
-            user={user}
-            showDeleteModal={showDeleteModal}
-            setShowDeleteModal={setShowDeleteModal}
-            setIsLoaded={setIsLoaded}
-            setEditMode={setEditMode}
-          />
-        </Modal>
-      )}
     </div>
   );
 };
