@@ -18,11 +18,11 @@ const DrinkDetailsCard = ({ drinkId, editClickHandler, deleteClickHandler }) => 
         <h3 className="tw-text-xl tw-font-bold">
           The {drink.name} - created by{" "}
           <Link className="hover:tw-underline" to={`/users/${drink.creatorId}`}>
-            {drink.Creator && drink.Creator.username}
+            {drink.Creator?.username}
           </Link>
         </h3>
         <p>{drink.description}</p>
-        {user && drink.creatorId === user.id && (
+        {drink.creatorId === user?.id && (
           <div className="tw-w-2/4 tw-flex tw-flex-start">
             <button
               className="tw-p-1 tw-m-1 tw-border-2 tw-bg-yellow hover:tw-bg-yellow-dark tw-rounded"
