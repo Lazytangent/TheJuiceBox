@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { Modal } from '../../context/Modal';
 import EditModal from './EditModal';
 import DeleteConfirmation from './DeleteConfirmation';
+import { session, drinks } from '../../store/selectors';
 
 const DrinkDetailsCard = ({ drinkId, setIsLoaded }) => {
-  const drink = useSelector((state) => state.drinks.byIds[drinkId]);
-  const user = useSelector((state) => state.session.user);
+  const drink = useSelector(drinks.byId(drinkId));
+  const user = useSelector(session.user());
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
