@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { updateReview } from "../../store/drinkReviews";
 import { drinkReviews } from "../../store/selectors";
+import { updateReview } from "../../store/drinkReviews";
+import { Modal } from "../../context/Modal";
 import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
 import DeleteConfirmation from "./DeleteConfirmation";
-import { Modal } from "../../context/Modal";
 
 const EditReview = ({
   reviewId,
