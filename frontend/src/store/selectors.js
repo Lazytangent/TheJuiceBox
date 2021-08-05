@@ -14,4 +14,5 @@ export const drinkReviews = {
       return state.drinkReviews.byIds[reviewId];
     });
   },
+  byId: (id) => state => state.drinkReviews.byIds[id],
 };
