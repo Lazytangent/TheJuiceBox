@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 import { drinkReviews, session } from "../../store/selectors";
-import { Modal } from "../../context/Modal";
-import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 import EditReviewForm from "./EditReview";
 
 const DrinkReview = ({ reviewId }) => {
@@ -87,14 +86,7 @@ const DrinkReview = ({ reviewId }) => {
           </div>
         )}
       </div>
-      {showDeleteModal && (
-        <Modal onClose={() => setShowDeleteModal(false)}>
-          <DeleteConfirmation
-            setShowDeleteModal={setShowDeleteModal}
-            reviewId={reviewObj.id}
-          />
-        </Modal>
-      )}
+      <DeleteConfirmationModal reviewId={reviewObj.id} />
     </>
   );
 };
