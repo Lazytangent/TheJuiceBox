@@ -5,7 +5,7 @@ import { demoLogin } from "../../../../store/session";
 const DemoAuth = () => {
   const dispatch = useDispatch();
 
-  const loginAsDemo = async () => {
+  const loginAsDemo = () => {
     dispatch(demoLogin());
   };
 
