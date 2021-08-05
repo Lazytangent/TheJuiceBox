@@ -33,11 +33,11 @@ const Navigation = ({ isLoaded }) => {
                 Home
               </NavLink>
             </li>
-            {sessionUser && <MainLinks />}
+            <MainLinks />
           </div>
           <div className="tw-flex tw-px-2">
             <div className="tw-py-2 tw-hidden md:tw-block">
-              {sessionUser && <SearchBar />}
+              <SearchBar />
             </div>
             <div className="tw-py-1">
               {isLoaded && (

@@ -34,7 +34,7 @@ const SignupForm = () => {
         confirmPassword,
       };
       const res = await dispatch(registerUser(user));
-      if (res.data && res.data.errors) setErrors(res.data.errors);
+      if (res.data?.errors) setErrors(res.data.errors);
     } else {
       setErrors((prev) => [
         ...prev,
