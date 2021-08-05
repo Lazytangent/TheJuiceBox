@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 
 import Drink from '../Drinks/Drink';
 import { useSearchContext } from '../../context/SearchContext';
-import { grabDrinks, allDrinksSelector } from '../../store/drinks';
+import { grabDrinks } from '../../store/drinks';
+import { drinks as drinkSelectors } from '../../store/selectors';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const SearchPage = () => {
   const location = useLocation();
   const query = location.search.split('=')[1];
 
-  const drinks = useSelector(allDrinksSelector());
+  const drinks = useSelector(drinkSelectors.all());
   const similar = drinks.filter(drink => drink.name.toLowerCase().includes(query.toLowerCase()));
 
   const [badQuery, setBadQuery] = useState(false);
