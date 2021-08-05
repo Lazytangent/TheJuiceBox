@@ -6,7 +6,7 @@ import { session } from "../../store/selectors";
 import { logoutUser } from "../../store/session";
 import { useUserAuth } from "../../context/AuthContext";
 import SearchBar from "./SearchBar";
-import DrinkFormModal from "../DrinkForm";
+import MainLinks from './MainLinks';
 import SessionLinks from "./SessionLinks";
 
 const Navigation = ({ isLoaded }) => {
@@ -15,7 +15,6 @@ const Navigation = ({ isLoaded }) => {
   const sessionUser = useSelector(session.user());
   const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
 
-  const [showDrinkForm, setShowDrinkForm] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const logout = () => {
@@ -46,25 +45,7 @@ const Navigation = ({ isLoaded }) => {
                 Home
               </NavLink>
             </li>
-            {sessionUser && (
-              <>
-                <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <NavLink
-                    to="/drinks"
-                    className="hover:tw-bg-blue tw-rounded-md tw-p-1"
-                    exact
-                  >
-                    Drinks
-                  </NavLink>
-                </li>
-                <li className="tw-flex tw-items-center tw-text-xl tw-p-1">
-                  <DrinkFormModal
-                    showDrinkForm={showDrinkForm}
-                    setShowDrinkForm={setShowDrinkForm}
-                  />
-                </li>
-              </>
-            )}
+            {sessionUser && <MainLinks />}
           </div>
           <div className="tw-flex tw-px-2">
             <div className="tw-py-2 tw-hidden md:tw-block">
