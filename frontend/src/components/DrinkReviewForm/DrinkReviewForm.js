@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
+import { session } from '../../store/selectors';
 import { writeReview } from "../../store/drinkReviews";
+import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
 
-const DrinkReviewForm = ({ setShowDrinkReview, userId, drinkId }) => {
+const DrinkReviewForm = ({ setShowDrinkReview, drinkId }) => {
   const dispatch = useDispatch();
+  const { id: userId } = useSelector(session.user());
 
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(1);

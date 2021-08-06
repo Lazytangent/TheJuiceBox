@@ -9,9 +9,6 @@ import {
 } from "./constants";
 import { setDrinks, createDrink, removeDrink } from "./actions";
 
-export const allDrinksSelector = () => (state) =>
-  state.drinks.allIds.map((id) => state.drinks.byIds[id]);
-
 export const getDrinks = () => async (dispatch) => {
   const res = await csrfFetch("/api/drinks");
   const drinks = await res.json();

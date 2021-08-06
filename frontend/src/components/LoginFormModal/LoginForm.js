@@ -27,7 +27,7 @@ const LoginForm = () => {
       password,
     };
     const res = await dispatch(login(user));
-    if (res.data && res.data.errors) setErrors(res.data.errors);
+    if (res.data?.errors) setErrors(res.data.errors);
   };
 
   return (
