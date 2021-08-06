@@ -1,31 +1,16 @@
 import { csrfFetch } from './csrf';
-import { SET_USER } from './users';
-import { SET_DRINK } from './drinks';
-
-export const drinkReviewsSelector = (drinkId) => (state) => state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => state.drinkReviews.byIds[reviewId]);
-
-const SET_REVIEW = 'drinkReviews/SET_REVIEW';
-const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
-
-const setReview = (review) => ({
-  type: SET_REVIEW,
-  payload: review,
-});
-
-const removeReview = (id) => ({
-  type: REMOVE_REVIEW,
-  payload: id,
-});
+import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from './constants';
+import { setReview, removeReview } from './actions';
 
 export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
+    const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
       method: 'POST',
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
-
-    dispatch(setReview(response.data));
-    return response;
+    const newReview = await res.json();
+    dispatch(setReview(newReview, drinkId));
+    return newReview;
   } catch (err) {
     return err;
   }
@@ -36,15 +21,19 @@ export const updateReview = (review) => async (dispatch) => {
     method: "PUT",
     body: JSON.stringify(review),
   });
-  dispatch(setReview(res.data));
-  return res;
+  const updatedReview = await res.json();
+  dispatch(setReview(updatedReview, updatedReview.drinkId));
+  return updatedReview;
 };
 
 export const deleteReview = (id) => async (dispatch) => {
-  await csrfFetch(`/api/drinks/reviews/${id}`, {
+  const res = await csrfFetch(`/api/drinks/reviews/${id}`, {
     method: "DELETE",
   });
-  dispatch(removeReview(id));
+  const { drinkId } = await res.json();
+  if (res.ok) {
+    dispatch(removeReview(id, drinkId));
+  }
 };
 
 const initialState = {
@@ -56,12 +45,12 @@ const drinkReviewsReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case SET_USER:
-    case SET_DRINK:
+    case CREATE_DRINK:
       newState = { ...state, byIds: { ...state.byIds, ...action.payload.reviews } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_REVIEW:
-      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState = { ...state, byIds: { ...state.byIds, [action.payload.review.id]: action.payload.review } };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_REVIEW:

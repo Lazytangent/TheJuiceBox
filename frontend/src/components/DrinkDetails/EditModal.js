@@ -5,7 +5,7 @@ import { Modal } from '../../context/Modal';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import DeleteConfirmation from './DeleteConfirmation';
 import FormDiv from "../Parts/Forms/FormDiv";
-import { updateDrink, getDrinks } from "../../store/drinks";
+import { updateDrink } from "../../store/drinks";
 
 const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, user, setEditMode }) => {
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
     e.preventDefault();
     setEditMode(false);
     setIsLoaded(false);
-    const response = await dispatch(updateDrink({ id: drink.id, name, description, image }));
-    if (response.data && response.data.errors) setErrors(response.data.errors);
+    const errors = await dispatch(updateDrink({ id: drink.id, name, description, image }));
+    if (errors) setErrors(errors);
   };
 
   const deleteClickHandler = () => {

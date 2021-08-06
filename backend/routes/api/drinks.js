@@ -78,7 +78,6 @@ router.put(
       description,
       imageUrl: imageUrl || drink.imageUrl,
     });
-    console.log(drink);
 
     res.json({ drink, reviews: {} });
   })

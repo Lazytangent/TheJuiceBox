@@ -1,16 +1,21 @@
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { session } from '../../../store/selectors';
 import { useSearchContext } from '../../../context/SearchContext';
 
 const SearchBar = () => {
   const history = useHistory();
 
+  const sessionUser = useSelector(session.user());
   const { input, setInput } = useSearchContext();
 
   const onSearch = (e) => {
     e.preventDefault();
     history.push(`/search?thing1=${input}`)
   };
+
+  if (!sessionUser) return null;
 
   return (
     <div className="tw-flex tw-items-center tw-px-4">
