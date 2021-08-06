@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { session } from "../../store/selectors";
 import SearchBar from "./SearchBar";
 import MainLinks from './MainLinks';
 import SessionLinks from "./SessionLinks";
 import ProfileMenu from './ProfileMenu';
 
 const Navigation = ({ isLoaded }) => {
-  const sessionUser = useSelector(session.user());
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   useEffect(() => {
@@ -50,7 +47,7 @@ const Navigation = ({ isLoaded }) => {
           </div>
         </ul>
       </nav>
-      <ProfileMenu />
+      <ProfileMenu showProfileMenu={showProfileMenu} />
     </>
   );
 };
