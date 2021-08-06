@@ -1,12 +1,16 @@
 import { useDispatch } from "react-redux";
 
 import { demoLogin } from "../../../../store/session";
+import { useUserAuth } from '../../../../context/AuthContext';
 
 const DemoAuth = () => {
   const dispatch = useDispatch();
+  const { setShowLoginModal, setShowRegisterModal } = useUserAuth();
 
-  const loginAsDemo = () => {
-    dispatch(demoLogin());
+  const loginAsDemo = async () => {
+    await dispatch(demoLogin());
+    setShowLoginModal(false);
+    setShowRegisterModal(false);
   };
 
   return (

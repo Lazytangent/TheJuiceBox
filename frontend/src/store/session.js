@@ -66,7 +66,7 @@ export const demoLogin = () => async (dispatch) => {
       body: JSON.stringify({ credential: 'Demo-Dave', password: 'password' }),
     });
     const session = await res.json();
-    dispatch(setSession(session()));
+    dispatch(setSession(session));
     return res;
   } catch (err) {
     return err;
