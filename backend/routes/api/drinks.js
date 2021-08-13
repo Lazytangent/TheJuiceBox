@@ -19,7 +19,7 @@ router.get(
   })
 );
 
-router.get('/:drinkId(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+router.get('/:drinkId(\\d+)', asyncHandler(async (req, res, next) => {
   const drinkId = parseInt(req.params.drinkId, 10);
   const drink = await Drink.findByPk(drinkId, {
     include: { model: User, as: 'Creator' },

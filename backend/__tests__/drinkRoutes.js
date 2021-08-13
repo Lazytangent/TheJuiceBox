@@ -30,31 +30,44 @@ describe("Drink routes", () => {
   };
 
   describe("GET /api/drinks", () => {
-    it("should exist", async () => {
-      await request(app).get("/api/drinks").expect(200);
+    describe("when the user is logged in", () => {
+      it("should exist", async () => {
+        await request(app)
+          .get("/api/drinks")
+          .set('Cookie', jwtCookie)
+          .expect(200);
+      });
+
+      it("should return JSON", async () => {
+        await request(app)
+          .get("/api/drinks")
+          .set('Cookie', jwtCookie)
+          .expect("Content-Type", /json/)
+          .expect(200);
+      });
+
+      it("should return all drinks in the database if a user is logged in", async () => {
+        await Drink.create(fakeDrink1, testModelOptions());
+        await Drink.create(fakeDrink2, testModelOptions());
+
+        const res = await request(app)
+          .get("/api/drinks")
+          .set('Cookie', jwtCookie)
+          .expect(200);
+
+        expect(res.body).toEqual(
+          expect.objectContaining({
+              1: expect.objectContaining(fakeDrink1),
+              2: expect.objectContaining(fakeDrink2),
+          })
+        );
+      });
     });
 
-    it("should return JSON", async () => {
-      await request(app)
-        .get("/api/drinks")
-        .expect("Content-Type", /json/)
-        .expect(200);
-    });
+    describe("when the user is not logged in", () => {
+      it("should return a 401 Unauthorized error", () => {
 
-    it("should return all drinks in the database", async () => {
-      await Drink.create(fakeDrink1, testModelOptions());
-      await Drink.create(fakeDrink2, testModelOptions());
-
-      const res = await request(app).get("/api/drinks").expect(200);
-
-      expect(res.body).toEqual(
-        expect.objectContaining({
-          drinks: expect.arrayContaining([
-            expect.objectContaining(fakeDrink1),
-            expect.objectContaining(fakeDrink2),
-          ]),
-        })
-      );
+      });
     });
   });
 
