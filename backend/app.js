@@ -8,6 +8,7 @@ const { ValidationError } = require('sequelize');
 
 const { environment } = require('./config');
 const routes = require('./routes');
+const { formatStack } = require('./utils/formatting');
 const isProduction = environment === 'production';
 
 const app = express();
@@ -58,7 +59,7 @@ app.use((err, _req, res,) => {
     title: err.title || 'Server Error',
     message: err.message,
     errors: err.errors,
-    stack: isProduction ? null : err.stack,
+    stack: isProduction ? null : formatStack(err.stack),
   });
 });
 
