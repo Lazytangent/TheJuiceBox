@@ -13,5 +13,5 @@ export const SET_CHECK_INS = 'venueCheckIns/setCheckIns';
 export const SET_VENUES = 'venues/setVenues';
 export const SET_VENUE = 'venues/setVenue';
 
-export const SET_REVIEW = 'drinkReviews/SET_REVIEW';
-export const REMOVE_REVIEW = 'drinkReviews/REMOVE_REVIEW';
+export const SET_REVIEW = 'drinkReviews/setReview';
+export const REMOVE_REVIEW = 'drinkReviews/removeReview';
