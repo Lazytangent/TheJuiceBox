@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 
+import styles from './EditModal.module.css';
 import { Modal } from '../../context/Modal';
 import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
 import DeleteConfirmation from './DeleteConfirmation';
 import FormDiv from "../Parts/Forms/FormDiv";
+import ImagePreview from '../Parts/ImagePreview';
 import { updateDrink } from "../../store/drinks";
 
 const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, user, setEditMode }) => {
@@ -14,6 +16,8 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
   const [description, setDescription] = useState(drink.description || "");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState([]);
+  const [uri, setUri] = useState();
+  const fileInputRef = useRef();
 
   const editClickHandler = () => {
     setEditMode((prev) => !prev);
@@ -33,8 +37,16 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
 
   const updateFile = (e) => {
     const file = e.target.files[0];
-    if (file) setImage(file);
+    if (!file) return;
+
+    setImage(file);
+
+    const reader = new FileReader();
+    reader.onload = (ev) => setUri(ev.target.result);
+    reader.readAsDataURL(file);
   };
+
+  const clickUploadFile = () => fileInputRef.current.click();
 
   return (
     <>
@@ -48,10 +60,14 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
             <ErrorsDiv errors={errors} />
             <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
             <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
-            <input type="file" className="tw-p-1" onChange={updateFile} />
-            <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-green tw-rounded hover:tw-bg-green-dark" type="submit">
-              Submit
-            </button>
+            <input type="file" style={{ display: 'none' }} onChange={updateFile} ref={fileInputRef} />
+            <button type="button" className={styles.button} onClick={clickUploadFile}>Upload Image</button>
+            <ImagePreview image={uri} />
+            <div>
+              <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-green tw-rounded hover:tw-bg-green-dark" type="submit">
+                Submit
+              </button>
+            </div>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
             <button className="tw-p-1 tw-m-1 tw-border-2 tw-rounded tw-bg-yellow hover:tw-bg-yellow-dark" onClick={editClickHandler}>
