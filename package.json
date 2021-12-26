@@ -12,8 +12,8 @@
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
     "start": "npm start --prefix backend",
     "build": "npm --prefix frontend build frontend",
-    "test:backend": "npm --prefix backend test backend",
-    "test:frontend": "npm --prefix frontend test frontend"
+    "test:backend": "npm --prefix backend test",
+    "test:frontend": "npm --prefix frontend test"
   },
   "repository": {
     "type": "git",
