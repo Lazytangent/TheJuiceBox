@@ -9,7 +9,7 @@
     "start": "per-env",
     "start:development": "nodemon -r dotenv/config ./bin/www",
     "start:production": "node ./bin/www",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --watch --runInBand"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000 --runInBand"
   },
   "keywords": [],
   "author": "",
