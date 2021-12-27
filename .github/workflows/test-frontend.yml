@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Test
+name: Test Frontend
 
 on:
   push:
@@ -10,12 +10,13 @@ on:
     branches: [ staging ]
 
 jobs:
-  test:
+  test-frontend:
 
     runs-on: ubuntu-latest
-    env:
-      JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      JWT_EXPIRES_IN: 604800
+
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +25,8 @@ jobs:
       with:
         node-version: 14
         cache: 'npm'
-    - run: npm ci
-    - run: npm run test:backend
-    - run: npm run test:frontend
+        cache-dependency-path: frontend/package-lock.json
+    - name: Install dependencies
+      run: npm ci
+    - name: Test frontend
+      run: npm test
