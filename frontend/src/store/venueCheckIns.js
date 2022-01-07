@@ -1,16 +1,16 @@
-import { csrfFetch } from './csrf';
-import { SET_CHECK_IN, SET_CHECK_INS } from './constants';
-import { setCheckIn, setCheckIns } from './actions';
+import { csrfFetch } from "./csrf";
+import { SET_CHECK_IN, SET_CHECK_INS } from "./constants";
+import { setCheckIn, setCheckIns } from "./actions";
 
 export const getCheckIns = () => async (dispatch) => {
-  const res = await csrfFetch('/api/checkIns');
+  const res = await csrfFetch("/api/checkIns");
   const checkIns = await res.json();
   dispatch(setCheckIns(checkIns));
   return checkIns;
 };
 
 export const getUsersCheckIns = () => async (dispatch) => {
-  const res = await csrfFetch('/api/users/checkIns');
+  const res = await csrfFetch("/api/users/checkIns");
   const checkIns = await res.json();
   dispatch(setCheckIns(checkIns));
   return checkIns;
@@ -36,7 +36,10 @@ const checkInsReducer = (state = initialState, action) => {
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_CHECK_IN:
-      newState = { ...state, byIds: { ...state.byIds, [action.checkIn.id]: action.checkIn } };
+      newState = {
+        ...state,
+        byIds: { ...state.byIds, [action.checkIn.id]: action.checkIn },
+      };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     default:

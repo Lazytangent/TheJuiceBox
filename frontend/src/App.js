@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 
-import Navigation from './components/Navigation';
-import Drinks from './components/Drinks';
-import LandingPage from './components/LandingPage';
-import DrinkDetails from './components/DrinkDetails';
-import Footer from './components/Footer';
-import ProfilePage from './components/ProfilePage';
-import SearchPage from './components/SearchPage';
-import { restoreUser } from './store/session';
+import Navigation from "./components/Navigation";
+import Drinks from "./components/Drinks";
+import LandingPage from "./components/LandingPage";
+import DrinkDetails from "./components/DrinkDetails";
+import Footer from "./components/Footer";
+import ProfilePage from "./components/ProfilePage";
+import SearchPage from "./components/SearchPage";
+import { restoreUser } from "./store/session";
 
 function App() {
   const dispatch = useDispatch();

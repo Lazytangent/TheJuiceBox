@@ -4,14 +4,13 @@
 name: Test Frontend
 
 on:
-  push:
-    branches: [ staging ]
   pull_request:
-    branches: [ staging ]
+    branches: [staging]
+    paths:
+      - "frontend/**"
 
 jobs:
   test-frontend:
-
     runs-on: ubuntu-latest
 
     defaults:
@@ -19,14 +18,14 @@ jobs:
         working-directory: frontend
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
-    - name: Install dependencies
-      run: npm ci
-    - name: Test frontend
-      run: npm test
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Test frontend
+        run: npm test

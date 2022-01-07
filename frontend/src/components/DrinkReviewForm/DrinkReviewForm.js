@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { session } from '../../store/selectors';
+import { session } from "../../store/selectors";
 import { writeReview } from "../../store/drinkReviews";
 import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
 
@@ -27,9 +27,7 @@ const DrinkReviewForm = ({ setShowDrinkReview, drinkId }) => {
 
   return (
     <div className="tw-bg-gray tw-flex-col tw-p-4 tw-rounded tw-flex tw-items-center tw-justify-center">
-      <h2 className="tw-text-xl tw-font-semibold">
-        Leave a Review:
-      </h2>
+      <h2 className="tw-text-xl tw-font-semibold">Leave a Review:</h2>
       <form
         className="tw-py-4 tw-p-1 tw-flex tw-flex-col tw-items-center"
         onSubmit={onSubmit}

@@ -1,3 +1,3 @@
-import DrinkReview from './DrinkReview';
+import DrinkReview from "./DrinkReview";
 
 export default DrinkReview;

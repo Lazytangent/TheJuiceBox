@@ -6,7 +6,7 @@ import DrinkReview from "../DrinkReview";
 import DrinkReviewModal from "../DrinkReviewForm";
 import DrinkDetailsCard from "./DrinkDetailsCard";
 import { getDrinkById } from "../../store/drinks";
-import { session, drinks } from '../../store/selectors';
+import { session, drinks } from "../../store/selectors";
 
 const DrinkDetails = () => {
   const dispatch = useDispatch();
@@ -34,10 +34,7 @@ const DrinkDetails = () => {
       <h1 className="tw-text-center tw-text-5xl tw-font-semibold">
         Drink No. {drink.id} Details
       </h1>
-      <DrinkDetailsCard
-        drinkId={drinkId}
-        setIsLoaded={setIsLoaded}
-      />
+      <DrinkDetailsCard drinkId={drinkId} setIsLoaded={setIsLoaded} />
       {user?.id !== drink.creatorId && (
         <DrinkReviewModal
           showDrinkReview={showDrinkReview}
@@ -50,10 +47,7 @@ const DrinkDetails = () => {
       <div className="tw-p-2">
         <h2 className="tw-text-center tw-text-2xl">Reviews</h2>
         {drink.Reviews?.map((reviewId) => (
-          <DrinkReview
-            key={reviewId}
-            reviewId={reviewId}
-          />
+          <DrinkReview key={reviewId} reviewId={reviewId} />
         ))}
       </div>
     </div>

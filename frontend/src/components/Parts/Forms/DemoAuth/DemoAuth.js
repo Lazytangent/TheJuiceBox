@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import { demoLogin } from "../../../../store/session";
-import { useUserAuth } from '../../../../context/AuthContext';
+import { useUserAuth } from "../../../../context/AuthContext";
 
 const DemoAuth = () => {
   const dispatch = useDispatch();

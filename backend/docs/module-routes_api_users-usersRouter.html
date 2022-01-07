@@ -1,297 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>JSDoc: Namespace: usersRouter</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="styles/prettify-tomorrow.css"
+    />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css" />
+  </head>
 
-<body>
+  <body>
+    <div id="main">
+      <h1 class="page-title">Namespace: usersRouter</h1>
 
-<div id="main">
+      <section>
+        <header>
+          <h2>
+            <span class="ancestors"
+              ><a href="module-routes_api_users.html">routes/api/users</a
+              >~</span
+            >usersRouter
+          </h2>
+        </header>
 
-    <h1 class="page-title">Namespace: usersRouter</h1>
+        <article>
+          <div class="container-overview">
+            <div class="description">
+              Express router to mount user related functions on.
+            </div>
 
-    
+            <dl class="details">
+              <dt class="tag-source">Source:</dt>
+              <dd class="tag-source">
+                <ul class="dummy">
+                  <li>
+                    <a href="api_users.js.html">api/users.js</a>,
+                    <a href="api_users.js.html#line8">line 8</a>
+                  </li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
 
+          <h3 class="subsection-title">Methods</h3>
 
+          <h4 class="name" id="~POST/api/users">
+            <span class="type-signature">(inner) </span>POST /api/users<span
+              class="signature"
+              >(path, middleware)</span
+            ><span class="type-signature"></span>
+          </h4>
 
+          <div class="description">Route handling user signup.</div>
 
-<section>
+          <h5>Parameters:</h5>
 
-<header>
-    
-        <h2>
-            <span class="ancestors"><a href="module-routes_api_users.html">routes/api/users</a>~</span>usersRouter</h2>
-        
-    
-</header>
+          <table class="params">
+            <thead>
+              <tr>
+                <th>Name</th>
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Express router to mount user related functions on.</div>
-        
+                <th>Type</th>
 
-        
+                <th class="last">Description</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              <tr>
+                <td class="name"><code>path</code></td>
 
-<dl class="details">
+                <td class="type">
+                  <span class="param-type">string</span>
+                </td>
 
-    
+                <td class="description last">Express path</td>
+              </tr>
 
-    
+              <tr>
+                <td class="name"><code>middleware</code></td>
 
-    
+                <td class="type">
+                  <span class="param-type">callback</span>
+                </td>
 
-    
+                <td class="description last">Express middleware</td>
+              </tr>
+            </tbody>
+          </table>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_users.js.html">api/users.js</a>, <a href="api_users.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
+          <dl class="details">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source">
+              <ul class="dummy">
+                <li>
+                  <a href="api_users.js.html">api/users.js</a>,
+                  <a href="api_users.js.html#line22">line 22</a>
+                </li>
+              </ul>
+            </dd>
+          </dl>
+        </article>
+      </section>
     </div>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~POST/api/users"><span class="type-signature">(inner) </span>POST /api/users<span class="signature">(path, middleware)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Route handling user signup.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Express path</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>middleware</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Express middleware</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_users.js.html">api/users.js</a>, <a href="api_users.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-routes_api_users.html">routes/api/users</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_api_users-usersRouter.html">usersRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#flattener">flattener</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun May 09 2021 14:33:21 GMT-0500 (Central Daylight Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
+    <nav>
+      <h2><a href="index.html">Home</a></h2>
+      <h3>Modules</h3>
+      <ul>
+        <li><a href="module-routes_api_users.html">routes/api/users</a></li>
+      </ul>
+      <h3>Namespaces</h3>
+      <ul>
+        <li>
+          <a href="module-routes_api_users-usersRouter.html">usersRouter</a>
+        </li>
+      </ul>
+      <h3>Global</h3>
+      <ul>
+        <li><a href="global.html#flattener">flattener</a></li>
+      </ul>
+    </nav>
+
+    <br class="clear" />
+
+    <footer>
+      Documentation generated by
+      <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sun May 09
+      2021 14:33:21 GMT-0500 (Central Daylight Time)
+    </footer>
+
+    <script>
+      prettyPrint();
+    </script>
+    <script src="scripts/linenumber.js"></script>
+  </body>
 </html>

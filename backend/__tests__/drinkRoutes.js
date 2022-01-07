@@ -1,7 +1,11 @@
 const request = require("supertest");
 
 const app = require("../app");
-const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
+const {
+  testModelOptions,
+  getCSRFTokens,
+  loginUser,
+} = require("../utils/test-utils");
 const { sequelize, Drink } = require("../db/models");
 
 describe("Drink routes", () => {
@@ -34,14 +38,14 @@ describe("Drink routes", () => {
       it("should exist", async () => {
         await request(app)
           .get("/api/drinks")
-          .set('Cookie', jwtCookie)
+          .set("Cookie", jwtCookie)
           .expect(200);
       });
 
       it("should return JSON", async () => {
         await request(app)
           .get("/api/drinks")
-          .set('Cookie', jwtCookie)
+          .set("Cookie", jwtCookie)
           .expect("Content-Type", /json/)
           .expect(200);
       });
@@ -52,42 +56,40 @@ describe("Drink routes", () => {
 
         const res = await request(app)
           .get("/api/drinks")
-          .set('Cookie', jwtCookie)
+          .set("Cookie", jwtCookie)
           .expect(200);
 
         expect(res.body).toEqual(
           expect.objectContaining({
-              1: expect.objectContaining(fakeDrink1),
-              2: expect.objectContaining(fakeDrink2),
+            1: expect.objectContaining(fakeDrink1),
+            2: expect.objectContaining(fakeDrink2),
           })
         );
       });
     });
 
     describe("when the user is not logged in", () => {
-      it("should return a 401 Unauthorized error", () => {
-
-      });
+      it("should return a 401 Unauthorized error", () => {});
     });
   });
 
   describe("POST /api/drinks", () => {
     it("should exist", async () => {
       await request(app)
-        .post('/api/drinks')
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .post("/api/drinks")
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(fakeDrink1)
-        .expect(200)
+        .expect(200);
     });
 
     it("should return JSON", async () => {
       await request(app)
-        .post('/api/drinks')
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .post("/api/drinks")
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(fakeDrink1)
         .expect(200)
         .expect("Content-Type", /json/);
@@ -95,10 +97,10 @@ describe("Drink routes", () => {
 
     it("should return the drink that was created", async () => {
       const res = await request(app)
-        .post('/api/drinks')
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .post("/api/drinks")
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(fakeDrink1)
         .expect(200)
         .expect("Content-Type", /json/);
@@ -106,21 +108,18 @@ describe("Drink routes", () => {
       expect(res.body).toEqual(
         expect.objectContaining({ drink: expect.objectContaining(fakeDrink1) })
       );
-    })
+    });
 
     it("should return an error if there is no authenticated user", async () => {
-      await request(app)
-        .post('/api/drinks')
-        .send(fakeDrink1)
-        .expect(403)
+      await request(app).post("/api/drinks").send(fakeDrink1).expect(403);
     });
   });
 
   describe("PUT /api/drinks/:drinkId", () => {
     let drink;
     const updateDrink = {
-      name: 'Something different',
-      description: 'New Description',
+      name: "Something different",
+      description: "New Description",
     };
     beforeAll(async () => {
       drink = await Drink.findOne();
@@ -129,33 +128,33 @@ describe("Drink routes", () => {
     it("should exist", async () => {
       await request(app)
         .put(`/api/drinks/${drink.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(updateDrink)
-        .expect(200)
+        .expect(200);
     });
 
     it("should return JSON", async () => {
       await request(app)
         .put(`/api/drinks/${drink.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(updateDrink)
         .expect(200)
-        .expect('Content-Type', /json/);
+        .expect("Content-Type", /json/);
     });
 
     it("should return the drink that was updated", async () => {
       const res = await request(app)
         .put(`/api/drinks/${drink.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send(updateDrink)
         .expect(200)
-        .expect('Content-Type', /json/);
+        .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
         expect.objectContaining({ drink: expect.objectContaining(updateDrink) })
@@ -166,7 +165,7 @@ describe("Drink routes", () => {
       await request(app)
         .put(`/api/drinks/${drink.id}`)
         .send(updateDrink)
-        .expect(403)
+        .expect(403);
     });
   });
 });

@@ -9,6 +9,6 @@ const getData = async () => {
     }
     drinks = JSON.parse(data);
   });
-}
+};
 
 getData();

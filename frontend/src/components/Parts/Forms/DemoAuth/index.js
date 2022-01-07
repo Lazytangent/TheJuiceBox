@@ -1,3 +1,3 @@
-import DemoAuth from './DemoAuth';
+import DemoAuth from "./DemoAuth";
 
 export default DemoAuth;

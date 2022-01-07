@@ -2,14 +2,14 @@ const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
 
 const reviewsRouter = require("./drinkReviews");
-const { validateDrink, validateDrinkReview } = require('../utils/validators');
-const flattener = require('../utils/flattener');
+const { validateDrink, validateDrinkReview } = require("../utils/validators");
+const flattener = require("../utils/flattener");
 const { requireAuth } = require("../../utils/auth");
 const { User, Drink, DrinkReview } = require("../../db/models");
 const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 router.use(requireAuth);
-router.use('/reviews', reviewsRouter);
+router.use("/reviews", reviewsRouter);
 
 router.get(
   "/",
@@ -19,22 +19,28 @@ router.get(
   })
 );
 
-router.get('/:drinkId(\\d+)', asyncHandler(async (req, res, next) => {
-  const drinkId = parseInt(req.params.drinkId, 10);
-  const drink = await Drink.findByPk(drinkId, {
-    include: { model: User, as: 'Creator' },
-  });
-  if (!drink) {
-    const err = new Error('Invalid drink.');
-    err.status = 400;
-    err.title = 'Invalid drink.';
-    err.errors = [`The drink with the id of ${drinkId} does not exist.`];
-    return next(err);
-  }
-  const reviews = await DrinkReview.findAll({ where: { drinkId }, include: User });
-  drink.dataValues.Reviews = reviews.map((review) => review.id);
-  res.json({ drink, reviews: flattener(reviews) });
-}));
+router.get(
+  "/:drinkId(\\d+)",
+  asyncHandler(async (req, res, next) => {
+    const drinkId = parseInt(req.params.drinkId, 10);
+    const drink = await Drink.findByPk(drinkId, {
+      include: { model: User, as: "Creator" },
+    });
+    if (!drink) {
+      const err = new Error("Invalid drink.");
+      err.status = 400;
+      err.title = "Invalid drink.";
+      err.errors = [`The drink with the id of ${drinkId} does not exist.`];
+      return next(err);
+    }
+    const reviews = await DrinkReview.findAll({
+      where: { drinkId },
+      include: User,
+    });
+    drink.dataValues.Reviews = reviews.map((review) => review.id);
+    res.json({ drink, reviews: flattener(reviews) });
+  })
+);
 
 router.post(
   "/",
@@ -102,10 +108,12 @@ router.post(
     const drinkArr = [];
 
     if (!drinks) {
-      const err = new Error('Invalid search query.');
+      const err = new Error("Invalid search query.");
       err.status = 400;
-      err.title = 'Invalid search query.';
-      err.errors = ['Search query provided was unable to generate any new drinks.'];
+      err.title = "Invalid search query.";
+      err.errors = [
+        "Search query provided was unable to generate any new drinks.",
+      ];
       return next(err);
     }
 
@@ -124,22 +132,34 @@ router.post(
   })
 );
 
-router.get('/:drinkId(\\d+)/reviews', asyncHandler(async (req, res) => {
-  const drinkId = parseInt(req.params.drinkId, 10);
-  const reviews = await DrinkReview.findAll({
-    where: {
-      drinkId,
-    },
-    include: User,
-  });
-  res.json(flattener(reviews));
-}));
+router.get(
+  "/:drinkId(\\d+)/reviews",
+  asyncHandler(async (req, res) => {
+    const drinkId = parseInt(req.params.drinkId, 10);
+    const reviews = await DrinkReview.findAll({
+      where: {
+        drinkId,
+      },
+      include: User,
+    });
+    res.json(flattener(reviews));
+  })
+);
 
-router.post('/:drinkId(\\d+)/reviews', validateDrinkReview, asyncHandler(async (req, res) => {
-  const { userId, drinkId, review, rating } = req.body;
-  const { id } = await DrinkReview.create({ userId, drinkId, review, stars: rating });
-  const reviewObj = await DrinkReview.findByPk(id, { include: User });
-  res.json(reviewObj);
-}));
+router.post(
+  "/:drinkId(\\d+)/reviews",
+  validateDrinkReview,
+  asyncHandler(async (req, res) => {
+    const { userId, drinkId, review, rating } = req.body;
+    const { id } = await DrinkReview.create({
+      userId,
+      drinkId,
+      review,
+      stars: rating,
+    });
+    const reviewObj = await DrinkReview.findByPk(id, { include: User });
+    res.json(reviewObj);
+  })
+);
 
 module.exports = router;

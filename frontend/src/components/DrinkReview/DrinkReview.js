@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 import { drinkReviews, session } from "../../store/selectors";
-import DeleteConfirmationModal from './DeleteConfirmationModal';
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import EditReviewForm from "./EditReview";
 
 const DrinkReview = ({ reviewId }) => {

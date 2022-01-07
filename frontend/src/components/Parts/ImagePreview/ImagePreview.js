@@ -1,4 +1,4 @@
-import styles from './ImagePreview.module.css';
+import styles from "./ImagePreview.module.css";
 
 const ImagePreview = ({ image }) => {
   if (!image) return null;

@@ -1,4 +1,3 @@
-
 # Create React App Template
 
 A no-frills template from which to create React applications with

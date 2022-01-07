@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-import { session } from '../../store/selectors';
-import DrinkFormModal from '../DrinkForm';
+import { session } from "../../store/selectors";
+import DrinkFormModal from "../DrinkForm";
 
 const MainLinks = () => {
   const sessionUser = useSelector(session.user());

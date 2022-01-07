@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Modal } from '../../context/Modal';
-import EditModal from './EditModal';
-import DeleteConfirmation from './DeleteConfirmation';
-import { session, drinks } from '../../store/selectors';
+import { Modal } from "../../context/Modal";
+import EditModal from "./EditModal";
+import DeleteConfirmation from "./DeleteConfirmation";
+import { session, drinks } from "../../store/selectors";
 
 const DrinkDetailsCard = ({ drinkId, setIsLoaded }) => {
   const drink = useSelector(drinks.byId(drinkId));

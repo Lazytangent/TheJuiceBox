@@ -1,7 +1,7 @@
-import { Modal } from '../../context/Modal';
-import { useUserAuth } from '../../context/AuthContext';
-import SignupForm from './SignupForm';
-import NavButton from '../Parts/Buttons/NavButton';
+import { Modal } from "../../context/Modal";
+import { useUserAuth } from "../../context/AuthContext";
+import SignupForm from "./SignupForm";
+import NavButton from "../Parts/Buttons/NavButton";
 
 const SignupFormModal = () => {
   const { showRegisterModal, setShowRegisterModal } = useUserAuth();
