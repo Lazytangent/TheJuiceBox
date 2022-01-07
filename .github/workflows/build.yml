@@ -4,14 +4,14 @@
 name: Test Build
 
 on:
-  push:
-    branches: [ staging ]
   pull_request:
     branches: [ staging ]
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'frontend/**'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:

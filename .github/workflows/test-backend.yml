@@ -4,10 +4,10 @@
 name: Test Backend
 
 on:
-  push:
-    branches: [ staging ]
   pull_request:
     branches: [ staging ]
+    paths:
+      - 'backend/**'
 
 jobs:
   test-backend:
