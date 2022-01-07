@@ -11,7 +11,7 @@ import {
   SET_CHECK_INS,
   SET_VENUE,
   SET_VENUES,
-} from './constants';
+} from "./constants";
 
 export const setSession = (user) => {
   return {

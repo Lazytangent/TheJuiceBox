@@ -18,7 +18,7 @@ To run this application locally for development, you'll need to:
 4. Create your own `.env` file in the `backend` based on the `.env.example` there
 5. Create a user that matches the only you identified in your `.env` file in PostgreSQL
 6. Run `npx dotenv sequelize db:create` to create the database
-    * If the `sequelize` module is not found, try running `npx dotenv sequelize-cli db:create` and replace `sequelize` with `sequelize-cli` for the rest of these commands
+   - If the `sequelize` module is not found, try running `npx dotenv sequelize-cli db:create` and replace `sequelize` with `sequelize-cli` for the rest of these commands
 7. Run `npx dotenv sequelize db:migrate` to run the migrations
 8. Run `npx dotenv sequelize db:seed:all` to seed the database
 9. Open another terminal and `cd` into the `frontend` directory and `npm install` there
@@ -28,19 +28,19 @@ To run this application locally for development, you'll need to:
 
 ## Technologies Used
 
-* PostgreSQL
-* Express.js
-* Sequelize
-* JavaScript
-* TailwindCSS
-* Bcryptjs
-* Express-session
-* Express-validator
-* Node.js
-* AWS S3
-* Heroku
-* React
-* Redux
+- PostgreSQL
+- Express.js
+- Sequelize
+- JavaScript
+- TailwindCSS
+- Bcryptjs
+- Express-session
+- Express-validator
+- Node.js
+- AWS S3
+- Heroku
+- React
+- Redux
 
 ## Live Site
 
@@ -54,14 +54,14 @@ To run this application locally for development, you'll need to:
 
 Users can:
 
-* View Drinks
-* Create Drinks
-* Edit their Drinks
-* Delete their Drinks
-* View Reviews of Drinks
-* Create Reviews of Drinks
-* Edit their Reviews of Drinks
-* Delete their Reviews of Drinks
+- View Drinks
+- Create Drinks
+- Edit their Drinks
+- Delete their Drinks
+- View Reviews of Drinks
+- Create Reviews of Drinks
+- Edit their Reviews of Drinks
+- Delete their Reviews of Drinks
 
 ## Two Challenges
 

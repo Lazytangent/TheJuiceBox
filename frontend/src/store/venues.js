@@ -1,9 +1,9 @@
-import { csrfFetch } from './csrf';
-import { SET_VENUE, SET_VENUES } from './constants';
-import { setVenue, setVenues } from './actions';
+import { csrfFetch } from "./csrf";
+import { SET_VENUE, SET_VENUES } from "./constants";
+import { setVenue, setVenues } from "./actions";
 
 export const getVenues = () => async (dispatch) => {
-  const res = await csrfFetch('/api/venues');
+  const res = await csrfFetch("/api/venues");
   const venues = await res.json();
   dispatch(setVenues(venues));
   return venues;
@@ -29,7 +29,10 @@ const venuesReducer = (state = initialState, action) => {
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_VENUE:
-      newState = { ...state, byIds: { ...state.byIds, [action.payload.id]: action.payload } };
+      newState = {
+        ...state,
+        byIds: { ...state.byIds, [action.payload.id]: action.payload },
+      };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     default:

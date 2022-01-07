@@ -9,10 +9,10 @@ export const drinks = {
 };
 
 export const drinkReviews = {
-  byDrinkId: (drinkId) => state => {
+  byDrinkId: (drinkId) => (state) => {
     return state.drinks.byIds[drinkId]?.Reviews?.map((reviewId) => {
       return state.drinkReviews.byIds[reviewId];
     });
   },
-  byId: (id) => state => state.drinkReviews.byIds[id],
+  byId: (id) => (state) => state.drinkReviews.byIds[id],
 };

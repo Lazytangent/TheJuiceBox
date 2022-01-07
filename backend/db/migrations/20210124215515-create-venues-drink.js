@@ -1,40 +1,40 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('VenuesDrinks', {
+    return queryInterface.createTable("VenuesDrinks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       venueId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Venues',
+          model: "Venues",
         },
       },
       drinkId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Drinks',
+          model: "Drinks",
         },
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('now'),
-      }
+        defaultValue: Sequelize.fn("now"),
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('VenuesDrinks');
-  }
+    return queryInterface.dropTable("VenuesDrinks");
+  },
 };

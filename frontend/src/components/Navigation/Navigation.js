@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import SearchBar from "./SearchBar";
-import MainLinks from './MainLinks';
+import MainLinks from "./MainLinks";
 import SessionLinks from "./SessionLinks";
-import ProfileMenu from './ProfileMenu';
+import ProfileMenu from "./ProfileMenu";
 
 const Navigation = ({ isLoaded }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);

@@ -1,5 +1,5 @@
-import { createContext, useRef, useState, useEffect, useContext } from 'react';
-import ReactDOM from 'react-dom';
+import { createContext, useRef, useState, useEffect, useContext } from "react";
+import ReactDOM from "react-dom";
 
 const ModalContext = createContext();
 
@@ -13,9 +13,7 @@ export const ModalProvider = ({ children }) => {
 
   return (
     <>
-      <ModalContext.Provider value={value}>
-        {children}
-      </ModalContext.Provider>
+      <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
       <div ref={modalRef} />
     </>
   );
@@ -27,7 +25,11 @@ export const Modal = ({ onClose, children }) => {
 
   return ReactDOM.createPortal(
     <div className="tw-fixed tw-inset-0 tw-flex tw-justify-center tw-items-center">
-      <div className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-70"id="modal-background" onClick={onClose} />
+      <div
+        className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-70"
+        id="modal-background"
+        onClick={onClose}
+      />
       <div className="tw-absolute tw-bg-black tw-w-auto" id="modal-content">
         {children}
       </div>

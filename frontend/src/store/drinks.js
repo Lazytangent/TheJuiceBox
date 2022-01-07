@@ -63,29 +63,29 @@ export const mixDrink = (drink) => async (dispatch) => {
   }
 };
 
-export const updateDrink =
-  ({ id, name, description, image }) =>
-  async (dispatch) => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("image", image);
+export const updateDrink = ({ id, name, description, image }) => async (
+  dispatch
+) => {
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("image", image);
 
-    try {
-      const res = await csrfFetch(`/api/drinks/${id}`, {
-        method: "PUT",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const { drink, reviews, errors } = await res.json();
-      dispatch(createDrink(drink, reviews));
-      return errors;
-    } catch (err) {
-      return err;
-    }
-  };
+  try {
+    const res = await csrfFetch(`/api/drinks/${id}`, {
+      method: "PUT",
+      body: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const { drink, reviews, errors } = await res.json();
+    dispatch(createDrink(drink, reviews));
+    return errors;
+  } catch (err) {
+    return err;
+  }
+};
 
 export const deleteDrink = (id) => async (dispatch) => {
   try {
@@ -138,9 +138,10 @@ const drinksReducer = (state = initialState, action) => {
           [action.payload.drinkId]: {
             ...state.byIds[action.payload.drinkId],
             Reviews: Array.from(
-              new Set(
-                [ ...state.byIds[action.payload.drinkId].Reviews, action.payload.review.id ]
-              )
+              new Set([
+                ...state.byIds[action.payload.drinkId].Reviews,
+                action.payload.review.id,
+              ])
             ),
           },
         },
@@ -154,7 +155,9 @@ const drinksReducer = (state = initialState, action) => {
           ...state.byIds,
           [action.payload.drinkId]: {
             ...state.byIds[action.payload.drinkId],
-            Reviews: state.byIds[action.payload.drinkId].Reviews.filter(id => id !== action.payload.id),
+            Reviews: state.byIds[action.payload.drinkId].Reviews.filter(
+              (id) => id !== action.payload.id
+            ),
           },
         },
       };

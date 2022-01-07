@@ -1,12 +1,12 @@
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext } from "react";
 
 const UserAuthContext = createContext();
 export const useUserAuth = () => useContext(UserAuthContext);
 
-const SHOW_LOGIN = 'showLogin';
-const HIDE_LOGIN = 'hideLogin';
-const SHOW_REGISTER = 'showRegister';
-const HIDE_REGISTER = 'hideRegister';
+const SHOW_LOGIN = "showLogin";
+const HIDE_LOGIN = "hideLogin";
+const SHOW_REGISTER = "showRegister";
+const HIDE_REGISTER = "hideRegister";
 
 const initialState = {
   showLoginModal: false,
@@ -43,12 +43,23 @@ const userAuthReducer = (state, action) => {
 export default function UserAuthProvider({ children }) {
   const [state, dispatch] = useReducer(userAuthReducer, initialState);
   const { showLoginModal, showRegisterModal } = state;
-  const setShowLoginModal = (bool) => bool ? dispatch({ type: SHOW_LOGIN }) : dispatch({ type: HIDE_LOGIN });
-  const setShowRegisterModal = (bool) => bool ? dispatch({ type: SHOW_REGISTER }) : dispatch({ type: HIDE_REGISTER });
+  const setShowLoginModal = (bool) =>
+    bool ? dispatch({ type: SHOW_LOGIN }) : dispatch({ type: HIDE_LOGIN });
+  const setShowRegisterModal = (bool) =>
+    bool
+      ? dispatch({ type: SHOW_REGISTER })
+      : dispatch({ type: HIDE_REGISTER });
 
   return (
-    <UserAuthContext.Provider value={{ showLoginModal, setShowLoginModal, showRegisterModal, setShowRegisterModal }}>
-      { children }
+    <UserAuthContext.Provider
+      value={{
+        showLoginModal,
+        setShowLoginModal,
+        showRegisterModal,
+        setShowRegisterModal,
+      }}
+    >
+      {children}
     </UserAuthContext.Provider>
   );
 }

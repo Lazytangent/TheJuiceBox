@@ -1,6 +1,6 @@
-'use strict';
-const faker = require('faker');
-const { User, Drink } = require('../models');
+"use strict";
+const faker = require("faker");
+const { User, Drink } = require("../models");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -22,14 +22,14 @@ module.exports = {
       reviews.push(review);
     }
 
-    return queryInterface.bulkInsert('DrinkReviews', reviews, {});
+    return queryInterface.bulkInsert("DrinkReviews", reviews, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('DrinkReviews', null, {
+    return queryInterface.bulkDelete("DrinkReviews", null, {
       truncate: true,
       cascade: true,
       restartIdentity: true,
     });
-  }
+  },
 };

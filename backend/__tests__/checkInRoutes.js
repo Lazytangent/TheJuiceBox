@@ -1,22 +1,26 @@
 const request = require("supertest");
 const app = require("../app");
-const { testModelOptions, getCSRFTokens, loginUser } = require('../utils/test-utils');
-const { sequelize, Venue, CheckIn } = require('../db/models');
+const {
+  testModelOptions,
+  getCSRFTokens,
+  loginUser,
+} = require("../utils/test-utils");
+const { sequelize, Venue, CheckIn } = require("../db/models");
 
 describe("CheckIn routes", () => {
   let jwtCookie;
   let tokens;
 
   const fakeVenue1 = {
-    name: 'Test Venue1',
-    city: 'New York City',
-    state: 'New York',
+    name: "Test Venue1",
+    city: "New York City",
+    state: "New York",
   };
 
   const fakeVenue2 = {
-    name: 'Test Venue2',
-    city: 'San Francisco',
-    state: 'California',
+    name: "Test Venue2",
+    city: "San Francisco",
+    state: "California",
   };
 
   beforeAll(async () => {
@@ -41,33 +45,33 @@ describe("CheckIn routes", () => {
     it("should exist", async () => {
       await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send({ stars: 4, timestamp })
-        .expect(200)
+        .expect(200);
     });
 
     it("should return JSON", async () => {
       await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send({ stars: 4, timestamp })
         .expect(200)
-        .expect("Content-Type", /json/)
+        .expect("Content-Type", /json/);
     });
 
     it("should return the checkIn object that was created when good data is passed in", async () => {
       const res = await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send({ stars: 5, timestamp })
         .expect(200)
-        .expect("Content-Type", /json/)
+        .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(expect.objectContaining({ stars: 5 }));
     });
@@ -75,18 +79,18 @@ describe("CheckIn routes", () => {
     it("should return an error when bad data gets passed in", async () => {
       await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .send({ stars: -1, timestamp })
-        .expect(400)
+        .expect(400);
     });
 
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
         .send({ stars: 2, timestamp })
-        .expect(403)
+        .expect(403);
     });
   });
 
@@ -94,51 +98,59 @@ describe("CheckIn routes", () => {
     let checkIn;
 
     beforeEach(async () => {
-      checkIn = await CheckIn.create({ venueId: 1, userId: 1, timestamp: new Date() });
+      checkIn = await CheckIn.create({
+        venueId: 1,
+        userId: 1,
+        timestamp: new Date(),
+      });
     });
 
     it("should exist", async () => {
       await request(app)
         .delete(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
-        .expect(200)
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
+        .expect(200);
     });
 
     it("should return JSON", async () => {
       await request(app)
         .delete(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .expect(200)
-        .expect("Content-Type", /json/)
+        .expect("Content-Type", /json/);
     });
 
     it("should return a message upon a successful deletion", async () => {
       const res = await request(app)
         .delete(`/api/checkIns/${checkIn.id}`)
-        .set('XSRF-TOKEN', tokens.csrfToken)
-        .set('Cookie', [tokens.csrfCookie, jwtCookie])
-        .set('Accept', 'application/json')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
         .expect(200)
-        .expect("Content-Type", /json/)
+        .expect("Content-Type", /json/);
 
-      expect(res.body).toEqual(expect.objectContaining({
-        message: "Successfully deleted."
-      }));
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: "Successfully deleted.",
+        })
+      );
     });
 
     it("should return an error message if no user authenticated", async () => {
       const res = await request(app)
         .delete(`/api/checkIns/${checkIn.id}`)
         .expect(403)
-        .expect("Content-Type", /json/)
+        .expect("Content-Type", /json/);
 
-      expect(res.body).toEqual(expect.objectContaining({
-        message: "invalid csrf token"
-      }));
+      expect(res.body).toEqual(
+        expect.objectContaining({
+          message: "invalid csrf token",
+        })
+      );
     });
   });
 });

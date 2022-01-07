@@ -1,15 +1,22 @@
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 
-import styles from './EditModal.module.css';
-import { Modal } from '../../context/Modal';
-import ErrorsDiv from '../Parts/Forms/ErrorsDiv';
-import DeleteConfirmation from './DeleteConfirmation';
+import styles from "./EditModal.module.css";
+import { Modal } from "../../context/Modal";
+import ErrorsDiv from "../Parts/Forms/ErrorsDiv";
+import DeleteConfirmation from "./DeleteConfirmation";
 import FormDiv from "../Parts/Forms/FormDiv";
-import ImagePreview from '../Parts/ImagePreview';
+import ImagePreview from "../Parts/ImagePreview";
 import { updateDrink } from "../../store/drinks";
 
-const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, user, setEditMode }) => {
+const EditModal = ({
+  showDeleteModal,
+  setShowDeleteModal,
+  setIsLoaded,
+  drink,
+  user,
+  setEditMode,
+}) => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState(drink.name ?? "");
@@ -27,7 +34,9 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
     e.preventDefault();
     setEditMode(false);
     setIsLoaded(false);
-    const errors = await dispatch(updateDrink({ id: drink.id, name, description, image }));
+    const errors = await dispatch(
+      updateDrink({ id: drink.id, name, description, image })
+    );
     if (errors) setErrors(errors);
   };
 
@@ -55,25 +64,59 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
           <img src={drink.imageUrl} alt={drink.name} />
         </div>
         <div className="tw-col-span-2 tw-p-4 tw-flex tw-flex-col">
-          <h1 className="tw-text-xl tw-font-semibold">Drink No. {drink.id} Details</h1>
+          <h1 className="tw-text-xl tw-font-semibold">
+            Drink No. {drink.id} Details
+          </h1>
           <form onSubmit={submitClickHandler}>
             <ErrorsDiv errors={errors} />
-            <FormDiv required={true} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Drink Name" />
-            <FormDiv required={true} type="textarea" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Drink Description" />
-            <input type="file" style={{ display: 'none' }} onChange={updateFile} ref={fileInputRef} />
-            <button type="button" className={styles.button} onClick={clickUploadFile}>Upload Image</button>
+            <FormDiv
+              required={true}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Drink Name"
+            />
+            <FormDiv
+              required={true}
+              type="textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Drink Description"
+            />
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={updateFile}
+              ref={fileInputRef}
+            />
+            <button
+              type="button"
+              className={styles.button}
+              onClick={clickUploadFile}
+            >
+              Upload Image
+            </button>
             <ImagePreview image={uri} />
             <div>
-              <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-green tw-rounded hover:tw-bg-green-dark" type="submit">
+              <button
+                className="tw-p-1 tw-m-1 tw-border-2 tw-bg-green tw-rounded hover:tw-bg-green-dark"
+                type="submit"
+              >
                 Submit
               </button>
             </div>
           </form>
           <div className="tw-w-2/4 tw-flex tw-flex-start">
-            <button className="tw-p-1 tw-m-1 tw-border-2 tw-rounded tw-bg-yellow hover:tw-bg-yellow-dark" onClick={editClickHandler}>
+            <button
+              className="tw-p-1 tw-m-1 tw-border-2 tw-rounded tw-bg-yellow hover:tw-bg-yellow-dark"
+              onClick={editClickHandler}
+            >
               Cancel Edit
             </button>
-            <button className="tw-p-1 tw-m-1 tw-border-2 tw-bg-red hover:tw-bg-red-dark tw-rounded" onClick={deleteClickHandler}>
+            <button
+              className="tw-p-1 tw-m-1 tw-border-2 tw-bg-red hover:tw-bg-red-dark tw-rounded"
+              onClick={deleteClickHandler}
+            >
               Delete
             </button>
           </div>
@@ -81,7 +124,10 @@ const EditModal = ({ showDeleteModal, setShowDeleteModal, setIsLoaded, drink, us
       </div>
       {showDeleteModal && (
         <Modal onClose={() => setShowDeleteModal(false)}>
-          <DeleteConfirmation setShowDeleteModal={setShowDeleteModal} id={drink.id} />
+          <DeleteConfirmation
+            setShowDeleteModal={setShowDeleteModal}
+            id={drink.id}
+          />
         </Modal>
       )}
     </>

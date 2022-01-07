@@ -1,40 +1,48 @@
-const router = require('express').Router();
-const asyncHandler = require('express-async-handler');
+const router = require("express").Router();
+const asyncHandler = require("express-async-handler");
 
-const flattener = require('../utils/flattener');
-const { validateCheckIn } = require('../utils/validators');
-const { requireAuth } = require('../../utils/auth');
-const { Venue, CheckIn } = require('../../db/models');
-const checkInsRouter = require('./checkIns');
+const flattener = require("../utils/flattener");
+const { validateCheckIn } = require("../utils/validators");
+const { requireAuth } = require("../../utils/auth");
+const { Venue, CheckIn } = require("../../db/models");
+const checkInsRouter = require("./checkIns");
 
-router.use('/checkIns', checkInsRouter);
+router.use("/checkIns", checkInsRouter);
 
-router.get('/', asyncHandler(async (_req, res) => {
-  const venues = await Venue.findAll();
-  res.json(flattener(venues));
-}));
+router.get(
+  "/",
+  asyncHandler(async (_req, res) => {
+    const venues = await Venue.findAll();
+    res.json(flattener(venues));
+  })
+);
 
-router.post('/:venueId(\\d+)/checkIns', requireAuth, validateCheckIn, asyncHandler(async (req, res, next) => {
-  const id = parseInt(req.params.venueId, 10);
-  const venue = await Venue.findByPk(id);
-  const { user } = req;
-  const { timestamp } = req.body;
+router.post(
+  "/:venueId(\\d+)/checkIns",
+  requireAuth,
+  validateCheckIn,
+  asyncHandler(async (req, res, next) => {
+    const id = parseInt(req.params.venueId, 10);
+    const venue = await Venue.findByPk(id);
+    const { user } = req;
+    const { timestamp } = req.body;
 
-  if (!venue) {
-    const err = new Error('Invalid Venue.');
-    err.status = 400;
-    err.title = 'Invalid Venue.';
-    err.errors = ['The provided venue does not exist.'];
-    return next(err);
-  }
+    if (!venue) {
+      const err = new Error("Invalid Venue.");
+      err.status = 400;
+      err.title = "Invalid Venue.";
+      err.errors = ["The provided venue does not exist."];
+      return next(err);
+    }
 
-  const checkIn = await CheckIn.create({
-    userId: user.id,
-    venueId: venue.id,
-    timestamp,
-  });
+    const checkIn = await CheckIn.create({
+      userId: user.id,
+      venueId: venue.id,
+      timestamp,
+    });
 
-  res.json(checkIn);
-}));
+    res.json(checkIn);
+  })
+);
 
 module.exports = router;

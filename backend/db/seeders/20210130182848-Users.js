@@ -1,6 +1,6 @@
-'use strict';
-const faker = require('faker');
-const bcrypt = require('bcryptjs');
+"use strict";
+const faker = require("faker");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -11,19 +11,19 @@ module.exports = {
         email: faker.internet.email(),
         username: faker.internet.userName(),
         hashedPassword: bcrypt.hashSync(faker.internet.password()),
-        dateOfBirth: '1984-02-26',
+        dateOfBirth: "1984-02-26",
       };
       users.push(user);
     }
 
-    return queryInterface.bulkInsert('Users', users, {});
+    return queryInterface.bulkInsert("Users", users, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users', null, {
+    return queryInterface.bulkDelete("Users", null, {
       truncate: true,
       cascade: true,
       restartIdentity: true,
     });
-  }
+  },
 };

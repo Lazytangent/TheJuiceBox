@@ -1,3 +1,3 @@
-import AuthFormTab from './AuthFormTab';
+import AuthFormTab from "./AuthFormTab";
 
 export default AuthFormTab;

@@ -1,11 +1,13 @@
-import { csrfFetch } from './csrf';
-import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from './constants';
-import { setReview, removeReview } from './actions';
+import { csrfFetch } from "./csrf";
+import { SET_USER, CREATE_DRINK, SET_REVIEW, REMOVE_REVIEW } from "./constants";
+import { setReview, removeReview } from "./actions";
 
-export const writeReview = ({ userId, drinkId, review, rating }) => async (dispatch) => {
+export const writeReview = ({ userId, drinkId, review, rating }) => async (
+  dispatch
+) => {
   try {
     const res = await csrfFetch(`/api/drinks/${drinkId}/reviews`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({ userId, drinkId, review, rating }),
     });
     const newReview = await res.json();
@@ -46,15 +48,28 @@ const drinkReviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
     case CREATE_DRINK:
-      newState = { ...state, byIds: { ...state.byIds, ...action.payload.reviews } };
+      newState = {
+        ...state,
+        byIds: { ...state.byIds, ...action.payload.reviews },
+      };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case SET_REVIEW:
-      newState = { ...state, byIds: { ...state.byIds, [action.payload.review.id]: action.payload.review } };
+      newState = {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [action.payload.review.id]: action.payload.review,
+        },
+      };
       newState.allIds = Object.keys(newState.byIds);
       return newState;
     case REMOVE_REVIEW:
-      newState = { ...state, byIds: { ...state.byIds }, allIds: state.allIds.filter((id) => id !== action.id) };
+      newState = {
+        ...state,
+        byIds: { ...state.byIds },
+        allIds: state.allIds.filter((id) => id !== action.id),
+      };
       delete newState.byIds[action.id];
       return newState;
     default:

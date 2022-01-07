@@ -1,1 +1,1 @@
-exports.formatStack = (stack) => stack.split('\n');
+exports.formatStack = (stack) => stack.split("\n");
