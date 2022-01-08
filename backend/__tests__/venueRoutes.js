@@ -5,7 +5,7 @@ const {
   getCSRFTokens,
   loginUser,
 } = require("../utils/test-utils");
-const { sequelize, Venue } = require("../db/models");
+const { sequelize, Venue, User } = require("../db/models");
 
 describe("Venue routes", () => {
   let jwtCookie;
@@ -15,12 +15,14 @@ describe("Venue routes", () => {
     name: "Test Venue1",
     city: "New York City",
     state: "New York",
+    userId: 1,
   };
 
   const fakeVenue2 = {
     name: "Test Venue2",
     city: "San Francisco",
     state: "California",
+    userId: 1,
   };
 
   beforeAll(async () => {
@@ -59,6 +61,59 @@ describe("Venue routes", () => {
           2: expect.objectContaining(fakeVenue2),
         })
       );
+    });
+  });
+
+  describe("POST /api/venues", () => {
+    const fakeVenueData = {
+      name: 'Test1',
+      userId: 1,
+    };
+
+    it("should exist", async () => {
+      await request(app)
+        .post('/api/venues')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
+        .send(fakeVenueData)
+        .expect(200);
+    });
+
+    it("should return JSON", async () => {
+      await request(app)
+        .post('/api/venues')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
+        .send(fakeVenueData)
+        .expect(200)
+        .expect("Content-Type", /json/);
+    });
+
+    it("should return the newly created venue", async () => {
+      const res = await request(app)
+        .post('/api/venues')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie, jwtCookie])
+        .set("Accept", "application/json")
+        .send(fakeVenueData)
+        .expect(200)
+        .expect("Content-Type", /json/);
+
+      expect(res.body).toEqual(
+        expect.objectContaining({ venue: expect.objectContaining(fakeVenueData) })
+      );
+    });
+
+    it("should return an error if there is no authenticated user", async () => {
+      const res = await request(app)
+        .post('/api/venues')
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie])
+        .set("Accept", "application/json")
+        .send(fakeVenueData)
+        .expect(401);
     });
   });
 
@@ -117,6 +172,7 @@ describe("Venue routes", () => {
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .post("/api/venues/1/checkIns")
+        .set("XSRF-TOKEN", tokens.csrfToken)
         .send({ timestamp: new Date() })
         .expect(403);
     });
