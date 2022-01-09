@@ -26,11 +26,11 @@ const getCSRFTokens = async (app) => {
 
 const loginUser = async (app) => {
   const { csrfToken, csrfCookie } = await getCSRFTokens(app);
-  const user = await User.findOne({
+  let user = await User.findOne({
     where: { username: "testUser1" },
   });
   if (!user) {
-    await User.signup(testUser);
+    user = await User.signup(testUser);
   }
   const response = await request(app)
     .post("/api/session")
@@ -40,9 +40,12 @@ const loginUser = async (app) => {
       credential: testUser.username,
       password: testUser.password,
     });
-  return response.headers["set-cookie"].find((cookie) =>
+
+  const tokenCookie = response.headers["set-cookie"].find((cookie) =>
     cookie.match(/^token/)
   );
+
+  return [tokenCookie, user];
 };
 
 const testModelOptions = () => ({
