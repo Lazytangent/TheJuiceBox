@@ -107,7 +107,7 @@ describe("Venue routes", () => {
     });
 
     it("should return an error if there is no authenticated user", async () => {
-      const res = await request(app)
+      await request(app)
         .post('/api/venues')
         .set("XSRF-TOKEN", tokens.csrfToken)
         .set("Cookie", [tokens.csrfCookie])
