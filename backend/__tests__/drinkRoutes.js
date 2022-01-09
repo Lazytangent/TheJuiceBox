@@ -111,7 +111,12 @@ describe("Drink routes", () => {
     });
 
     it("should return an error if there is no authenticated user", async () => {
-      await request(app).post("/api/drinks").send(fakeDrink1).expect(403);
+      await request(app)
+        .post("/api/drinks")
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie])
+        .send(fakeDrink1)
+        .expect(401);
     });
   });
 
@@ -164,8 +169,10 @@ describe("Drink routes", () => {
     it("should return an error if there is no authenticated user", async () => {
       await request(app)
         .put(`/api/drinks/${drink.id}`)
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie])
         .send(updateDrink)
-        .expect(403);
+        .expect(401);
     });
   });
 });
