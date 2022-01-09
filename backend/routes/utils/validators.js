@@ -73,10 +73,12 @@ const validateDrinkReview = [
 
 const validateCheckIn = [
   check("timestamp")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a timestamp.")
     .notEmpty()
     .withMessage("Please provide a timestamp.")
     .isISO8601()
+    .withMessage("Must be in YYYY-MM-DD format.")
     .custom((value) => {
       const valueDate = new Date(value);
       const currentDate = new Date();
@@ -99,6 +101,13 @@ const validateStars = [
   handleValidationErrors,
 ];
 
+const validateVenue = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a name for your venue."),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateLogin,
   validateSignup,
@@ -106,4 +115,5 @@ module.exports = {
   validateDrinkReview,
   validateCheckIn,
   validateStars,
+  validateVenue,
 };

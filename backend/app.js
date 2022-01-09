@@ -10,6 +10,7 @@ const { environment } = require("./config");
 const routes = require("./routes");
 const { formatStack } = require("./utils/formatting");
 const isProduction = environment === "production";
+const isTesting = environment === "test";
 
 const app = express();
 
@@ -52,9 +53,9 @@ app.use((err, _req, _res, next) => {
   next(err);
 });
 
-app.use((err, _req, res) => {
+app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
-  console.error(err);
+  !isTesting && console.error(err);
   res.json({
     title: err.title || "Server Error",
     message: err.message,

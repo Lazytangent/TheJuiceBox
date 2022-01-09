@@ -2,7 +2,7 @@ const router = require("express").Router();
 const asyncHandler = require("express-async-handler");
 
 const flattener = require("../utils/flattener");
-const { validateCheckIn } = require("../utils/validators");
+const { validateCheckIn, validateVenue } = require("../utils/validators");
 const { requireAuth } = require("../../utils/auth");
 const { Venue, CheckIn } = require("../../db/models");
 const checkInsRouter = require("./checkIns");
@@ -14,6 +14,27 @@ router.get(
   asyncHandler(async (_req, res) => {
     const venues = await Venue.findAll();
     res.json(flattener(venues));
+  })
+);
+
+router.post(
+  "/",
+  requireAuth,
+  validateVenue,
+  asyncHandler(async (req, res) => {
+    const {
+      body: { name, city, state },
+      user,
+    } = req;
+
+    const venue = await Venue.create({
+      name,
+      city,
+      state,
+      userId: user.id,
+    });
+
+    res.json({ venue });
   })
 );
 

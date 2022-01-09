@@ -15,9 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       city: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       state: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       lat: {
         type: DataTypes.DECIMAL,
@@ -25,10 +27,18 @@ module.exports = (sequelize, DataTypes) => {
       lng: {
         type: DataTypes.DECIMAL,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {}
   );
   Venue.associate = function (models) {
+    Venue.belongsTo(models.User, {
+      foreignKey: "userId",
+      as: "creator",
+    });
     Venue.belongsToMany(models.User, {
       through: { model: models.CheckIn, unique: false },
       foreignKey: "venueId",
