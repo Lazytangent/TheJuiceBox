@@ -15,12 +15,14 @@ describe("CheckIn routes", () => {
     name: "Test Venue1",
     city: "New York City",
     state: "New York",
+    userId: 1,
   };
 
   const fakeVenue2 = {
     name: "Test Venue2",
     city: "San Francisco",
     state: "California",
+    userId: 1,
   };
 
   beforeAll(async () => {
