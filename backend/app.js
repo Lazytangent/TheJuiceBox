@@ -53,7 +53,7 @@ app.use((err, _req, _res, next) => {
   next(err);
 });
 
-app.use((err, _req, res) => {
+app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
   !isTesting && console.error(err);
   res.json({
