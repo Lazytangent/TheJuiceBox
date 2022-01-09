@@ -66,13 +66,13 @@ describe("Venue routes", () => {
 
   describe("POST /api/venues", () => {
     const fakeVenueData = {
-      name: 'Test1',
+      name: "Test1",
       userId: 1,
     };
 
     it("should exist", async () => {
       await request(app)
-        .post('/api/venues')
+        .post("/api/venues")
         .set("XSRF-TOKEN", tokens.csrfToken)
         .set("Cookie", [tokens.csrfCookie, jwtCookie])
         .set("Accept", "application/json")
@@ -82,7 +82,7 @@ describe("Venue routes", () => {
 
     it("should return JSON", async () => {
       await request(app)
-        .post('/api/venues')
+        .post("/api/venues")
         .set("XSRF-TOKEN", tokens.csrfToken)
         .set("Cookie", [tokens.csrfCookie, jwtCookie])
         .set("Accept", "application/json")
@@ -93,7 +93,7 @@ describe("Venue routes", () => {
 
     it("should return the newly created venue", async () => {
       const res = await request(app)
-        .post('/api/venues')
+        .post("/api/venues")
         .set("XSRF-TOKEN", tokens.csrfToken)
         .set("Cookie", [tokens.csrfCookie, jwtCookie])
         .set("Accept", "application/json")
@@ -102,19 +102,45 @@ describe("Venue routes", () => {
         .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
-        expect.objectContaining({ venue: expect.objectContaining(fakeVenueData) })
+        expect.objectContaining({
+          venue: expect.objectContaining(fakeVenueData),
+        })
       );
     });
 
     it("should return an error if there is no authenticated user", async () => {
       await request(app)
-        .post('/api/venues')
+        .post("/api/venues")
         .set("XSRF-TOKEN", tokens.csrfToken)
         .set("Cookie", [tokens.csrfCookie])
         .set("Accept", "application/json")
         .send(fakeVenueData)
         .expect(401);
     });
+  });
+
+  describe("GET /api/venues/:id", () => {
+    it.todo("should exist");
+    it.todo("should return JSON");
+    it.todo("should return the venue with the id");
+    it.todo("should return an error if there is no authenticated user");
+    it.todo("should return an error if there is no venue with the id");
+  });
+
+  describe("PUT /api/venues/:id", () => {
+    it.todo("should exist");
+    it.todo("should return JSON");
+    it.todo("should return the updated venue");
+    it.todo("should return an error if there is no authenticated user");
+    it.todo("should return an error if there is no venue with the id");
+  });
+
+  describe("DELETE /api/venues/:id", () => {
+    it.todo("should exist");
+    it.todo("should return JSON");
+    it.todo("should return the deleted venue");
+    it.todo("should return an error if there is no authenticated user");
+    it.todo("should return an error if there is no venue with the id");
   });
 
   describe("POST /api/venues/:venueId/checkIns", () => {
