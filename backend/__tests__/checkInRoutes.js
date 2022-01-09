@@ -25,7 +25,7 @@ describe("CheckIn routes", () => {
 
   beforeAll(async () => {
     await sequelize.sync({ force: true, logging: false });
-    jwtCookie = await loginUser(app);
+    [jwtCookie] = await loginUser(app);
     tokens = await getCSRFTokens(app);
     await Venue.create(fakeVenue1, testModelOptions());
     await Venue.create(fakeVenue2, testModelOptions());
