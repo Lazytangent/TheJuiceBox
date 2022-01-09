@@ -1,13 +1,13 @@
 const request = require("supertest");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
-const app = require('../app');
+const app = require("../app");
 const {
   testModelOptions,
   getCSRFTokens,
   loginUser,
 } = require("../utils/test-utils");
-const { sequelize, User } = require('../db/models');
+const { sequelize, User } = require("../db/models");
 
 describe("User routes", () => {
   let jwtCookie;
@@ -15,17 +15,17 @@ describe("User routes", () => {
   let testUser0;
 
   const testUser1 = {
-    email: 'user@test.io',
-    username: 'tester1',
-    hashedPassword: bcrypt.hashSync('password'),
-    dateOfBirth: '1984-02-26',
+    email: "user@test.io",
+    username: "tester1",
+    hashedPassword: bcrypt.hashSync("password"),
+    dateOfBirth: "1984-02-26",
   };
 
   const testUser2 = {
-    email: 'user2@test.io',
-    username: 'tester2',
-    hashedPassword: bcrypt.hashSync('password'),
-    dateOfBirth: '1984-02-26',
+    email: "user2@test.io",
+    username: "tester2",
+    hashedPassword: bcrypt.hashSync("password"),
+    dateOfBirth: "1984-02-26",
   };
 
   beforeAll(async () => {
@@ -43,30 +43,30 @@ describe("User routes", () => {
 
   describe("GET /api/users", () => {
     it("should exist", async () => {
-      await request(app)
-        .get("/api/users")
-        .expect(200);
+      await request(app).get("/api/users").expect(200);
     });
 
     it("should return JSON", async () => {
       await request(app)
-        .get('/api/users')
+        .get("/api/users")
         .expect(200)
         .expect("Content-Type", /json/);
     });
 
     it("should return a list of all the users in the database", async () => {
       const res = await request(app)
-        .get('/api/users')
+        .get("/api/users")
         .expect(200)
         .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
-        expect.objectContaining({ users: expect.arrayContaining([
-          expect.objectContaining({ id: 1, username: testUser0.username }),
-          expect.objectContaining({ id: 2, username: testUser1.username }),
-          expect.objectContaining({ id: 3, username: testUser2.username })
-        ])})
+        expect.objectContaining({
+          users: expect.arrayContaining([
+            expect.objectContaining({ id: 1, username: testUser0.username }),
+            expect.objectContaining({ id: 2, username: testUser1.username }),
+            expect.objectContaining({ id: 3, username: testUser2.username }),
+          ]),
+        })
       );
     });
   });
