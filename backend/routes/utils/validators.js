@@ -99,6 +99,13 @@ const validateStars = [
   handleValidationErrors,
 ];
 
+const validateVenue = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a name for your venue."),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateLogin,
   validateSignup,
@@ -106,4 +113,5 @@ module.exports = {
   validateDrinkReview,
   validateCheckIn,
   validateStars,
+  validateVenue,
 };
