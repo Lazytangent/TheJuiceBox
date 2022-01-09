@@ -68,6 +68,8 @@ describe("Venue routes", () => {
     const fakeVenueData = {
       name: "Test1",
       userId: 1,
+      city: "Some city",
+      state: "Some state",
     };
 
     it("should exist", async () => {

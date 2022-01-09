@@ -22,10 +22,15 @@ router.post(
   requireAuth,
   validateVenue,
   asyncHandler(async (req, res) => {
-    const { body: { name, }, user } = req;
+    const {
+      body: { name, city, state },
+      user,
+    } = req;
 
     const venue = await Venue.create({
       name,
+      city,
+      state,
       userId: user.id,
     });
 
