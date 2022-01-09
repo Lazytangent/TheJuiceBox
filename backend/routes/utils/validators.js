@@ -73,7 +73,7 @@ const validateDrinkReview = [
 
 const validateCheckIn = [
   check("timestamp")
-    .exists({ checkFalse: true })
+    .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage("Please provide a timestamp.")
     .isISO8601()
