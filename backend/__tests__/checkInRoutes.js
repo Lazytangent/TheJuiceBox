@@ -91,6 +91,7 @@ describe("CheckIn routes", () => {
     it("should return an error if there is no user authenticated", async () => {
       await request(app)
         .put(`/api/checkIns/${checkIn.id}`)
+        .set("XSRF-TOKEN", tokens.csrfToken)
         .send({ stars: 2, timestamp })
         .expect(403);
     });
@@ -145,12 +146,15 @@ describe("CheckIn routes", () => {
     it("should return an error message if no user authenticated", async () => {
       const res = await request(app)
         .delete(`/api/checkIns/${checkIn.id}`)
-        .expect(403)
+        .set("XSRF-TOKEN", tokens.csrfToken)
+        .set("Cookie", [tokens.csrfCookie])
+        .set("Accept", "application/json")
+        .expect(401)
         .expect("Content-Type", /json/);
 
       expect(res.body).toEqual(
         expect.objectContaining({
-          message: "invalid csrf token",
+          message: "Unauthorized",
         })
       );
     });
